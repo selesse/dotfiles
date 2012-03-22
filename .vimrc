@@ -18,8 +18,23 @@ set nobackup
 set noswapfile
 
 ab teh the
+ab dont' don't
+ab its' it's
+ab haev have
+ab cccc Cool. Cool cool cool.
 
 nnoremap ; :
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :call Underline("=")<CR>
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+function! Underline(delimiter)
+    let x = line('.')
+    if x == "0"
+        echo "Nope"
+    else
+        :call append(line('.'), repeat('=' ,strlen(getline(x))))
+    endif
+endfunction
