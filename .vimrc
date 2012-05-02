@@ -4,10 +4,10 @@ set autochdir
 
 set nowrap " forces style
 set expandtab
-set tabstop=4
+set tabstop=2
 set autoindent
 set copyindent
-set shiftwidth=4
+set shiftwidth=2
 set smarttab " makes you go back 4 when you del from tab
 set hlsearch
 set incsearch " incrementally highlight your searches
