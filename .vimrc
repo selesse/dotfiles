@@ -38,3 +38,5 @@ function! Underline(delimiter)
         :call append(line('.'), repeat('=' ,strlen(getline(x))))
     endif
 endfunction
+
+nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
