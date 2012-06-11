@@ -26,6 +26,7 @@ ab cccc Cool. Cool cool cool.
 nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
+nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
@@ -39,4 +40,4 @@ function! Underline(delimiter)
     endif
 endfunction
 
-nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
+colorscheme desert
