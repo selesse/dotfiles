@@ -1,0 +1,6 @@
+[user]
+	name = Alex Selesse
+	email = alex@selesse.com
+[alias]
+	alias = config --get-regexp 'alias.*'
+	st = status

@@ -7,9 +7,12 @@ cp -rf .vim $HOME/.vim
 echo "Overwriting $HOME/.profile with .profile" >> $OUTPUT
 diff .profile $HOME/.profile >> $OUTPUT
 cp .profile $HOME/.profile
+echo "Overwriting $HOME/.gitconfig with .gitconfig" >> $OUTPUT
+diff .gitconfig $HOME/.gitconfig >> $OUTPUT
+cp .gitconfig $HOME/.gitconfig
 
 LINES=`wc -l $OUTPUT | cut -f1 -d' '`
-if [ $LINES = "3" ] ;
+if [ $LINES = "4" ] ;
   then
     echo "No changes made.";
     rm $OUTPUT
