@@ -1,9 +1,9 @@
 [user]
-	name = Alex Selesse
-	email = alex@selesse.com
+  name = Alex Selesse
+  email = alex@selesse.com
 [alias]
-	alias = config --get-regexp 'alias.*'
-	st = status
+  alias = config --get-regexp 'alias.*'
+  st = status
 [core]
   editor = vim
 [color]
