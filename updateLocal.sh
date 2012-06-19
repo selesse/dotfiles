@@ -11,8 +11,14 @@ echo "Overwriting $HOME/.gitconfig with .gitconfig" >> $OUTPUT
 diff .gitconfig $HOME/.gitconfig >> $OUTPUT
 cp .gitconfig $HOME/.gitconfig
 
-LINES=`wc -l $OUTPUT | cut -f1 -d' '`
-if [ $LINES = "4" ] ;
+# macs have a different version of cut
+if [ `uname -s` == "Darwin" ] ; then
+  LINES=`wc -l $OUTPUT | cut -d " " -f 8`
+else
+  LINES=`wc -l $OUTPUT | cut -f1 -d' '`
+fi
+
+if [ "$LINES" = "4" ] ;
   then
     echo "No changes made.";
     rm $OUTPUT
