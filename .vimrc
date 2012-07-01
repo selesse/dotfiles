@@ -77,7 +77,7 @@ nnoremap <F4> <Esc>:1,$!xmllint --format -<CR>
 " also useful - has('gui_running')
 if has("win32") 
   " assume that your file ends with .html
-  nmap <silent> <F5> :!start %<CR>
+  nmap <silent> <F5> :! start %<CR>
 else
   if has("unix")
       let s:uname = system("uname")
