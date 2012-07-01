@@ -72,7 +72,7 @@ endif
 nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
-nnoremap <F4> <Esc>:1,$!xmllint --format -<CR>
+nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 
 " also useful - has('gui_running')
 if has("win32") 
@@ -88,6 +88,7 @@ else
         " linux stuff
         nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
       endif
+      " mac + linux stuff
   else
     echo "No idea what OS you're running"
   endif
