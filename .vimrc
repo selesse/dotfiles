@@ -73,10 +73,18 @@ nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format -<CR>
 nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
-if has("win32") 
+" also useful - has('gui_running')
+if has('win32') 
   echo "WINDOWS"
-elseif has("mac")
-  echo "MAC"
 else
-  echo "DEFAULT UNIX"
+  if has("unix")
+      let s:uname = system("uname")
+      if s:uname == "Darwin\n"
+        echo "mac"
+      else
+        echo "unix"
+      endif
+  else
+    echo "No idea what you're running"
+  endif
 endif
