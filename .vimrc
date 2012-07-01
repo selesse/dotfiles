@@ -8,14 +8,12 @@ set tabstop=2
 set autoindent
 set copyindent
 set shiftwidth=2
-set smarttab " makes you go back 4 when you del from tab
+set smarttab " makes you go back 2 when you del from tab
 set hlsearch
 set incsearch " incrementally highlight your searches
-set pastetoggle=<F2>
-
-" remove backups from vim
-set nobackup
-set noswapfile
+set pastetoggle=<F8>
+set nobackup " remove backups from vim
+set noswapfile " remove backups from vim
 
 ab teh the
 ab dont' don't
@@ -23,9 +21,15 @@ ab its' it's
 ab haev have
 ab cccc Cool. Cool cool cool.
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" in Vim 7.3, built-in; otherwise fall back to other function
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+  match OverLength /\%>80v.\+/
+endif
 
+" function to underline text
 function! Underline(delimiter)
   let x = line('.')
   if x == "0"
@@ -35,11 +39,8 @@ function! Underline(delimiter)
   endif
 endfunction
 
-colorscheme desert
-
-if has ("autocmd")
-  filetype plugin indent on
-endif
+" try to set it to colorscheme, no biggie if it fails
+silent!colorscheme desert
 
 if v:version >= 600
   filetype plugin on
@@ -73,8 +74,9 @@ nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format -<CR>
 nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
+
 " also useful - has('gui_running')
-if has('win32') 
+if has("win32") 
   echo "WINDOWS"
 else
   if has("unix")
