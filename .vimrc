@@ -1,7 +1,6 @@
 set number
 syntax on
 set autochdir
-
 set nowrap " forces style
 set expandtab
 set tabstop=2
@@ -14,12 +13,13 @@ set incsearch " incrementally highlight your searches
 set pastetoggle=<F8>
 set nobackup " remove backups from vim
 set noswapfile " remove backups from vim
+set encoding=utf-8
 
-ab teh the
-ab dont' don't
-ab its' it's
-ab haev have
-ab cccc Cool. Cool cool cool.
+iabbrev teh the
+iabbrev dont' don't
+iabbrev its' it's
+iabbrev haev have
+iabbrev cccc Cool. Cool cool cool.
 
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
@@ -61,7 +61,7 @@ if v:version >= 700
 endif
 
 if version >= 700
-  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+  " let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
   highlight   clear
   highlight   Pmenu         ctermfg=0 ctermbg=2
   highlight   PmenuSel      ctermfg=0 ctermbg=7
@@ -69,27 +69,79 @@ if version >= 700
   highlight   PmenuThumb    ctermfg=0 ctermbg=7
 endif
 
+function! UpdateTags()
+  execute ":!ctags -R --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+q ./"
+  echohl StatusLine | echo "C/C++ tag updated" | echohl None
+endfunction
+
 nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
+" f5 reserved for previewing HTML
+nnoremap <F6> :call UpdateTags()
+nnoremap <F7> :NumbersToggle<CR>
 
+" OS specific mappings  ------------------------------------ {{{
 " also useful - has('gui_running')
 if has("win32") 
   " assume that your file ends with .html
   nmap <silent> <F5> :! start %<CR>
 else
   if has("unix")
-      let s:uname = system("uname")
-      if s:uname == "Darwin\n"
-        " mac stuff
-        nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
-      else
-        " linux stuff
-        nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
-      endif
-      " mac + linux stuff
+    let s:uname = system("uname")
+    if s:uname == "Darwin\n"
+      " mac stuff
+      nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
+    else
+      " linux stuff
+      nmap <silent> <F5> :!gnome-open %<CR>
+    endif
+    " mac + linux stuff
   else
     echo "No idea what OS you're running"
   endif
 endif
+" }}}
+
+" mappings
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+" fix me? 
+augroup filetype_xml
+  autocmd!
+  autocmd BufWrite *.xml :execute "normal!<F4>"
+augroup END
+
+" Language-specific mapping for comments {{{
+augroup commenter
+  autocmd!
+  autocmd FileType javascript nnoremap <buffer> <localleader>c I//
+  autocmd FileType python     nnoremap <buffer> <localleader>c I#
+  autocmd FileType java       nnoremap <buffer> <localleader>c I//
+  autocmd FileType c          nnoremap <buffer> <localleader>c I//
+augroup END  
+" }}}
+
+" Vimscript file settings ----------------------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+call pathogen#infect()
+call pathogen#helptags()
+
+" Status line settings -------------------------- {{{
+set statusline=%.40F " write full path to file, max of 40 chars
+set statusline+=\ %v\| " column number + |
+set statusline+=%l/%L " Current line/Total Lines
+set statusline+=\ B:%n " Buffer number
+set statusline+=\ FileType:%y " Filetype
+" }}}
