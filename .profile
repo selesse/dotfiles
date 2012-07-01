@@ -23,6 +23,7 @@ fi
 
 if [ `uname -s` == "Darwin" ] ; then
   # mac specific things
+  PATH=$PATH:$HOME/chromium/depot_tools/:/opt/local/bin/
 
   # aliases 
   alias dropbox="cd ~/Dropbox/Public"

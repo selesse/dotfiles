@@ -14,6 +14,7 @@ set pastetoggle=<F8>
 set nobackup " remove backups from vim
 set noswapfile " remove backups from vim
 set encoding=utf-8
+set smartcase " use caps if any caps used
 
 iabbrev teh the
 iabbrev dont' don't
@@ -83,7 +84,7 @@ nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 
-" OS specific mappings  ------------------------------------ {{{
+" OS specific mappings {{{
 " also useful - has('gui_running')
 if has("win32") 
   " assume that your file ends with .html
@@ -134,7 +135,7 @@ augroup commenter
 augroup END  
 " }}}
 
-" Vimscript file settings ----------------------- {{{
+" Vimscript file settings {{{
 augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
@@ -144,7 +145,7 @@ augroup END
 call pathogen#infect()
 call pathogen#helptags()
 
-" Status line settings -------------------------- {{{
+" Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
 set statusline+=\ %v\| " column number + |
 set statusline+=%l/%L " Current line/Total Lines
