@@ -128,4 +128,4 @@ else
   fi
 fi
 
-SWMUD_USERNAME="sead"
+# git diff --diff-filter=D --name-only -z | xargs -0 git rm
