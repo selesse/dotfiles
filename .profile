@@ -43,10 +43,6 @@ else
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
 fi
 
-if [ "$OSTYPE" = "msys" ] ; then
-  GIT_SSH="/usr/bin/ssh.exe"
-fi
-
 PATH=$PATH":./"
 export EDITOR=vim;
 
@@ -131,3 +127,5 @@ else
     start_agent
   fi
 fi
+
+SWMUD_USERNAME="sead"
