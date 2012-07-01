@@ -3,7 +3,7 @@
 git_bundles = [ 
 "git://github.com/ervandew/supertab.git",
 "git://github.com/godlygeek/tabular.git",
-git://github.com/msanders/snipmate.vim.git",
+"git://github.com/msanders/snipmate.vim.git",
 "git://github.com/pangloss/vim-javascript.git",
 "git://github.com/scrooloose/nerdtree.git",
 "git://github.com/timcharper/textile.vim.git",
