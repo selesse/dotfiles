@@ -73,20 +73,22 @@ nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format -<CR>
-nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
 
 " also useful - has('gui_running')
 if has("win32") 
-  echo "WINDOWS"
+  " assume that your file ends with .html
+  nmap <silent> <F5> :!start %<CR>
 else
   if has("unix")
       let s:uname = system("uname")
       if s:uname == "Darwin\n"
-        echo "mac"
+        " mac stuff
+        nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
       else
-        echo "unix"
+        " linux stuff
+        nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
       endif
   else
-    echo "No idea what you're running"
+    echo "No idea what OS you're running"
   endif
 endif
