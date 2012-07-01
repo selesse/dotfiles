@@ -8,7 +8,7 @@ set autoindent
 set copyindent
 set shiftwidth=2
 set smarttab " makes you go back 2 when you del from tab
-set hlsearch
+set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
 set pastetoggle=<F8>
 set nobackup " remove backups from vim
@@ -21,11 +21,12 @@ iabbrev its' it's
 iabbrev haev have
 iabbrev cccc Cool. Cool cool cool.
 
-" in Vim 7.3, built-in; otherwise fall back to other function
+" in Vim 7.3, built-in; otherwise fall back to other function 
 if exists('+colorcolumn')
   set colorcolumn=80
+  autocmd FileType html setlocal colorcolumn=
 else
-  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9 
   match OverLength /\%>80v.\+/
 endif
 
@@ -109,13 +110,18 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>w :set hlsearch!<CR>
+nnoremap / /\v
 inoremap jk <esc>
 inoremap <esc> <nop>
 
-" fix me? 
+" flag lines that have trailing whitespace
+highlight TrailingWhiteSpace ctermbg=yellow guibg=yellow
+match TrailingWhiteSpace /\v +\n/
+
 augroup filetype_xml
   autocmd!
-  autocmd BufWrite *.xml :execute "normal!<F4>"
+  autocmd BufRead,BufWrite *.xml :silent %!xmllint --format %
 augroup END
 
 " Language-specific mapping for comments {{{
