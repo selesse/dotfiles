@@ -15,6 +15,7 @@ set nobackup " remove backups from vim
 set noswapfile " remove backups from vim
 set encoding=utf-8
 set smartcase " use caps if any caps used
+set laststatus=2
 
 iabbrev teh the
 iabbrev dont' don't
