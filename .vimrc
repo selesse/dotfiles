@@ -64,7 +64,7 @@ if v:version >= 700
 endif
 
 if version >= 700
-  " let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
   highlight   clear
   highlight   Pmenu         ctermfg=0 ctermbg=2
   highlight   PmenuSel      ctermfg=0 ctermbg=7
@@ -145,6 +145,8 @@ augroup END
 
 call pathogen#infect()
 call pathogen#helptags()
+
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
