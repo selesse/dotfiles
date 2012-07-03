@@ -115,6 +115,7 @@ nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR> " when substituting, \r is newline
 nnoremap / /\v
+nnoremap Y 0y$
 inoremap jk <esc>
 inoremap <esc> <nop>
 
