@@ -131,7 +131,7 @@ augroup commenter
   autocmd!
   autocmd FileType javascript nnoremap <buffer> <localleader>c I//
   autocmd FileType python     nnoremap <buffer> <localleader>c I#
-  autocmd FileType java       nnoremap <buffer> <localleader>c I//
+  autocmd FileType java       nnoremap <buffer> <localleader>c I// " FIXME
   autocmd FileType c          nnoremap <buffer> <localleader>c I//
 augroup END  
 " }}}
@@ -150,6 +150,7 @@ autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
+set statusline+=%h%m%r " help file, modified, and read only
 set statusline+=\ %v\| " column number + |
 set statusline+=%l/%L " Current line/Total Lines
 set statusline+=\ B:%n " Buffer number
