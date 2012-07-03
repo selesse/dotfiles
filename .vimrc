@@ -81,7 +81,7 @@ nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :call Underline("=")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
-" f5 reserved for previewing HTML
+" f5 reserved for previewing file
 nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 
@@ -89,16 +89,16 @@ nnoremap <F7> :NumbersToggle<CR>
 " also useful - has('gui_running')
 if has("win32") 
   " assume that your file ends with .html
-  nmap <silent> <F5> :! start %<CR>
+  autocmd FileType html nmap <silent> <F5> :! start %<CR>
 else
   if has("unix")
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
       " mac stuff
-      nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
+      autocmd FileType html <silent> <F5> :!open -a Google\ Chrome %<CR>
     else
       " linux stuff
-      nmap <silent> <F5> :!gnome-open %<CR>
+      autocmd FileType html nmap <silent> <F5> :!gnome-open %<CR>
     endif
     " mac + linux stuff
   else
@@ -113,6 +113,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
+nnoremap <leader>dw :%s/\v +\n/\r/g<CR> " when substituting, \r is newline
 nnoremap / /\v
 inoremap jk <esc>
 inoremap <esc> <nop>
@@ -129,11 +130,16 @@ augroup END
 " Language-specific mapping for comments {{{
 augroup commenter
   autocmd!
-  autocmd FileType javascript nnoremap <buffer> <localleader>c I//
-  autocmd FileType python     nnoremap <buffer> <localleader>c I#
-  autocmd FileType java       nnoremap <buffer> <localleader>c I// " FIXME
-  autocmd FileType c          nnoremap <buffer> <localleader>c I//
-augroup END  
+  autocmd FileType javascript,java,c nnoremap <buffer> <localleader>c I//<ESC>
+  autocmd FileType python nnoremap <buffer> <localleader>c I#<ESC>
+augroup END
+" }}}
+
+" Language-specific mappings {{{
+augroup langspecific
+  autocmd!
+  autocmd FileType python nnoremap <F5> :!python % <CR>
+augroup END
 " }}}
 
 " Vimscript file settings {{{
@@ -154,5 +160,6 @@ set statusline+=%h%m%r " help file, modified, and read only
 set statusline+=\ %v\| " column number + |
 set statusline+=%l/%L " Current line/Total Lines
 set statusline+=\ B:%n " Buffer number
-set statusline+=\ FileType:%y " Filetype
+set statusline+=\ %y " Filetype
+set statusline+=\ %b
 " }}}
