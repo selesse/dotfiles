@@ -1,21 +1,22 @@
-set number
 syntax on
-set autochdir
+set number
 set nowrap " forces style
-set expandtab
-set tabstop=2
 set autoindent
 set copyindent
+set tabstop=2
 set shiftwidth=2
+set softtabstop=2
+set expandtab
 set smarttab " makes you go back 2 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
 set pastetoggle=<F8>
 set nobackup " remove backups from vim
 set noswapfile " remove backups from vim
-set encoding=utf-8
 set smartcase " use caps if any caps used
-set laststatus=2
+set laststatus=2 " forces showing status bar
+set encoding=utf-8 " order matters for Windows (encoding+autochdir)
+set autochdir
 
 iabbrev teh the
 iabbrev dont' don't
@@ -114,19 +115,20 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR> " when substituting, \r is newline
+nnoremap <leader><F5> :cd $HOME/git/swmud<CR>:!sendToMud.sh %:p<CR>
 nnoremap / /\v
 nnoremap Y 0y$
+"
+" tabbed-base movements
+nnoremap <S-h> gT
+nnoremap <S-l> gt
+
 inoremap jk <esc>
 inoremap <esc> <nop>
 
 " flag lines that have trailing whitespace
 highlight TrailingWhiteSpace ctermbg=yellow guibg=yellow
 match TrailingWhiteSpace /\v +\n/
-
-augroup filetype_xml
-  autocmd!
-  autocmd BufRead,BufWrite *.xml :silent %!xmllint --format %
-augroup END
 
 " Language-specific mapping for comments {{{
 augroup commenter
@@ -137,10 +139,32 @@ augroup END
 " }}}
 
 " Language-specific mappings {{{
-augroup langspecific
+augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <F5> :!python % <CR>
 augroup END
+
+augroup filetype_makefile
+  autocmd!
+  autocmd Filetype make setlocal noexpandtab
+augroup END
+
+augroup filetype_xml
+  autocmd!
+  autocmd BufRead,BufWrite *.xml :silent %!xmllint --format %
+augroup END
+
+augroup filetype_java
+  autocmd!
+  autocmd Filetype java setlocal cindent
+  autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+augroup END
+
+augroup filetype_c
+  autocmd!
+  autocmd Filetype c nnoremap <F5> :make run<CR>
+augroup END
+
 " }}}
 
 " Vimscript file settings {{{
@@ -152,8 +176,6 @@ augroup END
 
 call pathogen#infect()
 call pathogen#helptags()
-
-autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
