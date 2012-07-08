@@ -13,7 +13,7 @@ set incsearch " incrementally highlight your searches
 set pastetoggle=<F8>
 set nobackup " remove backups from vim
 set noswapfile " remove backups from vim
-set smartcase " use caps if any caps used
+set smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set autochdir
@@ -39,7 +39,7 @@ function! Underline(delimiter)
   if x == "0"
     echo "Nope"
   else
-    :call append(line('.'), repeat('=' ,strlen(getline(x))))
+    :call append(line('.'), repeat('=', strlen(getline(x))))
   endif
 endfunction
 
@@ -118,10 +118,14 @@ nnoremap <leader>dw :%s/\v +\n/\r/g<CR> " when substituting, \r is newline
 nnoremap <leader><F5> :cd $HOME/git/swmud<CR>:!sendToMud.sh %:p<CR>
 nnoremap / /\v
 nnoremap Y 0y$
-"
-" tabbed-base movements
+
+" Shift+h/l will move you to left/right tabs, arrow key will change split
 nnoremap <S-h> gT
 nnoremap <S-l> gt
+nnoremap <Right> <C-w>l
+nnoremap <Left> <C-w>h
+nnoremap <Up> <C-w>k
+nnoremap <Down> <C-w>j
 
 inoremap jk <esc>
 inoremap <esc> <nop>
