@@ -17,6 +17,7 @@ set smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set autochdir
+set title " modifies window to have filename as its title
 
 iabbrev teh the
 iabbrev dont' don't

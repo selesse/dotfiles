@@ -25,7 +25,7 @@ if [ `uname -s` == "Darwin" ] ; then
   # mac specific things
   PATH=$PATH:$HOME/chromium/depot_tools/:/opt/local/bin/
 
-  # aliases 
+  # aliases
   alias dropbox="cd ~/Dropbox/Public"
   alias school="cd ~/Dropbox/McGill"
   alias os="cd ~/Dropbox/McGill/OS"
@@ -42,10 +42,13 @@ else
   alias l="ls --color -F"
   alias fb="cd ~/www/facebook/facebook-php-sdk/examples/friends"
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+  PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
 fi
 
 PATH=$PATH":./"
 export EDITOR=vim;
+
+alias config="cd ~/git/config"
 
 # aliases for ssh
 alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
@@ -55,9 +58,9 @@ alias swmud="telnet swmud.org 6666"
 alias mq="ssh merqumab@sunnysuba.com -p 2222"
 
 # function for cd
-function cd () { 
+function cd () {
   if [ -z "$1" ] ; then
-    return 
+    return
   fi
   builtin cd "$@" && ls
 }
@@ -130,3 +133,5 @@ else
 fi
 
 # git diff --diff-filter=D --name-only -z | xargs -0 git rm
+
+HISTFILESIZE=50000
