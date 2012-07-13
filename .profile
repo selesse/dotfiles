@@ -8,11 +8,13 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-  # include .bashrc if it exists
-  if [ -f "$HOME/.bashrc" ]; then
-    . "$HOME/.bashrc"
+# if running bash and not root (root calls ~/.bashrc - recursion problem)
+if [ ${USER} != "root" ]; then
+  if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+      . "$HOME/.bashrc"
+    fi
   fi
 fi
 
@@ -42,6 +44,10 @@ else
   alias l="ls --color -F"
   alias fb="cd ~/www/facebook/facebook-php-sdk/examples/friends"
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+  # change the color of root
+  if [ ${USER} == "root" ] ; then
+    PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+  fi
   PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
 fi
 
@@ -112,23 +118,25 @@ function test_identities {
   fi
 }
 
-# check for running ssh-agent with proper $SSH_AGENT_PID
-if [ -n "$SSH_AGENT_PID" ]; then
-  ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-  if [ $? -eq 0 ]; then
-    test_identities
-  fi
-  # if $SSH_AGENT_PID is not properly set, we might be able to load one from
-  # $SSH_ENV
-else
-  if [ -f "$SSH_ENV" ]; then
-    . "$SSH_ENV" > /dev/null
-  fi
-  ps -ef | grep "$SSH_AGENT_PID" | grep -v grep | grep ssh-agent > /dev/null
-  if [ $? -eq 0 ]; then
-    test_identities
+if [ ${USER} != "root" ] ; then
+  # check for running ssh-agent with proper $SSH_AGENT_PID
+  if [ -n "$SSH_AGENT_PID" ]; then
+    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
+    if [ $? -eq 0 ]; then
+      test_identities
+    fi
+    # if $SSH_AGENT_PID is not properly set, we might be able to load one from
+    # $SSH_ENV
   else
-    start_agent
+    if [ -f "$SSH_ENV" ]; then
+      . "$SSH_ENV" > /dev/null
+    fi
+    ps -ef | grep "$SSH_AGENT_PID" | grep -v grep | grep ssh-agent > /dev/null
+    if [ $? -eq 0 ]; then
+      test_identities
+    else
+      start_agent
+    fi
   fi
 fi
 
