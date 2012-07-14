@@ -36,6 +36,7 @@ if [ `uname -s` == "Darwin" ] ; then
   alias ls="ls -G"
   alias l="ls -GF"
   PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
+  PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
 else
   # linux specific things
   alias ls="ls --color"

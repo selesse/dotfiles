@@ -97,7 +97,8 @@ else
     let s:uname = system("uname")
     if s:uname == "Darwin\n"
       " mac stuff
-      autocmd FileType html <silent> <F5> :!open -a Google\ Chrome %<CR>
+      autocmd FileType html nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
+      let &titleold=getcwd()
     else
       " linux stuff
       autocmd FileType html nmap <silent> <F5> :!gnome-open %<CR>
