@@ -42,7 +42,8 @@ else
   # linux specific things
   alias ls="ls --color"
   alias l="ls --color -F"
-  alias fb="cd ~/www/facebook/facebook-php-sdk/examples/friends"
+  alias hb="HandBrakeCLI"
+  alias www="cd ~/www/"
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
   # change the color of root
   if [ ${USER} == "root" ] ; then
