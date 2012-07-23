@@ -53,7 +53,8 @@ else
 fi
 
 PATH=$PATH":./"
-export EDITOR=vim;
+export EDITOR=vim
+export VISUAL=vim
 
 alias config="cd ~/git/config"
 
