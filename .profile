@@ -27,14 +27,6 @@ if [ `uname -s` == "Darwin" ] ; then
   # mac specific things
   PATH=$PATH:$HOME/chromium/depot_tools/:/opt/local/bin/
 
-  # aliases
-  alias dropbox="cd ~/Dropbox/Public"
-  alias school="cd ~/Dropbox/McGill"
-  alias os="cd ~/Dropbox/McGill/OS"
-  alias ai="cd ~/Dropbox/McGill/AI"
-  alias 360="cd ~/Dropbox/McGill/COMP360"
-  alias db="cd ~/Dropbox/McGill/Database"
-  alias dp="cd ~/Dropbox/McGill/DP"
   alias ls="ls -G"
   alias l="ls -GF"
   PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
@@ -43,7 +35,9 @@ else
   # linux specific things
   alias ls="ls --color"
   alias l="ls --color -F"
-  alias fb="cd ~/www/facebook/facebook-php-sdk/examples/friends"
+  alias hb="HandBrakeCLI"
+  alias www="cd ~/www/"
+  alias atop="sudo atop -m"
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
   # change the color of root
   if [ ${USER} == "root" ] ; then
@@ -51,6 +45,7 @@ else
   fi
   PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
 fi
+
 
 PATH=$PATH":./"
 export EDITOR=vim
@@ -62,10 +57,19 @@ alias config="cd ~/git/config"
 alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
 alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
 alias selerver="ssh alex@selesse.com"
-alias swmud="telnet swmud.org 6666"
+alias swmud="rlwrap telnet swmud.org 6666"
 alias mq="ssh merqumab@sunnysuba.com -p 2222"
 
-# function for cd
+# dropbox aliases
+alias dropbox="cd ~/Dropbox/Public"
+alias school="cd ~/Dropbox/McGill"
+alias os="cd ~/Dropbox/McGill/OS"
+alias ai="cd ~/Dropbox/McGill/AI"
+alias 360="cd ~/Dropbox/McGill/COMP360"
+alias db="cd ~/Dropbox/McGill/Database"
+alias dp="cd ~/Dropbox/McGill/DP"
+
+# function for cd + ls combo
 function cd () {
   if [ -z "$1" ] ; then
     return
