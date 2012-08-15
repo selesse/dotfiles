@@ -19,6 +19,7 @@ set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set autochdir
 set title " modifies window to have filename as its title
 set shell=/bin/bash
+set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 
 iabbrev teh the
 iabbrev dont' don't
@@ -136,6 +137,19 @@ inoremap <esc> <nop>
 " flag lines that have trailing whitespace
 highlight TrailingWhiteSpace ctermbg=yellow guibg=yellow
 match TrailingWhiteSpace /\v +\n/
+
+" function to restore files to last position
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
 
 " Language-specific mapping for comments {{{
 augroup commenter
