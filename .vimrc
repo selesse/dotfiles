@@ -187,9 +187,9 @@ call pathogen#helptags()
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
 set statusline+=%h%m%r " help file, modified, and read only
-set statusline+=\ %v\| " column number + |
-set statusline+=%l/%L " Current line/Total Lines
-set statusline+=\ B:%n " Buffer number
+set statusline+=\ col=%v " column number
+set statusline+=\ Buf\=%n " Buffer number
 set statusline+=\ %y " Filetype
-set statusline+=\ %b
+set statusline+=\ char=\[%b\]
+set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
