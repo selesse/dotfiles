@@ -9,7 +9,7 @@
 #umask 022
 
 # if running bash and not root (root calls ~/.bashrc - recursion problem)
-if [ ${USER} != "root" ]; then
+if [ "${USER}" != "root" ]; then
   if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
@@ -40,7 +40,7 @@ else
   alias atop="sudo atop -m"
   PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
   # change the color of root
-  if [ ${USER} == "root" ] ; then
+  if [ "${USER}" == "root" ] ; then
     PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
   fi
   PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
@@ -124,7 +124,7 @@ function test_identities {
   fi
 }
 
-if [ ${USER} != "root" ] ; then
+if [ "${USER}" != "root" ] ; then
   # check for running ssh-agent with proper $SSH_AGENT_PID
   if [ -n "$SSH_AGENT_PID" ]; then
     ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
