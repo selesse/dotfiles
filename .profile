@@ -61,7 +61,7 @@ alias swmud="rlwrap telnet swmud.org 6666"
 alias mq="ssh merqumab@sunnysuba.com -p 2222"
 
 # dropbox aliases
-alias dropbox="cd ~/Dropbox/Public"
+alias public="cd ~/Dropbox/Public"
 alias school="cd ~/Dropbox/McGill"
 alias os="cd ~/Dropbox/McGill/OS"
 alias ai="cd ~/Dropbox/McGill/AI"
