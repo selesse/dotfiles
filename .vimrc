@@ -165,6 +165,11 @@ augroup filetype_python
   autocmd FileType python nnoremap <F5> :!python % <CR>
 augroup END
 
+augroup filetype_perl
+  autocmd!
+  autocmd FileType perl nnoremap <F5> :!perl % <CR>
+augroup END
+
 augroup filetype_makefile
   autocmd!
   autocmd Filetype make setlocal noexpandtab
