@@ -175,11 +175,6 @@ augroup filetype_makefile
   autocmd Filetype make setlocal noexpandtab
 augroup END
 
-augroup filetype_xml
-  autocmd!
-  autocmd BufRead,BufWrite *.xml :silent %!xmllint --format %
-augroup END
-
 augroup filetype_java
   autocmd!
   autocmd Filetype java setlocal cindent

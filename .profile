@@ -47,7 +47,7 @@ else
 fi
 
 
-ANDROID_HOME="$HOME/android-sdk"
+export ANDROID_HOME="$HOME/android-sdk"
 PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:./"
 export EDITOR=vim
 export VISUAL=vim
