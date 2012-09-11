@@ -3,6 +3,7 @@
   email = alex@selesse.com
 [alias]
   alias = config --get-regexp 'alias.*'
+  deletes = diff --diff-filter=D --name-only -z
   st = status
   co = checkout
 [core]

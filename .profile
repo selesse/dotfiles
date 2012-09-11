@@ -52,8 +52,6 @@ PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:./"
 export EDITOR=vim
 export VISUAL=vim
 
-alias config="cd ~/git/config"
-
 # aliases for ssh
 alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
 alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
@@ -62,6 +60,7 @@ alias swmud="rlwrap telnet swmud.org 6666"
 alias mq="ssh merqumab@sunnysuba.com -p 2222"
 
 # dropbox aliases
+alias config="cd ~/git/config"
 alias public="cd ~/Dropbox/Public"
 alias school="cd ~/Dropbox/McGill"
 alias os="cd ~/Dropbox/McGill/OS"
@@ -147,8 +146,10 @@ if [ "${USER}" != "root" ] ; then
   fi
 fi
 
-# git diff --diff-filter=D --name-only -z | xargs -0 git rm
-
+# history file management
+source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
+source ~/.git-completion.bash
+HISTSIZE=50000
 HISTFILESIZE=50000
 
 ls
