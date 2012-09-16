@@ -44,6 +44,7 @@ else
     PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
   fi
   PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+  linuxlogo -u
 fi
 
 
@@ -153,3 +154,7 @@ HISTSIZE=50000
 HISTFILESIZE=50000
 
 ls
+# lets you use vi keybindings, use escape char and navigate, use v to
+# have current line(s) open up in vim
+set -o vi
+
