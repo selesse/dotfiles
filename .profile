@@ -49,7 +49,8 @@ fi
 
 
 export ANDROID_HOME="$HOME/android-sdk"
-PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:./"
+PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin"
 export EDITOR=vim
 export VISUAL=vim
 
