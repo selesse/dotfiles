@@ -27,22 +27,22 @@ iabbrev its' it's
 iabbrev haev have
 iabbrev cccc Cool. Cool cool cool.
 
-" in Vim 7.3, built-in; otherwise fall back to other function 
+" in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
   set colorcolumn=80
   autocmd FileType html setlocal colorcolumn=
 else
-  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9 
+  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
   match OverLength /\%>80v.\+/
 endif
 
-" function to underline text
+" function to underline text with a delimiter
 function! Underline(delimiter)
   let x = line('.')
   if x == "0"
     echo "Nope"
   else
-    :call append(line('.'), repeat('=', strlen(getline(x))))
+    :call append(line('.'), repeat(a:delimiter, strlen(getline(x))))
   endif
 endfunction
 
@@ -83,7 +83,8 @@ endfunction
 
 nnoremap ; :
 nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <F3> :call Underline("=")<CR>
+nnoremap <leader>= :call Underline("=")<CR>
+nnoremap <leader>- :call Underline("-")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 " f5 reserved for previewing file
 nnoremap <F6> :call UpdateTags()
@@ -91,7 +92,7 @@ nnoremap <F7> :NumbersToggle<CR>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
-if has("win32") 
+if has("win32")
   " assume that your file ends with .html
   autocmd FileType html nmap <silent> <F5> :! start %<CR>
 else
