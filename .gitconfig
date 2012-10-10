@@ -11,4 +11,4 @@
 [color]
   ui = true
 [merge]
-	tool = kdiff3
+  tool = kdiff3
