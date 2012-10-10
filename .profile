@@ -50,7 +50,7 @@ fi
 
 export ANDROID_HOME="$HOME/android-sdk"
 PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin"
+PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin:$HOME/Dropbox/McGill/ECSE429 - Software Validation/Spin/Src6.2.2"
 export EDITOR=vim
 export VISUAL=vim
 
@@ -70,6 +70,7 @@ alias ai="cd ~/Dropbox/McGill/AI"
 alias 360="cd ~/Dropbox/McGill/COMP360"
 alias db="cd ~/Dropbox/McGill/Database"
 alias dp="cd ~/Dropbox/McGill/DP"
+alias tiny="cd ~/git/cs520/git/group-d/tiny"
 
 # function for cd + ls combo
 function cd () {
@@ -159,3 +160,7 @@ ls
 # have current line(s) open up in vim
 set -o vi
 
+export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+export JOOSDIR=$HOME/git/cs520/public_html/joos
+export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
+export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH

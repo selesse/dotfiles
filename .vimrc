@@ -16,7 +16,7 @@ set noswapfile " remove backups from vim
 set smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
-set autochdir
+" set autochdir
 set title " modifies window to have filename as its title
 set shell=/bin/bash
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
@@ -180,11 +180,17 @@ augroup filetype_java
   autocmd!
   autocmd Filetype java setlocal cindent
   autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+  autocmd Filetype java nnoremap <F5> :make<CR>
 augroup END
 
 augroup filetype_c
   autocmd!
   autocmd Filetype c nnoremap <F5> :make run<CR>
+augroup END
+
+augroup filetype_promela
+  autocmd!
+  autocmd Filetype promela nnoremap <leader>r :!spin %<CR>
 augroup END
 
 " }}}
