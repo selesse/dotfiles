@@ -12,9 +12,7 @@ set smarttab " makes you go back 2 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
 set pastetoggle=<F8>
-set nobackup " remove backups from vim
-set noswapfile " remove backups from vim
-set smartcase " use caps if any caps used in search
+set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 " set autochdir
@@ -22,6 +20,13 @@ set title " modifies window to have filename as its title
 set shell=/bin/bash
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
+set cursorline
+set wildmode=longest,list
+set wildmenu
+set history=10000 " remember more commands and search history
+set backup
+set backupdir=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 
 iabbrev teh the
 iabbrev dont' don't
@@ -52,8 +57,7 @@ endfunction
 silent!colorscheme desert
 
 if v:version >= 600
-  filetype plugin on
-  filetype indent on
+  filetype plugin indent on
 else
   filetype on
 endif
