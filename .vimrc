@@ -27,6 +27,7 @@ set history=10000 " remember more commands and search history
 set backup
 set backupdir=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
+let mapleader=","
 
 iabbrev teh the
 iabbrev dont' don't
@@ -95,6 +96,8 @@ nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 " f5 reserved for previewing file
 nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
+nnoremap ,, <C-^>
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
