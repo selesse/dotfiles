@@ -2,6 +2,7 @@ syntax on
 set number
 set nowrap " forces style
 set autoindent
+set backspace=2
 set copyindent
 set tabstop=2
 set shiftwidth=2
@@ -20,6 +21,7 @@ set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set title " modifies window to have filename as its title
 set shell=/bin/bash
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
+set clipboard=unnamed
 
 iabbrev teh the
 iabbrev dont' don't
