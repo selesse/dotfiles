@@ -15,7 +15,6 @@ set pastetoggle=<F8>
 set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
-" set autochdir
 set title " modifies window to have filename as its title
 set shell=/bin/bash
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
@@ -28,6 +27,10 @@ set backup
 set backupdir=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 let mapleader=","
+set cmdheight=2
+
+set t_Co=256
+set background=dark
 
 iabbrev teh the
 iabbrev dont' don't
@@ -54,8 +57,6 @@ function! Underline(delimiter)
   endif
 endfunction
 
-" try to set it to colorscheme, no biggie if it fails
-silent!colorscheme desert
 
 if v:version >= 600
   filetype plugin indent on
@@ -88,8 +89,10 @@ function! UpdateTags()
   echohl StatusLine | echo "C/C++ tag updated" | echohl None
 endfunction
 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+map <leader>v :edit %%
 nnoremap ; :
-nnoremap <F2> :NERDTreeToggle<CR>
 nnoremap <leader>= :call Underline("=")<CR>
 nnoremap <leader>- :call Underline("-")<CR>
 nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
@@ -98,6 +101,7 @@ nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 nnoremap ,, <C-^>
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT<cr>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
@@ -133,20 +137,14 @@ nnoremap <leader><F5> :cd $HOME/git/swmud<CR>:!sendToMud.sh %:p<CR>
 nnoremap / /\v
 nnoremap Y 0y$
 
-" Shift+h/l will move you to left/right tabs, arrow key will change split
-nnoremap <S-h> gT
-nnoremap <S-l> gt
 nnoremap <Right> <C-w>l
 nnoremap <Left> <C-w>h
 nnoremap <Up> <C-w>k
 nnoremap <Down> <C-w>j
 
 inoremap jk <esc>
+inoremap <c-c> <esc>
 inoremap <esc> <nop>
-
-" flag lines that have trailing whitespace
-highlight TrailingWhiteSpace ctermbg=yellow guibg=yellow
-match TrailingWhiteSpace /\v +\n/
 
 " function to restore files to last position
 function! ResCur()
@@ -223,3 +221,9 @@ set statusline+=\ %y " Filetype
 set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
+
+color smyck
+
+" flag lines that have trailing whitespace, has to come after colorscheme
+highlight TrailingWhiteSpace ctermbg=red guibg=red
+match TrailingWhiteSpace /\v +\n/

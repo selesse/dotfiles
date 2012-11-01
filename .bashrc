@@ -3,61 +3,12 @@ if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
 
-if [ `uname -s` == "Darwin" ] ; then
-  # mac specific things
-  PATH=$PATH:$HOME/chromium/depot_tools/:/opt/local/bin/
-
-  alias ls="ls -G"
-  alias l="ls -GF"
-  PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
-  PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
-else
-  # linux specific things
-  alias ls="ls --color"
-  alias l="ls --color -F"
-  alias hb="HandBrakeCLI"
-  alias www="cd ~/www/"
-  alias atop="sudo atop -m"
-  PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
-  # change the color of root
-  if [ "${USER}" == "root" ] ; then
-    PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
-  fi
-  PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-  linuxlogo -u
-fi
-
-export ANDROID_HOME="$HOME/android-sdk"
-PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin:$HOME/Dropbox/McGill/ECSE429 - Software Validation/Spin/Src6.2.2"
-export EDITOR=vim
-export VISUAL=vim
-
-# aliases for ssh
-alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
-alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
-alias selerver="ssh alex@selesse.com"
-alias swmud="rlwrap telnet swmud.org 6666"
-alias mq="ssh merqumab@sunnysuba.com -p 2222"
-
-# dropbox aliases
-alias config="cd ~/git/config"
-alias public="cd ~/Dropbox/Public"
-alias school="cd ~/Dropbox/McGill"
-alias os="cd ~/Dropbox/McGill/OS"
-alias ai="cd ~/Dropbox/McGill/AI"
-alias 360="cd ~/Dropbox/McGill/COMP360"
-alias db="cd ~/Dropbox/McGill/Database"
-alias dp="cd ~/Dropbox/McGill/DP"
-alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
-
-# function for cd + ls combo
-function cd () {
-  if [ -z "$1" ] ; then
-    return
-  fi
-  builtin cd "$@" && ls
-}
+# lets you use vi keybindings, use escape char and navigate, use v to
+# have current line(s) open up in vim
+set -o vi
+# history file management
+source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
+source ~/.git-completion.bash
 
 # function for extracting zip/tar files
 extract () {
@@ -78,19 +29,6 @@ extract () {
   else
     echo "'$1' is not a valid file - go home"
   fi
-}
-
-SSH_ENV="$HOME/.ssh/environment"
-
-# start the ssh-agent
-function start_agent {
-  echo "Initializing new SSH agent..."
-  # spawn ssh-agent
-  ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
-  echo succeeded
-  chmod 600 "$SSH_ENV"
-  . "$SSH_ENV" > /dev/null
-  ssh-add
 }
 
 # test for identities
@@ -128,24 +66,94 @@ if [ "${USER}" != "root" ] ; then
   fi
 fi
 
-# history file management
-source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
-source ~/.git-completion.bash
-HISTSIZE=50000
-HISTFILESIZE=50000
+# start the ssh-agent
+function start_agent {
+  echo "Initializing new SSH agent..."
+  # spawn ssh-agent
+  ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
+  echo succeeded
+  chmod 600 "$SSH_ENV"
+  . "$SSH_ENV" > /dev/null
+  ssh-add
+}
 
-ls
-# lets you use vi keybindings, use escape char and navigate, use v to
-# have current line(s) open up in vim
-set -o vi
 
+# OS-specific aliases
+case "`uname -s`" in
+  "Darwin")
+    alias ls="ls -G"
+    alias l="ls -GF"
+    alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
+    alias vim="mvim"
+    # I don't care about my hostname when I'm on my local mac
+    PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
+    PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+  ;;
+  "FreeBSD")
+    alias ls="ls -G"
+    alias l="ls -GF"
+  ;;
+  *)
+    alias ls="ls --color"
+    alias l="ls --color -F"
+    alias hb="HandBrakeCLI"
+    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    # change the color of root
+    if [ "${USER}" == "root" ] ; then
+      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    fi
+    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+    linuxlogo -u
+  ;;
+esac
+
+################################################################################
+# COMMON ALIASES
+################################################################################
+# aliases for ssh
+alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
+alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
+alias selerver="ssh alex@selesse.com"
+alias swmud="rlwrap telnet swmud.org 6666"
+alias mq="ssh merqumab@sunnysuba.com -p 2222"
+
+# dropbox aliases
+alias config="cd ~/git/config"
+alias public="cd ~/Dropbox/Public"
+alias school="cd ~/Dropbox/McGill"
+alias os="cd ~/Dropbox/McGill/OS"
+alias ai="cd ~/Dropbox/McGill/AI"
+alias 360="cd ~/Dropbox/McGill/COMP360"
+alias db="cd ~/Dropbox/McGill/Database"
+alias dp="cd ~/Dropbox/McGill/DP"
+alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
+
+alias vi="vim"
+alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
+
+################################################################################
+# PATH, ENVIRONMENT VARIABLES
+################################################################################
+export ANDROID_HOME="$HOME/android-sdk"
+PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin:$HOME/Dropbox/McGill/ECSE429 - Software Validation/Spin/Src6.2.2"
 export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
 export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
 export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
+export EDITOR=vim
+export VISUAL=vim
+HISTSIZE=50000
+HISTFILESIZE=50000
+SSH_ENV="$HOME/.ssh/environment"
 
-alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
-alias vim="mvim"
-alias vi="vim"
-alias wig="cd $HOME/git/cs521/git/group-d/wig/src"
+# function for cd + ls combo, needs to come after ls alias
+function cd () {
+  if [ -z "$1" ] ; then
+    return
+  fi
+  builtin cd "$@" && ls
+}
+
+ls
