@@ -2,6 +2,7 @@ syntax on
 set number
 set nowrap " forces style
 set autoindent
+set autochdir
 set backspace=2
 set copyindent
 set tabstop=2
@@ -23,6 +24,7 @@ set cursorline
 set wildmode=longest,list
 set wildmenu
 set hidden
+set noswapfile
 set history=10000 " remember more commands and search history
 let mapleader=","
 
@@ -67,7 +69,7 @@ autocmd FileType *
   \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
   \ endif
 
-cnoremap %% <C-R>=expand('%:h').'/'<cr>
+cnoremap %% <C-R>=getcwd().'/'<cr>
 map <leader>e :edit %%
 map <leader>v :edit %%
 nnoremap ; :
