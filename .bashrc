@@ -70,6 +70,9 @@ alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 
 alias vi="vim"
 alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
+alias duh="du -chs"
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export GREP_OPTIONS="--color"
 
 ################################################################################
 # PATH, ENVIRONMENT VARIABLES
