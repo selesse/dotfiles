@@ -10,8 +10,100 @@ set -o vi
 source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
 source ~/.git-completion.bash
 
+# OS-specific aliases
+case "`uname -s`" in
+  "Darwin")
+    alias ls="ls -G"
+    alias l="ls -GF"
+    alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
+    alias vim="mvim"
+    # I don't care about my hostname when I'm on my local mac
+    PATH=$PATH:/opt/local/bin/
+
+    PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
+    PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+    export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+  ;;
+  "FreeBSD")
+    alias ls="ls -G"
+    alias l="ls -GF"
+    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    if [ "${USER}" == "root" ] ; then
+      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    fi
+    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+  ;;
+  *)
+    alias ls="ls --color"
+    alias l="ls --color -F"
+    alias hb="HandBrakeCLI"
+    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    # change the color of root
+    if [ "${USER}" == "root" ] ; then
+      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    fi
+    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+    linuxlogo -u 2> /dev/null
+  ;;
+esac
+
+################################################################################
+# COMMON ALIASES
+################################################################################
+# aliases for ssh
+alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
+alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
+alias selerver="ssh alex@selesse.com"
+alias swmud="rlwrap telnet swmud.org 6666"
+alias mq="ssh merqumab@sunnysuba.com -p 2222"
+
+# dropbox aliases
+alias config="cd ~/git/config"
+alias public="cd ~/Dropbox/Public"
+alias school="cd ~/Dropbox/McGill"
+alias os="cd ~/Dropbox/McGill/OS"
+alias ai="cd ~/Dropbox/McGill/AI"
+alias 360="cd ~/Dropbox/McGill/COMP360"
+alias db="cd ~/Dropbox/McGill/Database"
+alias dp="cd ~/Dropbox/McGill/DP"
+alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
+
+alias vi="vim"
+alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
+
+################################################################################
+# PATH, ENVIRONMENT VARIABLES
+################################################################################
+export ANDROID_HOME="$HOME/android-sdk"
+export JAVADIR=/usr/lib/jvm/java-1.7.0-openjdk-i386/jre
+export JOOSDIR=$HOME/git/cs520/public_html/joos
+export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
+export WIGDIR=$HOME/git/cs520/public_html/wig
+export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
+
+# Android
+export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+# SableCC
+export PATH=$PATH:$HOME/Dropbox/sablecc-3.6/bin
+
+# Compilers PATH kinks
+export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
+
+export EDITOR=vim
+export VISUAL=vim
+HISTSIZE=50000
+HISTFILESIZE=50000
+SSH_ENV="$HOME/.ssh/environment"
+
+function cd() {
+  if [ -z "$@" ] ; then
+    return
+  fi
+  builtin cd "$@" && ls
+}
+
 # function for extracting zip/tar files
-extract () {
+function extract () {
   if [ -f $1 ] ; then
     case $1 in
     *.tar.bz2)  tar xjf $1      ;;
@@ -29,6 +121,17 @@ extract () {
   else
     echo "'$1' is not a valid file - go home"
   fi
+}
+
+# start the ssh-agent
+function start_agent {
+  echo "Initializing new SSH agent..."
+  # spawn ssh-agent
+  ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
+  echo succeeded
+  chmod 600 "$SSH_ENV"
+  . "$SSH_ENV" > /dev/null
+  ssh-add
 }
 
 # test for identities
@@ -66,96 +169,6 @@ if [ "${USER}" != "root" ] ; then
   fi
 fi
 
-# start the ssh-agent
-function start_agent {
-  echo "Initializing new SSH agent..."
-  # spawn ssh-agent
-  ssh-agent | sed 's/^echo/#echo/' > "$SSH_ENV"
-  echo succeeded
-  chmod 600 "$SSH_ENV"
-  . "$SSH_ENV" > /dev/null
-  ssh-add
-}
 
-
-# OS-specific aliases
-case "`uname -s`" in
-  "Darwin")
-    alias ls="ls -G"
-    alias l="ls -GF"
-    alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
-    alias vim="mvim"
-    # I don't care about my hostname when I'm on my local mac
-    PATH=$PATH:/opt/local/bin/
-
-    PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
-    PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
-  ;;
-  "FreeBSD")
-    alias ls="ls -G"
-    alias l="ls -GF"
-  ;;
-  *)
-    alias ls="ls --color"
-    alias l="ls --color -F"
-    alias hb="HandBrakeCLI"
-    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
-    # change the color of root
-    if [ "${USER}" == "root" ] ; then
-      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
-    fi
-    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-    linuxlogo -u
-  ;;
-esac
-
-################################################################################
-# COMMON ALIASES
-################################################################################
-# aliases for ssh
-alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
-alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
-alias selerver="ssh alex@selesse.com"
-alias swmud="rlwrap telnet swmud.org 6666"
-alias mq="ssh merqumab@sunnysuba.com -p 2222"
-
-# dropbox aliases
-alias config="cd ~/git/config"
-alias public="cd ~/Dropbox/Public"
-alias school="cd ~/Dropbox/McGill"
-alias os="cd ~/Dropbox/McGill/OS"
-alias ai="cd ~/Dropbox/McGill/AI"
-alias 360="cd ~/Dropbox/McGill/COMP360"
-alias db="cd ~/Dropbox/McGill/Database"
-alias dp="cd ~/Dropbox/McGill/DP"
-alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
-
-alias vi="vim"
-alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
-
-################################################################################
-# PATH, ENVIRONMENT VARIABLES
-################################################################################
-export ANDROID_HOME="$HOME/android-sdk"
-PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-PATH="$PATH:$HOME/Dropbox/sablecc-3.6/bin:$HOME/Dropbox/McGill/ECSE429 - Software Validation/Spin/Src6.2.2"
-export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
-export JOOSDIR=$HOME/git/cs520/public_html/joos
-export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
-export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
-export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
-export EDITOR=vim
-export VISUAL=vim
-HISTSIZE=50000
-HISTFILESIZE=50000
-SSH_ENV="$HOME/.ssh/environment"
-
-# function for cd + ls combo, needs to come after ls alias
-function cd () {
-  if [ -z "$1" ] ; then
-    return
-  fi
-  builtin cd "$@" && ls
-}
 
 ls
