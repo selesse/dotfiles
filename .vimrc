@@ -22,10 +22,8 @@ set clipboard=unnamed
 set cursorline
 set wildmode=longest,list
 set wildmenu
+set hidden
 set history=10000 " remember more commands and search history
-set backup
-set backupdir=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 let mapleader=","
 
 set t_Co=256
