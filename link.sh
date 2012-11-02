@@ -8,6 +8,7 @@ files=(
   .vim
   .vimrc
   .gitconfig
+  .githelpers
   .my.cnf
   .ssh/config
   .tmux.conf
@@ -18,7 +19,7 @@ function link_files() {
     if [ -e $file ] ; then
       echo $HOME/$file already exists - aborting link
     else
-      echo ln -s $GIT_DIR/$file $file
+      ln -vs $GIT_DIR/$file $file
     fi
   done
 }
