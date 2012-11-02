@@ -86,6 +86,8 @@ case "`uname -s`" in
     alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
     alias vim="mvim"
     # I don't care about my hostname when I'm on my local mac
+    PATH=$PATH:/opt/local/bin/
+
     PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
   ;;

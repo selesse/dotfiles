@@ -27,7 +27,6 @@ set backup
 set backupdir=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp/~tmp/var/tmp,/tmp
 let mapleader=","
-set cmdheight=2
 
 set t_Co=256
 set background=dark
@@ -64,30 +63,11 @@ else
   filetype on
 endif
 
-if v:version >= 700
-  set omnifunc=syntaxcomplete#Complete " override built-in C omnicomplete with C++ OmniCppComplete plugin
-  let OmniCpp_GlobalScopeSearch   = 1
-  let OmniCpp_DisplayMode         = 1
-  let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
-  let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
-  let OmniCpp_ShowAccess          = 1 "show access in pop-up
-  let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
-  set completeopt=menuone,menu,longest
-endif
-
-if version >= 700
-  let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-  highlight   clear
-  highlight   Pmenu         ctermfg=0 ctermbg=2
-  highlight   PmenuSel      ctermfg=0 ctermbg=7
-  highlight   PmenuSbar     ctermfg=7 ctermbg=0
-  highlight   PmenuThumb    ctermfg=0 ctermbg=7
-endif
-
-function! UpdateTags()
-  execute ":!ctags -R --languages=C++ --c++-kinds=+p --fields=+iaS --extra=+q ./"
-  echohl StatusLine | echo "C/C++ tag updated" | echohl None
-endfunction
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+  \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+  \ endif
 
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
@@ -146,17 +126,13 @@ inoremap jk <esc>
 inoremap <c-c> <esc>
 inoremap <esc> <nop>
 
-" function to restore files to last position
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
 
 augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
+  " restore files to last cursor position
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
 augroup END
 
 " Language-specific mapping for comments {{{
