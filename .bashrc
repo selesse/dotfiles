@@ -71,6 +71,7 @@ alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 alias vi="vim"
 alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
 alias duh="du -chs"
+alias diff="colordiff -u"
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 
@@ -91,6 +92,8 @@ export PATH=$PATH:$HOME/Dropbox/sablecc-3.6/bin
 
 # Compilers PATH kinks
 export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
+
+export PATH=$PATH:$HOME/Dropbox/Spin/Src6.2.2
 
 export EDITOR=vim
 export VISUAL=vim
@@ -171,7 +174,5 @@ if [ "${USER}" != "root" ] ; then
     fi
   fi
 fi
-
-
 
 ls
