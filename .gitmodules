@@ -10,18 +10,21 @@
 [submodule "snipmate.vim"]
 	path = .vim/bundle/snipmate.vim
 	url = git://github.com/msanders/snipmate.vim.git
+  ignore = dirty
 [submodule "vim-javascript"]
 	path = .vim/bundle/vim-javascript
 	url = git://github.com/pangloss/vim-javascript.git
 [submodule "textile.vim"]
 	path = .vim/bundle/textile.vim
 	url = git://github.com/timcharper/textile.vim.git
+  ignore = dirty
 [submodule "vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "vim-git"]
 	path = .vim/bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
+  ignore = dirty
 [submodule "vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
@@ -31,3 +34,4 @@
 [submodule "javacomplete"]
 	path = .vim/bundle/javacomplete
 	url = git://github.com/vim-scripts/javacomplete.git
+  ignore = dirty
