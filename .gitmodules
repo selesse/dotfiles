@@ -2,7 +2,7 @@
 	path = .vim/bundle/command-t
 	url = git://git.wincent.com/command-t.git
 [submodule "supertab"]
-	path = .vim/bundle/.vim/bundle/supertab
+	path = .vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
 [submodule "tabular"]
 	path = .vim/bundle/tabular
@@ -29,5 +29,5 @@
 	path = .vim/bundle/numbers.vim
 	url = git://github.com/myusuf3/numbers.vim.git
 [submodule "javacomplete"]
-	path = javacomplete
+	path = .vim/bundle/javacomplete
 	url = git://github.com/vim-scripts/javacomplete.git
