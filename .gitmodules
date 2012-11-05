@@ -1,6 +1,3 @@
-[submodule ".vim/bundle/command-t"]
-	path = .vim/bundle/command-t
-	url = git://git.wincent.com/command-t.git
 [submodule "supertab"]
 	path = .vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
@@ -35,3 +32,6 @@
 	path = .vim/bundle/javacomplete
 	url = git://github.com/vim-scripts/javacomplete.git
   ignore = dirty
+[submodule ".vim/bundle/command-t"]
+	path = .vim/bundle/command-t
+	url = git://git.wincent.com/command-t.git
