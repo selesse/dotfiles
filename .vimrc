@@ -81,7 +81,9 @@ nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 nnoremap ,, <C-^>
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
+" use this to paste code or anything else formatted
+inoremap <leader>p <F8><cr> p<cr> <F8><cr>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
@@ -118,9 +120,13 @@ nnoremap / /\v
 nnoremap Y 0y$
 
 nnoremap <Right> <C-w>l
+nnoremap <C-l> <C-w>l
 nnoremap <Left> <C-w>h
+nnoremap <C-h> <C-w>h
 nnoremap <Up> <C-w>k
+nnoremap <C-k> <C-w>k
 nnoremap <Down> <C-w>j
+nnoremap <C-j> <C-w>j
 
 inoremap jk <esc>
 inoremap <c-c> <esc>
