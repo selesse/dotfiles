@@ -18,11 +18,11 @@
 
 HASH="%C(yellow)%h%Creset"
 RELATIVE_TIME="%Cgreen(%ar)%Creset"
-AUTHOR="%C(bold blue)<%an>%Creset"
+AUTHOR="%C(bold blue)%an%Creset"
 REFS="%C(red)%d%Creset"
 SUBJECT="%s"
 
-FORMAT="$HASH}$AUTHOR}$SUBJECT $RELATIVE_TIME}$REFS}"
+FORMAT="$HASH{$AUTHOR{$SUBJECT $RELATIVE_TIME $REFS"
 
 show_git_head() {
   pretty_git_log -1
@@ -36,7 +36,7 @@ pretty_git_log() {
     # Replace (2 years, 5 months) with (2 years)
     sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
     # Line columns up based on } delimiter
-    column -s '}' -t |
+    column -t -s '{' |
     # Page only if we need to
     less -SFXR
 }

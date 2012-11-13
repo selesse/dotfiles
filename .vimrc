@@ -17,7 +17,7 @@ set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set title " modifies window to have filename as its title
-set shell=/bin/bash
+set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
 set cursorline
@@ -56,7 +56,6 @@ function! Underline(delimiter)
   endif
 endfunction
 
-
 if v:version >= 600
   filetype plugin indent on
 else
@@ -68,6 +67,10 @@ autocmd FileType *
   \   call SuperTabChain(&omnifunc, "<c-p>") |
   \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
   \ endif
+
+command! -nargs=1 Silent
+      \ | execute ':silent !'.<q-args>
+      \ | execute ':redraw!'
 
 cnoremap %% <C-R>=getcwd().'/'<cr>
 map <leader>e :edit %%
@@ -84,6 +87,8 @@ map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
 " use this to paste code or anything else formatted
 inoremap <leader>p <F8><cr> p<cr> <F8><cr>
+" copy file's current directory for mac
+map <leader>c :Silent echo -n %% \| pbcopy<cr>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
@@ -132,7 +137,6 @@ inoremap jk <esc>
 inoremap <c-c> <esc>
 inoremap <esc> <nop>
 
-
 augroup resCur
   " restore files to last cursor position
   autocmd BufReadPost *
@@ -152,7 +156,13 @@ augroup END
 " Language-specific mappings {{{
 augroup filetype_python
   autocmd!
-  autocmd FileType python nnoremap <F5> :!python % <CR>
+  autocmd FileType python nnoremap <leader>r :!python % <CR>
+augroup END
+
+augroup filetype_wig
+  autocmd!
+  autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
+  autocmd FileType wig nnoremap <leader>m :Silent cd $WIGGLEDIR && make<CR>
 augroup END
 
 augroup filetype_perl
