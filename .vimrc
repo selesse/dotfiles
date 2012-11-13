@@ -12,7 +12,7 @@ set expandtab
 set smarttab " makes you go back 2 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
-set pastetoggle=<F8>
+set pastetoggle=<leader>PT
 set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
@@ -86,7 +86,7 @@ nnoremap ,, <C-^>
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
 " use this to paste code or anything else formatted
-inoremap <leader>p <F8><cr> p<cr> <F8><cr>
+inoremap <leader>p <leader>PT<cr> p<cr> <leader>PT<cr>
 " copy file's current directory for mac
 map <leader>c :Silent echo -n %% \| pbcopy<cr>
 
@@ -119,7 +119,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
-nnoremap <leader>dw :%s/\v +\n/\r/g<CR> " when substituting, \r is newline
+nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
 nnoremap <leader><F5> :cd $HOME/git/swmud<CR>:!sendToMud.sh %:p<CR>
 nnoremap / /\v
 nnoremap Y 0y$

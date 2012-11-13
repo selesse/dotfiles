@@ -22,19 +22,20 @@ case "`uname -s`" in
     alias l="ls -GF"
     alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
     alias vim="mvim"
-    # I don't care about my hostname when I'm on my local mac
+
     PATH=$PATH:/opt/local/bin/
 
-    PS1="[\[\e[1;32m\]\w\[\e[m\]] > "
+    # I don't care about my hostname when I'm on my local mac
+    PS1="[\[\e[1;32m\]\w\[\e[m\]] \$ "
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
     export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
   ;;
   "FreeBSD")
     alias ls="ls -G"
     alias l="ls -GF"
-    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
     if [ "${USER}" == "root" ] ; then
-      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
     fi
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
   ;;
@@ -42,10 +43,10 @@ case "`uname -s`" in
     alias ls="ls --color"
     alias l="ls --color -F"
     alias hb="HandBrakeCLI"
-    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
     # change the color of root
     if [ "${USER}" == "root" ] ; then
-      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] > '
+      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
     fi
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
     linuxlogo -u 2> /dev/null
@@ -99,7 +100,6 @@ export PATH=$PATH:$HOME/Dropbox/sablecc-3.6/bin
 export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
 
 export PATH=$PATH:$HOME/Dropbox/Spin/Src6.2.2
-
 
 export EDITOR=vim
 export VISUAL=vim
@@ -182,8 +182,6 @@ if [ "${USER}" != "root" ] ; then
 fi
 
 ls
-
-CDPATH=".:$WIGGLEDIR"
 
 function tree() {
   ls -R $@ | grep ":" \
