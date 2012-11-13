@@ -12,6 +12,7 @@ files=(
   .my.cnf
   .ssh/config
   .tmux.conf
+  .zshrc
 )
 
 function link_files() {
