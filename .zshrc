@@ -36,11 +36,6 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin:/Users/alex/git/cs520/public_html/joos/bin:/Users/alex/bin:/opt/local/bin/:/Users/alex/android-sdk:/Users/alex/android-sdk/tools:/Users/alex/android-sdk/platform-tools:/Users/alex/Dropbox/sablecc-3.6/bin:/Users/alex/git/cs520/git/group-d/wig/src:/Users/alex/Dropbox/Spin/Src6.2.2
 
-
-alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
-alias vim="mvim"
-alias vi="vim"
-
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
 fi
