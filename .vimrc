@@ -165,6 +165,11 @@ augroup filetype_python
   autocmd FileType python nnoremap <leader>r :!python % <CR>
 augroup END
 
+augroup filetype_sh
+  autocmd!
+  autocmd Filetype sh nnoremap <leader>r :!bash %<CR>
+augroup END
+
 augroup filetype_wig
   autocmd!
   autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
