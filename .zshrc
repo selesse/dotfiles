@@ -86,7 +86,7 @@ alias os="cd ~/Dropbox/McGill/OS"
 alias ai="cd ~/Dropbox/McGill/AI"
 alias 360="cd ~/Dropbox/McGill/COMP360"
 alias db="cd ~/Dropbox/McGill/Database"
-alias dp="cd ~/Dropbox/McGill/DP"
+alias dp="cd ~/git/design-project/rdcms"
 alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 
 alias vi="vim"
@@ -171,6 +171,8 @@ if [ "${USER}" != "root" ] ; then
 fi
 
 ls
+
+echo "selesse.com : Add clickable links for cheat sheets so you can see all commands"
 
 export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
