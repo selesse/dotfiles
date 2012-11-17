@@ -12,7 +12,7 @@ if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="red"; fi
 hostname=`uname -s`
 # prompt
 if [ "$hostname" = "Darwin" ] ; then
-  PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}] [%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
+  PROMPT='[%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
 else
   PROMPT='[%{$fg[$NCOLOR]%}%B%n$fg[white]@$fg[green]%m$fg[blue]%b%{$reset_color%}] [%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
 fi
