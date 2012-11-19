@@ -7,10 +7,15 @@
 # turns username green if superuser, otherwise it is white
 
 # if superuser make the username green
-if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="white"; fi
+if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="red"; fi
 
+hostname=`uname -s`
 # prompt
-PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[red]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%) )%(!.#.$) '
+if [ "$hostname" = "Darwin" ] ; then
+  PROMPT='[%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
+else
+  PROMPT='[%{$fg[$NCOLOR]%}%B%n$fg[white]@$fg[green]%m$fg[blue]%b%{$reset_color%}] [%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
+fi
 RPROMPT='$(git_prompt_info)'
 
 # git theming

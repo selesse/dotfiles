@@ -52,7 +52,7 @@ hi Title                cterm=none ctermbg=none     ctermfg=4       gui=none    
 " Syntax Highlighting
 " ----------------------------------------------------------------------------
 hi Keyword              cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
-hi Comment              cterm=none ctermbg=none ctermfg=8           gui=none        guifg=#8F8F8F
+hi Comment              cterm=none ctermbg=none ctermfg=cyan        gui=none        guifg=#8F8F8F
 hi Delimiter            cterm=none ctermbg=none ctermfg=15          gui=none        guifg=#F7F7F7
 hi Identifier           cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#96D9F1
 hi Structure            cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#9DEEF2

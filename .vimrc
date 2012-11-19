@@ -56,6 +56,10 @@ function! Underline(delimiter)
   endif
 endfunction
 
+function! FindGit()
+  return system('findgit')
+endfunction
+
 if v:version >= 600
   filetype plugin indent on
 else
@@ -73,6 +77,7 @@ command! -nargs=1 Silent
       \ | execute ':redraw!'
 
 cnoremap %% <C-R>=getcwd().'/'<cr>
+cnoremap %G <C-R>=FindGit()<cr><bs>
 map <leader>e :edit %%
 map <leader>v :edit %%
 nnoremap ; :
@@ -85,6 +90,7 @@ nnoremap <F7> :NumbersToggle<CR>
 nnoremap ,, <C-^>
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
+map <leader>g :CommandTFlush<cr>\|:CommandT %G<cr>
 " use this to paste code or anything else formatted
 inoremap <leader>p <leader>PT<cr> p<cr> <leader>PT<cr>
 " copy file's current directory for mac
@@ -159,10 +165,20 @@ augroup filetype_python
   autocmd FileType python nnoremap <leader>r :!python % <CR>
 augroup END
 
+augroup filetype_sh
+  autocmd!
+  autocmd Filetype sh nnoremap <leader>r :!bash %<CR>
+augroup END
+
 augroup filetype_wig
   autocmd!
   autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
   autocmd FileType wig nnoremap <leader>m :Silent cd $WIGGLEDIR && make<CR>
+augroup END
+
+augroup filetype_html
+  autocmd!
+  autocmd FileType html :iabbrev </ </<C-X><C-O>
 augroup END
 
 augroup filetype_perl
