@@ -1,34 +1,34 @@
-[submodule "supertab"]
+[submodule ".vim/bundle/supertab"]
 	path = .vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule "tabular"]
+[submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
-[submodule "snipmate.vim"]
+[submodule ".vim/bundle/snipmate.vim"]
 	path = .vim/bundle/snipmate.vim
 	url = git://github.com/msanders/snipmate.vim.git
   ignore = dirty
-[submodule "vim-javascript"]
+[submodule ".vim/bundle/vim-javascript"]
 	path = .vim/bundle/vim-javascript
 	url = git://github.com/pangloss/vim-javascript.git
-[submodule "textile.vim"]
+[submodule ".vim/bundle/textile.vim"]
 	path = .vim/bundle/textile.vim
 	url = git://github.com/timcharper/textile.vim.git
   ignore = dirty
-[submodule "vim-fugitive"]
+[submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "vim-git"]
+[submodule ".vim/bundle/vim-git"]
 	path = .vim/bundle/vim-git
 	url = git://github.com/tpope/vim-git.git
   ignore = dirty
-[submodule "vim-markdown"]
+[submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
-[submodule "numbers.vim"]
+[submodule ".vim/bundle/numbers.vim"]
 	path = .vim/bundle/numbers.vim
 	url = git://github.com/myusuf3/numbers.vim.git
-[submodule "javacomplete"]
+[submodule ".vim/bundle/javacomplete"]
 	path = .vim/bundle/javacomplete
 	url = git://github.com/vim-scripts/javacomplete.git
   ignore = dirty
