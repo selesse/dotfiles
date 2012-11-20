@@ -56,8 +56,10 @@ function! Underline(delimiter)
   endif
 endfunction
 
-function! FindGit()
-  return system('findgit')
+function! FindParentGit()
+  let x = system('find_parent_git')
+  let x = substitute(x, '\n$', '', '')
+  return x
 endfunction
 
 if v:version >= 600
@@ -77,7 +79,7 @@ command! -nargs=1 Silent
       \ | execute ':redraw!'
 
 cnoremap %% <C-R>=getcwd().'/'<cr>
-cnoremap %G <C-R>=FindGit()<cr><bs>
+cnoremap %G <C-R>=FindParentGit()<cr>
 map <leader>e :edit %%
 map <leader>v :edit %%
 nnoremap ; :

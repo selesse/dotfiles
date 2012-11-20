@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Finds the parent .git folder from where you currently are.
+# i.e. if you're deep into the folders of a git repo that starts at
+# "$HOME/git/config", findgit will echo "$HOME/git/config".
+# I use this primarily for the Command-T vim plugin.
+
+function find_parent_git() {
+  local directory=$1
+
+  cd $directory
+  if [ -d "$directory"  ] && [ "$PWD" != "/" ]; then
+    if [ -d "$directory/.git" ] ; then
+      echo "$PWD"
+    else
+      find_parent_git "$directory/.."
+    fi
+  else
+    echo "no parent git found"
+  fi
+}
+
+find_parent_git $PWD

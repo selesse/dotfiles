@@ -77,6 +77,7 @@ alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
 alias selerver="ssh alex@selesse.com"
 alias swmud="rlwrap telnet swmud.org 6666"
 alias mq="ssh merqumab@sunnysuba.com -p 2222"
+alias fpg="find_parent_git"
 
 # dropbox aliases
 alias config="cd ~/git/config"
