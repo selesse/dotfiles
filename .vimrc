@@ -60,6 +60,12 @@ function! FindParentGit(gitIgnore)
   let x = system('find_parent_git')
   let x = substitute(x, '\n$', '', '')
 
+  " if we find no parent git, return .git
+  " this is a little silly, but it means Command-T will react properly
+  if x == "no parent git found"
+    return ".git"
+  fi
+
   " if the root folder contains a gitignore, let's add that to wildignore
   let filename = x . '/.gitignore'
   if filereadable(filename)
