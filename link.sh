@@ -13,6 +13,7 @@ files=(
   .ssh/config
   .tmux.conf
   .zshrc
+  bin/find_parent_git
 )
 
 function link_files() {
