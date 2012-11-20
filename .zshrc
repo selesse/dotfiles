@@ -62,6 +62,9 @@ case "`uname -s`" in
     alias ls="ls --color"
     alias l="ls --color -F"
     alias hb="HandBrakeCLI"
+    function say() {
+      espeak -s 120 "$@" > /dev/null 2>&1
+    }
     # change the color of root
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
     linuxlogo -u 2> /dev/null

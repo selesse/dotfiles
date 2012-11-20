@@ -19,7 +19,7 @@ set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set title " modifies window to have filename as its title
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
-set clipboard=unnamed
+set clipboard=unnamedplus
 set cursorline
 set wildmode=longest,list
 set wildmenu
@@ -128,7 +128,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader><F5> :cd $HOME/git/swmud<CR>:!sendToMud.sh %:p<CR>
+nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
 nnoremap / /\v
 nnoremap Y 0y$
 
