@@ -48,6 +48,7 @@ case "`uname -s`" in
     alias vim="mvim"
 
     PATH=$PATH:/opt/local/bin/
+    PATH="$HOME/Library/Haskell/bin:$PATH"
 
     # I don't care about my hostname when I'm on my local mac
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
@@ -178,9 +179,10 @@ ls
 
 echo "selesse.com : Add clickable links for cheat sheets so you can see all commands"
 
+export WIGDIR=$HOME/git/cs520/public_html/wig
 export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
-export PATH=$PATH:$HOME/git/cs520/git/group-d/joos/stacklimits
+export PATH=$PATH:$HOME/git/cs520/git/group-d/joos/peephole
 
 export VISUAL=vim
 export EDITOR=vim
