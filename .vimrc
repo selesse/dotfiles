@@ -200,9 +200,10 @@ augroup filetype_java
   autocmd Filetype java nnoremap <F5> :make<CR>
 augroup END
 
-augroup filetype_c
+augroup filetype_c_cpp
   autocmd!
-  autocmd Filetype c nnoremap <F5> :make run<CR>
+  autocmd Filetype c nnoremap <leader>r :make<cr>
+  autocmd Filetype cpp nnoremap <leader>r :make<cr>
 augroup END
 
 augroup filetype_promela
