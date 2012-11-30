@@ -17,6 +17,7 @@
   head = !git l -1
   h = !git head
   hp =  "!. ~/.githelpers && show_git_head"
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 [core]
   editor = vim
 [color]
