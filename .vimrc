@@ -56,9 +56,37 @@ function! Underline(delimiter)
   endif
 endfunction
 
-function! FindParentGit()
+function! FindParentGit(gitIgnore)
   let x = system('find_parent_git')
   let x = substitute(x, '\n$', '', '')
+
+  " if we find no parent git, return .git
+  " this is a little silly, but it means Command-T will react properly
+  if x == "no parent git found"
+    return ".git"
+  endif
+
+  " if the root folder contains a gitignore, let's add that to wildignore
+  let filename = x . '/.gitignore'
+  if filereadable(filename)
+      let igstring = ''
+      for oline in readfile(filename)
+          let line = substitute(oline, '\s|\n|\r', '', "g")
+          if line =~ '^#' | con | endif
+          if line == '' | con  | endif
+          if line =~ '^!' | con  | endif
+          if line =~ '/$' | let igstring .= "," . line . "*" | con | endif
+          let igstring .= "," . line
+      endfor
+      if a:gitIgnore == "true"
+        let execstring = "set wildignore+=".substitute(igstring, '^,', '', "g")
+      else
+        " may be problematic in niche cases, for now it'll do
+        let execstring = "set wildignore-=".substitute(igstring, '^,', '', "g")
+      endif
+      execute execstring
+  endif
+
   return x
 endfunction
 
@@ -79,7 +107,8 @@ command! -nargs=1 Silent
       \ | execute ':redraw!'
 
 cnoremap %% <C-R>=getcwd().'/'<cr>
-cnoremap %G <C-R>=FindParentGit()<cr>
+cnoremap %g <C-R>=FindParentGit("true")<cr>
+cnoremap %G <C-R>=FindParentGit("")<cr>
 map <leader>e :edit %%
 map <leader>v :edit %%
 nnoremap ; :
@@ -90,9 +119,20 @@ nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 nnoremap ,, <C-^>
+
+" ===================
+" Command-T mappings:
+" ===================
+" <leader>f => all files in pwd + subdirectories
+" <leader>F => all files in $HOME = subdirectories
+" <leader>g => all files in current git repo EXCEPT gitignored
+" <leader>G => all files in current git repo
+
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
-map <leader>g :CommandTFlush<cr>\|:CommandT %G<cr>
+map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
+map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
+
 " use this to paste code or anything else formatted
 inoremap <leader>p <leader>PT<cr> p<cr> <leader>PT<cr>
 " copy file's current directory for mac
