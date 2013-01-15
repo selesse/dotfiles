@@ -37,10 +37,13 @@
 	url = git://github.com/tpope/vim-surround.git
 [submodule ".vim/bundle/command-t"]
 	path = .vim/bundle/command-t
-	url = git://github.com/wincent/command-t.git
+	url = git://git.wincent.com/command-t.git
 [submodule ".vim/bundle/vim-repeat"]
 	path = .vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat
 [submodule ".vim/bundle/handlebars"]
 	path = .vim/bundle/handlebars
 	url = git://github.com/nono/vim-handlebars.git
+[submodule ".vim/bundle/solarized"]
+	path = .vim/bundle/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git

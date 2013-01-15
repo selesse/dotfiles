@@ -70,6 +70,7 @@ case "`uname -s`" in
 
     PATH=$PATH:/opt/local/bin/
     PATH="$HOME/Library/Haskell/bin:$PATH"
+    PATH=$PATH:/usr/local/texlive/2012/bin/x86_64-darwin
 
     # I don't care about my hostname when I'm on my local mac
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
@@ -158,6 +159,7 @@ export WIGDIR=$HOME/git/cs520/public_html/wig
 export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
 export PATH=$PATH:$HOME/git/cs520/git/group-d/joos/peephole
+export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
 
 export VISUAL=vim
 export EDITOR=vim
