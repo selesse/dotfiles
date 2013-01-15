@@ -12,8 +12,6 @@ source ~/.git-completion.bash
 export HISTCONTROL=erasedups
 export HISTFILESIZE=10000
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
-shopt -s histappend
-
 
 # OS-specific aliases
 case "`uname -s`" in
@@ -187,24 +185,4 @@ function tree() {
   ls -R $@ | grep ":" \
   | sed -e 's/://' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/' \
   | less -SFX
-}
-
-function path_prepend() {
-  PATH_VAR=$1
-  PPATH=$2
-  PATH_CONTENTS=${!PATH_VAR}
-
-  if [[ "$PATH_CONTENTS" != *"$$PATH"* ]]; then
-    echo $hi
-  fi
-}
-
-function path_prepend() {
-  PATH_VAR=$1
-  PPATH=$2
-  PATH_CONTENTS=${!PATH_VAR}
-
-  if [[ "$PATH_CONTENTS" != *"$$PATH"* ]]; then
-    echo $hi
-  fi
 }
