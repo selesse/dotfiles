@@ -31,14 +31,35 @@ ZSH_THEME="aseles"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git ssh-agent)
 
+setopt extendedglob
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin:/Users/alex/git/cs520/public_html/joos/bin:/Users/alex/bin:/opt/local/bin/:/Users/alex/android-sdk:/Users/alex/android-sdk/tools:/Users/alex/android-sdk/platform-tools:/Users/alex/Dropbox/sablecc-3.6/bin:/Users/alex/git/cs520/git/group-d/wig/src:/Users/alex/Dropbox/Spin/Src6.2.2
+PATHDIRS=(
+  /usr/bin
+  /bin
+  /usr/sbin
+  /sbin
+  /usr/local/bin
+  /usr/X11/bin
+  /usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin
+  $HOME/git/cs520/public_html/joos/bin
+  /opt/local/bin/
+  $HOME/android-sdk
+  $HOME/android-sdk/tools
+  $HOME/android-sdk/platform-tools
+  $HOME/Dropbox/sablecc-3.6/bin
+  $HOME/git/cs520/git/group-d/wig/src
+)
 
-if [ -d "$HOME/bin" ] ; then
-  PATH="$HOME/bin:$PATH"
-fi
+for dir in $PATHDIRS; do
+  if [ -d $dir ]; then
+    path+=$dir
+  fi
+done
+
+PATH=$HOME/bin:$PATH
 
 case "`uname -s`" in
   "Darwin")
