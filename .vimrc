@@ -2,6 +2,7 @@ syntax on
 set number
 set nowrap " forces style
 set autoindent
+set smartindent
 set autochdir
 set backspace=2
 set copyindent
@@ -19,7 +20,7 @@ set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set title " modifies window to have filename as its title
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
-set clipboard=unnamedplus
+set clipboard=unnamed
 set cursorline
 set wildmode=longest,list
 set wildmenu
@@ -27,9 +28,6 @@ set hidden
 set noswapfile
 set history=10000 " remember more commands and search history
 let mapleader=","
-
-set t_Co=256
-set background=dark
 
 iabbrev teh the
 iabbrev dont' don't
@@ -273,7 +271,11 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
-color smyck
+set background=dark
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
 
 " flag lines that have trailing whitespace, has to come after colorscheme
 highlight TrailingWhiteSpace ctermbg=red guibg=red
