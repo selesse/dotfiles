@@ -75,6 +75,9 @@ case "`uname -s`" in
     # I don't care about my hostname when I'm on my local mac
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
     export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    export LEJOS_NXT_JAVA_HOME="$JAVADIR"
+    export NXJ_HOME="$HOME/Downloads/lejos_nxj"
+    export PATH="$PATH:$NXJ_HOME/bin"
   ;;
   "FreeBSD")
     alias ls="ls -G"
@@ -116,6 +119,7 @@ alias db="cd ~/Dropbox/McGill/Database"
 alias dp="cd ~/git/design-project/rdcms"
 alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 
+alias hisgrep="history | grep"
 alias vi="vim"
 alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
 alias duh="du -chs"

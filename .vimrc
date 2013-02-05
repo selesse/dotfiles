@@ -35,6 +35,10 @@ iabbrev dont' don't
 iabbrev its' it's
 iabbrev haev have
 iabbrev cccc Cool. Cool cool cool.
+iabbrev arche archeology
+iabbrev archi archeologist
+iabbrev archl archaeological
+iabbrev Meso Mesopotamia
 
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
@@ -205,6 +209,12 @@ augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <leader>r :!python % <CR>
 augroup END
+
+augroup filetype_lpc
+  autocmd!
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+augroup END
+
 
 augroup filetype_sh
   autocmd!
