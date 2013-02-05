@@ -61,7 +61,7 @@ endfunction
 
 function! FindParentGit(gitIgnore)
   let x = system('find_parent_git')
-  let x = substitute(x, '\n$', '', '')
+  let x = substitute(x, '\n$', '', '') " removes the newline
 
   " if we find no parent git, return .git
   " this is a little silly, but it means Command-T will react properly
