@@ -18,6 +18,7 @@ set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
 set title " modifies window to have filename as its title
+set scrolloff=5 " keep the last 5 lines as you're scrolling down
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
