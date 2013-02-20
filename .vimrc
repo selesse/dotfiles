@@ -31,6 +31,7 @@ set history=10000 " remember more commands and search history
 let mapleader=","
 
 iabbrev teh the
+iabbrev oyu you
 iabbrev dont' don't
 iabbrev its' it's
 iabbrev haev have
@@ -291,3 +292,8 @@ colorscheme solarized
 " flag lines that have trailing whitespace, has to come after colorscheme
 highlight TrailingWhiteSpace ctermbg=red guibg=red
 match TrailingWhiteSpace /\v +\n/
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
