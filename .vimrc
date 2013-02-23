@@ -13,7 +13,7 @@ set expandtab
 set smarttab " makes you go back 2 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
-set pastetoggle=<leader>PT
+set pastetoggle=<f8>
 set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding+autochdir)
@@ -23,7 +23,7 @@ set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
 set cursorline
-set wildmode=longest,list
+set wildmode=longest,full
 set wildmenu
 set hidden
 set noswapfile
@@ -138,7 +138,7 @@ map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
 map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
 
 " use this to paste code or anything else formatted
-inoremap <leader>p <leader>PT<cr> p<cr> <leader>PT<cr>
+inoremap <leader>p <f8><cr> p<cr> <f8><cr>
 " copy file's current directory for mac
 map <leader>c :Silent echo -n %% \| pbcopy<cr>
 
