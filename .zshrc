@@ -45,7 +45,7 @@ PATHDIRS=(
   /usr/X11/bin
   /usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin
   $HOME/git/cs520/public_html/joos/bin
-  /opt/local/bin/
+  /opt/local/bin
   $HOME/android-sdk
   $HOME/android-sdk/tools
   $HOME/android-sdk/platform-tools
@@ -100,30 +100,22 @@ esac
 ################################################################################
 # COMMON ALIASES
 ################################################################################
-# aliases for ssh
-alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
-alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
-alias selerver="ssh alex@selesse.com"
 alias swmud="rlwrap telnet swmud.org 6666"
-alias mq="ssh merqumab@sunnysuba.com -p 2222"
-alias fpg="find_parent_git"
 
-# dropbox aliases
 alias config="cd ~/git/config"
 alias public="cd ~/Dropbox/Public"
 alias school="cd ~/Dropbox/McGill"
-alias os="cd ~/Dropbox/McGill/OS"
-alias ai="cd ~/Dropbox/McGill/AI"
-alias 360="cd ~/Dropbox/McGill/COMP360"
-alias db="cd ~/Dropbox/McGill/Database"
-alias dp="cd ~/git/design-project/rdcms"
-alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 
 alias hisgrep="history | grep"
 alias vi="vim"
-alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
 alias duh="du -chs"
 alias diff="colordiff -u"
+alias fpg="find_parent_git"
+
+if [ -f "$HOME/.local_aliases" ] ; then
+  source $HOME/.local_aliases
+fi
+
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 

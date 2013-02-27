@@ -4,7 +4,7 @@ set nowrap " forces style
 set autoindent
 set smartindent
 set autochdir
-set backspace=2
+set backspace=indent,eol,start
 set copyindent
 set tabstop=2
 set shiftwidth=2
@@ -28,6 +28,7 @@ set wildmenu
 set hidden
 set noswapfile
 set history=10000 " remember more commands and search history
+set autoread " automatically re-read if file is modified externally
 let mapleader=","
 
 iabbrev teh the
@@ -105,6 +106,9 @@ autocmd FileType *
   \   call SuperTabChain(&omnifunc, "<c-p>") |
   \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
   \ endif
+
+
+
 
 command! -nargs=1 Silent
       \ | execute ':silent !'.<q-args>
@@ -211,11 +215,20 @@ augroup filetype_python
   autocmd FileType python nnoremap <leader>r :!python % <CR>
 augroup END
 
+augroup filetype_markdown
+  autocmd!
+  autocmd FileType markdown setlocal textwidth=78
+augroup END
+
 augroup filetype_lpc
   autocmd!
   autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
 augroup END
 
+augroup filetype_js
+  autocmd!
+  autocmd FileType javascript nnoremap <leader>j :call JsBeautify()<CR>
+augroup END
 
 augroup filetype_sh
   autocmd!

@@ -51,3 +51,9 @@
 	path = .vim/bundle/syntastic
 	url = git://github.com/scrooloose/syntastic.git
   ignore = dirty
+[submodule ".vim/bundle/jsbeautify"]
+	path = .vim/bundle/jsbeautify
+	url = git://github.com/maksimr/vim-jsbeautify.git
+[submodule ".vim/bundle/vim-coffee-script"]
+	path = .vim/bundle/vim-coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
