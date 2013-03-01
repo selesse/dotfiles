@@ -101,15 +101,6 @@ else
   filetype on
 endif
 
-autocmd FileType *
-  \ if &omnifunc != '' |
-  \   call SuperTabChain(&omnifunc, "<c-p>") |
-  \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
-  \ endif
-
-
-
-
 command! -nargs=1 Silent
       \ | execute ':silent !'.<q-args>
       \ | execute ':redraw!'

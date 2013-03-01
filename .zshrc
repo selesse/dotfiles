@@ -61,12 +61,15 @@ done
 
 PATH=$HOME/bin:$PATH
 
+export VISUAL=vim
+export EDITOR=vim
+
 case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
-    alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
-    alias vim="mvim"
+    alias vim="mvim -v"
+    export EDITOR="mvim -v"
 
     PATH=$PATH:/opt/local/bin/
     PATH="$HOME/Library/Haskell/bin:$PATH"
@@ -156,6 +159,3 @@ export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
 export PATH=$PATH:$HOME/git/cs520/git/group-d/joos/peephole
 export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
-
-export VISUAL=vim
-export EDITOR=vim
