@@ -250,7 +250,6 @@ augroup END
 augroup filetype_java
   autocmd!
   autocmd Filetype java setlocal cindent
-  autocmd Filetype java setlocal omnifunc=javacomplete#Complete
   autocmd Filetype java nnoremap <F5> :make<CR>
 augroup END
 
@@ -287,11 +286,11 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
-set background=dark
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colorscheme solarized
+set background=dark
 
 " flag lines that have trailing whitespace, has to come after colorscheme
 highlight TrailingWhiteSpace ctermbg=red guibg=red
@@ -301,3 +300,11 @@ match TrailingWhiteSpace /\v +\n/
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+
+let g:ycm_filetypes_to_completely_ignore = {
+      \ 'java' : 1,
+      \ }
+
+let g:syntastic_mode_map = { 'mode': 'active',
+      \ 'passive_filetypes': ['java'] }

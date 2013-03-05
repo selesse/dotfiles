@@ -51,6 +51,7 @@ PATHDIRS=(
   $HOME/android-sdk/platform-tools
   $HOME/Dropbox/sablecc-3.6/bin
   $HOME/git/cs520/git/group-d/wig/src
+  $HOME/.rvm/bin
 )
 
 for dir in $PATHDIRS; do
