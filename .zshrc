@@ -70,6 +70,8 @@ case "`uname -s`" in
     alias ls="ls -G"
     alias l="ls -GF"
     alias vim="mvim -v"
+
+    export VISUAL="mvim -v"
     export EDITOR="mvim -v"
 
     PATH=$PATH:/opt/local/bin/
@@ -111,6 +113,7 @@ alias public="cd ~/Dropbox/Public"
 alias school="cd ~/Dropbox/McGill"
 
 alias hisgrep="history | grep"
+alias fname="find . -name"
 alias vi="vim"
 alias duh="du -chs"
 alias diff="colordiff -u"
@@ -149,6 +152,12 @@ function extract () {
   else
     echo "'$1' is not a valid file - go home"
   fi
+}
+
+function psgrep() {
+  ps aux |
+  grep -v grep | #exclude this grep from the results
+  grep "$@" -i --color=auto;
 }
 
 ls

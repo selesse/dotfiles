@@ -18,7 +18,7 @@ battery() {
     elif [ "${percentage%?}" -gt 60 ] ; then
       percentage="%{$fg[yellow]%}$percentage%%{$reset_color%}"
     elif [ "${percentage%?}" -gt 40 ] ; then
-      percentage="%{$fg[grey]%}$percentage%%{$reset_color%}"
+      percentage="%{$fg[magenta]%}$percentage%%{$reset_color%}"
     elif [ "${percentage%?}" -gt 20 ] ; then
       percentage="%{$fg[red]%}$percentage%%{$reset_color%}"
     else

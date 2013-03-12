@@ -31,6 +31,12 @@ set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
 let mapleader=","
 
+" save when losing focus
+au FocusLost * :silent! wall
+
+" auto-resize splits when window is resized
+au VimResized * :wincmd =
+
 iabbrev teh the
 iabbrev oyu you
 iabbrev dont' don't
@@ -41,6 +47,11 @@ iabbrev arche archeology
 iabbrev archi archeologist
 iabbrev archl archaeological
 iabbrev Meso Mesopotamia
+
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
 
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
@@ -204,6 +215,9 @@ augroup END
 augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <leader>r :!python % <CR>
+  autocmd FileType python set tabstop=4
+  autocmd FileType python set shiftwidth=4
+  autocmd FileType python set softtabstop=4
 augroup END
 
 augroup filetype_markdown
@@ -301,10 +315,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-
 let g:ycm_filetypes_to_completely_ignore = {
       \ 'java' : 1,
       \ }
 
-let g:syntastic_mode_map = { 'mode': 'active',
-      \ 'passive_filetypes': ['java'] }
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java'] }

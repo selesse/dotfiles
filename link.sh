@@ -9,6 +9,7 @@ files=(
   .vimrc
   .gitconfig
   .githelpers
+  .gitignore_global
   .my.cnf
   .ssh/config
   .tmux.conf
