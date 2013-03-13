@@ -169,3 +169,5 @@ export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
 export PATH=$PATH:$HOME/git/cs520/git/group-d/joos/peephole
 export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
+
+CDPATH="$CDPATH:$HOME/Dropbox/McGill"
