@@ -29,7 +29,9 @@ set hidden
 set noswapfile
 set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
+set spell " let's be brave and turn on spell checking
 let mapleader=","
+set mouse=a
 
 " save when losing focus
 au FocusLost * :silent! wall
@@ -47,11 +49,15 @@ iabbrev arche archeology
 iabbrev archi archeologist
 iabbrev archl archaeological
 iabbrev Meso Mesopotamia
+iabbrev Teo Teotihuacan
 
 noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
+nnoremap Q gqip
+
+nnoremap <leader>n :wincmd v<cr>:wincmd l<cr>
 
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
@@ -122,8 +128,11 @@ cnoremap %G <C-R>=FindParentGit("")<cr>
 map <leader>e :edit %%
 map <leader>v :edit %%
 nnoremap ; :
-nnoremap <leader>= :call Underline("=")<CR>
-nnoremap <leader>- :call Underline("-")<CR>
+nnoremap <leader>1 :call Underline("=")<CR>
+nnoremap <leader>2 :call Underline("-")<CR>
+nnoremap <leader>3 I### <esc>
+nnoremap <leader>4 I#### <esc>
+nnoremap <leader>5 I##### <esc>
 nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
 " f5 reserved for previewing file
 nnoremap <F6> :call UpdateTags()
@@ -264,8 +273,17 @@ augroup END
 augroup filetype_java
   autocmd!
   autocmd Filetype java setlocal cindent
-  autocmd Filetype java nnoremap <F5> :make<CR>
+  autocmd BufNewFile *.java call Create_Java_Template()
 augroup END
+
+function! Create_Java_Template()
+  let classname = expand("%:r")
+  execute "normal ipublic class " . classname . " {"
+  execute "normal opublic static void main(String[] args) {"
+  execute "normal o}"
+  execute "normal o}"
+  execute "normal kk^"
+endfunction
 
 augroup filetype_c_cpp
   autocmd!
@@ -288,7 +306,6 @@ augroup END
 " }}}
 
 call pathogen#infect()
-call pathogen#helptags()
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
