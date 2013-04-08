@@ -32,6 +32,7 @@ ZSH_THEME="aseles"
 plugins=(git ssh-agent)
 
 setopt extendedglob
+unsetopt nomatch
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,7 +75,6 @@ case "`uname -s`" in
     export VISUAL="mvim -v"
     export EDITOR="mvim -v"
 
-    PATH=$PATH:/opt/local/bin/
     PATH="$HOME/Library/Haskell/bin:$PATH"
     PATH=$PATH:/usr/local/texlive/2012/bin/x86_64-darwin
 
