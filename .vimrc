@@ -189,7 +189,7 @@ nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
 nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
 nnoremap / /\v
-nnoremap Y 0y$
+nnoremap Y y$
 
 nnoremap <Right> <C-w>l
 nnoremap <C-l> <C-w>l
@@ -274,6 +274,7 @@ augroup filetype_java
   autocmd!
   autocmd Filetype java setlocal cindent
   autocmd BufNewFile *.java call Create_Java_Template()
+  autocmd Filetype java nnoremap <leader>r :call Compile_And_Run_Java()<CR>
 augroup END
 
 function! Create_Java_Template()
@@ -283,6 +284,16 @@ function! Create_Java_Template()
   execute "normal o}"
   execute "normal o}"
   execute "normal kk^"
+endfunction
+
+" compile and run Java - assumes that the current file has "main"
+function! Compile_And_Run_Java()
+  if match(readfile(expand("%")), "public static void main") != -1
+    let output = system("cd \"" . expand("%:p:h") . "\" && javac \"" . expand("%") . "\" && java " . expand("%:r"))
+    echo output
+  else
+    echom "Main method not found"
+  endif
 endfunction
 
 augroup filetype_c_cpp
