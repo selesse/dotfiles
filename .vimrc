@@ -31,7 +31,7 @@ set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
 set spell " let's be brave and turn on spell checking
 let mapleader=","
-set mouse=a
+set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 
 " save when losing focus
 au FocusLost * :silent! wall
@@ -56,6 +56,7 @@ noremap k gk
 noremap gj j
 noremap gk k
 nnoremap Q gqip
+nnoremap S 1z=
 
 nnoremap <leader>n :wincmd v<cr>:wincmd l<cr>
 
