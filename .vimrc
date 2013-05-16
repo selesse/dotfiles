@@ -238,6 +238,7 @@ augroup END
 augroup filetype_lpc
   autocmd!
   autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=79
 augroup END
 
 augroup filetype_js
