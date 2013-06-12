@@ -82,7 +82,7 @@ export GREP_OPTIONS="--color"
 ################################################################################
 # PATH, ENVIRONMENT VARIABLES
 ################################################################################
-export ANDROID_HOME="$HOME/android-sdk"
+export ANDROID_HOME="$HOME/android-sdks"
 export JAVADIR=/usr/lib/jvm/java-1.7.0-openjdk-i386/jre
 export JOOSDIR=$HOME/git/cs520/public_html/joos
 export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
