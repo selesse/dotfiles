@@ -192,6 +192,10 @@ nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
 nnoremap / /\v
 nnoremap Y y$
 
+" swap the word the cursor is on with the next (newlines are okay, punctuation
+" is skipped)
+nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
+
 nnoremap <Right> <C-w>l
 nnoremap <C-l> <C-w>l
 nnoremap <Left> <C-w>h
