@@ -3,7 +3,6 @@ set number
 set nowrap " forces style
 set autoindent
 set smartindent
-set autochdir
 set backspace=indent,eol,start
 set copyindent
 set tabstop=2
@@ -16,7 +15,8 @@ set incsearch " incrementally highlight your searches
 set pastetoggle=<f8>
 set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
-set encoding=utf-8 " order matters for Windows (encoding+autochdir)
+set encoding=utf-8 " order matters for Windows (encoding should be before autochdir)
+set autochdir " (should be below encoding)
 set title " modifies window to have filename as its title
 set scrolloff=5 " keep the last 5 lines as you're scrolling down
 set shell=/bin/zsh
