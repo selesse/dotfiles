@@ -47,12 +47,13 @@ PATHDIRS=(
   /usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin
   $HOME/git/cs520/public_html/joos/bin
   /opt/local/bin
-  $HOME/android-sdk
-  $HOME/android-sdk/tools
-  $HOME/android-sdk/platform-tools
+  $HOME/android-sdks
+  $HOME/android-sdks/tools
+  $HOME/android-sdks/platform-tools
   $HOME/Dropbox/sablecc-3.6/bin
   $HOME/git/cs520/git/group-d/wig/src
   $HOME/.rvm/bin
+  $HOME/git/gradle-1.6/bin
 )
 
 for dir in $PATHDIRS; do

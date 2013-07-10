@@ -31,7 +31,7 @@ set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
 set spell " let's be brave and turn on spell checking
 let mapleader=","
-set mouse=a
+set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 
 " save when losing focus
 au FocusLost * :silent! wall
@@ -56,6 +56,7 @@ noremap k gk
 noremap gj j
 noremap gk k
 nnoremap Q gqip
+nnoremap S 1z=
 
 nnoremap <leader>n :wincmd v<cr>:wincmd l<cr>
 
@@ -191,6 +192,10 @@ nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
 nnoremap / /\v
 nnoremap Y y$
 
+" swap the word the cursor is on with the next (newlines are okay, punctuation
+" is skipped)
+nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
+
 nnoremap <Right> <C-w>l
 nnoremap <C-l> <C-w>l
 nnoremap <Left> <C-w>h
@@ -237,6 +242,7 @@ augroup END
 augroup filetype_lpc
   autocmd!
   autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=79
 augroup END
 
 augroup filetype_js

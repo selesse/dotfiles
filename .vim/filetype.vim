@@ -4,3 +4,4 @@ endif
 
 augroup filetypedetect
     au! BufRead,BufNewFile *.wig    setfiletype wig
+    au! BufRead,BufNewFile *.gradle setfiletype groovy
