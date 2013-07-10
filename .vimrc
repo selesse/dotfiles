@@ -32,6 +32,8 @@ set autoread " automatically re-read if file is modified externally
 set spell " let's be brave and turn on spell checking
 let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
+set nocompatible
+filetype off
 
 " save when losing focus
 au FocusLost * :silent! wall
@@ -140,18 +142,7 @@ nnoremap <F6> :call UpdateTags()
 nnoremap <F7> :NumbersToggle<CR>
 nnoremap ,, <C-^>
 
-" ===================
-" Command-T mappings:
-" ===================
-" <leader>f => all files in pwd + subdirectories
-" <leader>F => all files in $HOME = subdirectories
-" <leader>g => all files in current git repo EXCEPT gitignored
-" <leader>G => all files in current git repo
-
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
-map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
-map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
+map <leader>f :Unite file_rec<cr>i
 
 " use this to paste code or anything else formatted
 inoremap <leader>p <f8><cr> p<cr> <f8><cr>
@@ -322,7 +313,25 @@ augroup filetype_vim
 augroup END
 " }}}
 
-call pathogen#infect()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/syntastic'
+Bundle 'Shougo/unite.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'Valloric/YouCompleteMe'
+
+autocmd FileType unite call s:unite_my_settings()
+
+function! s:unite_my_settings()
+  nmap <buffer> <C-c>      i_<Plug>(unite_exit)
+endfunction
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
