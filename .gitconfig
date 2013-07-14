@@ -18,6 +18,7 @@
   h = !git head
   hp =  "!. ~/.githelpers && show_git_head"
   ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
 [core]
   editor = $EDITOR
   excludesfile = ~/.gitignore_global
