@@ -318,9 +318,10 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'altercation/vim-colors-solarized'
+Bundle 'maksimr/vim-jsbeautify'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/unite.vim'
+Bundle 'slindberg/vim-colors-smyck'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
@@ -343,10 +344,7 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
-let g:solarized_termcolors = 256
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-colorscheme solarized
+colorscheme smyck
 set background=dark
 
 " flag lines that have trailing whitespace, has to come after colorscheme
