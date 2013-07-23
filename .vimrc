@@ -29,7 +29,6 @@ set hidden
 set noswapfile
 set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
-set spell " let's be brave and turn on spell checking
 let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 set nocompatible
@@ -327,6 +326,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'vim-scripts/sudo.vim'
 
 autocmd FileType unite call s:unite_my_settings()
 
