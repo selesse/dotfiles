@@ -6,7 +6,7 @@ ZSH_THEME="aseles"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git ssh-agent tmux)
+plugins=(git ssh-agent tmux vundle)
 
 setopt extendedglob
 unsetopt nomatch
@@ -43,10 +43,7 @@ case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
-    alias vim="mvim -v"
 
-    export VISUAL="mvim -v"
-    export EDITOR="mvim -v"
     export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 
     # I don't care about my hostname when I'm on my mac
