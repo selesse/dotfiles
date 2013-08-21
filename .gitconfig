@@ -26,3 +26,5 @@
   ui = true
 [merge]
   tool = kdiff3
+[help]
+  autocorrect = 1
