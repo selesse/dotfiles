@@ -18,10 +18,6 @@ case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
-    alias mvim="$HOME/Downloads/MacVim-snapshot-65/mvim -v"
-    alias vim="mvim"
-
-    PATH=$PATH:/opt/local/bin/
 
     # I don't care about my hostname when I'm on my local mac
     PS1="[\[\e[1;32m\]\w\[\e[m\]] \$ "

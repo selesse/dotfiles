@@ -320,13 +320,19 @@ Bundle 'gmarik/vundle'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/unite.vim'
-Bundle 'slindberg/vim-colors-smyck'
+Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
+
+" Colorschemes
+Bundle 'joedicastro/vim-molokai256'
+Bundle 'sjl/badwolf'
+Bundle 'slindberg/vim-colors-smyck'
 
 autocmd FileType unite call s:unite_my_settings()
 
@@ -344,8 +350,7 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
-colorscheme smyck
-set background=dark
+colorscheme molokai256
 
 " flag lines that have trailing whitespace, has to come after colorscheme
 highlight TrailingWhiteSpace ctermbg=red guibg=red
