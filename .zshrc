@@ -25,12 +25,13 @@ PATHDIRS=(
   $HOME/android-sdks/tools
   $HOME/android-sdks/platform-tools
   $HOME/.rvm/bin
-  $HOME/git/gradle-1.6/bin
+  $HOME/git/gradle-1.7/bin
+  $HOME/git/depot_tools
 )
 
 for dir in $PATHDIRS; do
   if [ -d "$dir" ]; then
-    PATH+=$dir
+    PATH+=$dir:
   fi
 done
 
