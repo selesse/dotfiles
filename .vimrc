@@ -350,6 +350,7 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
+set t_Co=256
 colorscheme molokai256
 
 " flag lines that have trailing whitespace, has to come after colorscheme
