@@ -1,4 +1,6 @@
+" *** sets, augroups ***
 syntax on
+set relativenumber
 set number
 set nowrap " forces style
 set autoindent
@@ -22,7 +24,7 @@ set scrolloff=3 " keep the last 3 lines as you're scrolling down
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
-set cursorline
+set nocursorline
 set wildmode=longest,full
 set wildmenu
 set hidden
@@ -35,10 +37,17 @@ set nocompatible
 filetype off
 
 " save when losing focus
-au FocusLost * :silent! wall
-
+autocmd FocusLost * :silent! wall
 " auto-resize splits when window is resized
-au VimResized * :wincmd =
+autocmd VimResized * :wincmd =
+
+augroup resCur
+  " restore files to last cursor position
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
 
 iabbrev teh the
 iabbrev oyu you
@@ -52,15 +61,60 @@ iabbrev archl archaeological
 iabbrev Meso Mesopotamia
 iabbrev Teo Teotihuacan
 
+" *** normal mode remappings ***
 noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
 nnoremap Q gqip
 nnoremap S 1z=
-
 nnoremap <leader>n :wincmd v<cr>:wincmd l<cr>
+nnoremap ; :
+nnoremap <leader>1 :call Underline("=")<CR>
+nnoremap <leader>2 :call Underline("-")<CR>
+nnoremap <leader>3 I### <esc>
+nnoremap <leader>4 I#### <esc>
+nnoremap <leader>5 I##### <esc>
+nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
+nnoremap <F6> :call UpdateTags()
+nnoremap <F7> :NumbersToggle<CR>
+nnoremap ,, <C-^>
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>w :set hlsearch!<CR>
+nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
+nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
+nnoremap / /\v
+nnoremap Y y$
+" swap the word the cursor is on with the next (newlines are okay, punctuation
+" is skipped)
+nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
+nnoremap <Right> <C-w>l
+nnoremap <C-l> <C-w>l
+nnoremap <Left> <C-w>h
+nnoremap <C-h> <C-w>h
+nnoremap <Up> <C-w>k
+nnoremap <C-k> <C-w>k
+nnoremap <Down> <C-w>j
+nnoremap <C-j> <C-w>j
+nnoremap <leader>f :Unite file_rec<cr>i
+nnoremap <leader>c :Silent echo -n %% \| pbcopy<cr>
 
+" *** command mappings ***
+cnoremap %% <C-R>=getcwd().'/'<cr>
+cnoremap %g <C-R>=FindParentGit("true")<cr>
+cnoremap %G <C-R>=FindParentGit("")<cr>
+
+" *** insert mode mappings ***
+inoremap jk <esc>
+inoremap <c-c> <esc>
+inoremap <esc> <nop>
+" use this to paste code or anything else formatted
+inoremap <leader>p <f8><cr> p<cr> <f8><cr>
+
+" *** conditional options ***
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
   set colorcolumn=+2 " colorcolumn will appear at +2 whatever textwidth is
@@ -70,6 +124,13 @@ else
   match OverLength /\%>80v.\+/
 endif
 
+if v:version >= 600
+  filetype plugin indent on
+else
+  filetype on
+endif
+
+" *** functions ***
 " function to underline text with a delimiter
 function! Underline(delimiter)
   let x = line('.')
@@ -114,39 +175,9 @@ function! FindParentGit(gitIgnore)
   return x
 endfunction
 
-if v:version >= 600
-  filetype plugin indent on
-else
-  filetype on
-endif
-
 command! -nargs=1 Silent
       \ | execute ':silent !'.<q-args>
       \ | execute ':redraw!'
-
-cnoremap %% <C-R>=getcwd().'/'<cr>
-cnoremap %g <C-R>=FindParentGit("true")<cr>
-cnoremap %G <C-R>=FindParentGit("")<cr>
-map <leader>e :edit %%
-map <leader>v :edit %%
-nnoremap ; :
-nnoremap <leader>1 :call Underline("=")<CR>
-nnoremap <leader>2 :call Underline("-")<CR>
-nnoremap <leader>3 I### <esc>
-nnoremap <leader>4 I#### <esc>
-nnoremap <leader>5 I##### <esc>
-nnoremap <F4> <Esc>:1,$!xmllint --format %<CR>
-" f5 reserved for previewing file
-nnoremap <F6> :call UpdateTags()
-nnoremap <F7> :NumbersToggle<CR>
-nnoremap ,, <C-^>
-
-map <leader>f :Unite file_rec<cr>i
-
-" use this to paste code or anything else formatted
-inoremap <leader>p <f8><cr> p<cr> <f8><cr>
-" copy file's current directory for mac
-map <leader>c :Silent echo -n %% \| pbcopy<cr>
 
 " OS specific mappings {{{
 " also useful - has('gui_running')
@@ -170,44 +201,6 @@ else
   endif
 endif
 " }}}
-
-" mappings
-nnoremap <leader>ev :vsplit $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-nnoremap <leader>w :set hlsearch!<CR>
-nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
-nnoremap / /\v
-nnoremap Y y$
-
-" swap the word the cursor is on with the next (newlines are okay, punctuation
-" is skipped)
-nnoremap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
-
-nnoremap <Right> <C-w>l
-nnoremap <C-l> <C-w>l
-nnoremap <Left> <C-w>h
-nnoremap <C-h> <C-w>h
-nnoremap <Up> <C-w>k
-nnoremap <C-k> <C-w>k
-nnoremap <Down> <C-w>j
-nnoremap <C-j> <C-w>j
-
-inoremap jk <esc>
-inoremap <c-c> <esc>
-inoremap <esc> <nop>
-
-vnoremap r "_dP
-
-augroup resCur
-  " restore files to last cursor position
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-augroup END
 
 " Language-specific mapping for comments {{{
 augroup commenter
@@ -275,12 +268,6 @@ augroup filetype_java
   autocmd Filetype java nnoremap <leader>r :call Compile_And_Run_Java()<CR>
 augroup END
 
-function! Background_FTP_SWmud()
-  silent Shell! $HOME/git/swmud/sendToMud.sh %:p
-  execute 'sleep 1'
-  :bd
-endfunction
-
 function! Create_Java_Template()
   let classname = expand("%:r")
   execute "normal ipublic class " . classname . " {"
@@ -306,11 +293,6 @@ augroup filetype_c_cpp
   autocmd Filetype cpp nnoremap <leader>r :make<cr>
 augroup END
 
-augroup filetype_promela
-  autocmd!
-  autocmd Filetype promela nnoremap <leader>r :!spin %<CR>
-augroup END
-
 " }}}
 
 " Vimscript file settings {{{
@@ -333,16 +315,17 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
-Bundle 'troydm/shellasync.vim'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
 
 " Colorschemes
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'joedicastro/vim-molokai256'
 Bundle 'sjl/badwolf'
 Bundle 'slindberg/vim-colors-smyck'
 
+" Unite settings
 autocmd FileType unite call s:unite_my_settings()
 
 function! s:unite_my_settings()

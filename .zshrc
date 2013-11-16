@@ -22,10 +22,11 @@ PATHDIRS=(
   /usr/local/sbin
   /usr/X11/bin
   /usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin
+  $HOME/bin
   $HOME/android-sdks/tools
   $HOME/android-sdks/platform-tools
   $HOME/.rvm/bin
-  $HOME/git/gradle-1.7/bin
+  $HOME/git/gradle-1.8/bin
   $HOME/git/depot_tools
 )
 
@@ -35,8 +36,6 @@ for dir in $PATHDIRS; do
   fi
 done
 
-PATH=$HOME/bin:$PATH
-
 export VISUAL=vim
 export EDITOR=vim
 
@@ -45,7 +44,10 @@ case "`uname -s`" in
     alias ls="ls -G"
     alias l="ls -GF"
 
-    export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+    # use jdk 7 by default
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+    PATH="/usr/local/bin:$PATH" # for homebrew
 
     # I don't care about my hostname when I'm on my mac
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
@@ -82,6 +84,7 @@ alias fname="find . -name"
 alias vi="vim"
 alias duh="du -chs"
 alias diff="colordiff -u"
+alias gradle="gradle --daemon"
 
 if [ -f "$HOME/.local_aliases" ] ; then
   source $HOME/.local_aliases
