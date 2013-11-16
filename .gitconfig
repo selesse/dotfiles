@@ -28,3 +28,5 @@
   tool = kdiff3
 [help]
   autocorrect = 1
+[push]
+	default = simple
