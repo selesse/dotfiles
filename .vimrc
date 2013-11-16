@@ -18,7 +18,7 @@ set laststatus=2 " forces showing status bar
 set encoding=utf-8 " order matters for Windows (encoding should be before autochdir)
 set autochdir " (should be below encoding)
 set title " modifies window to have filename as its title
-set scrolloff=5 " keep the last 5 lines as you're scrolling down
+set scrolloff=3 " keep the last 3 lines as you're scrolling down
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
 set clipboard=unnamed
@@ -63,7 +63,7 @@ nnoremap <leader>n :wincmd v<cr>:wincmd l<cr>
 
 " in Vim 7.3, built-in; otherwise fall back to other function
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=+2 " colorcolumn will appear at +2 whatever textwidth is
   autocmd FileType html setlocal colorcolumn=
 else
   highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
@@ -159,12 +159,12 @@ else
     if s:uname == "Darwin\n"
       " mac stuff
       autocmd FileType html nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
-      let &titleold=getcwd()
     else
       " linux stuff
       autocmd FileType html nmap <silent> <F5> :!gnome-open %<CR>
     endif
     " mac + linux stuff
+    let &titleold=getcwd()
   else
     echo "No idea what OS you're running"
   endif
@@ -199,6 +199,8 @@ inoremap jk <esc>
 inoremap <c-c> <esc>
 inoremap <esc> <nop>
 
+vnoremap r "_dP
+
 augroup resCur
   " restore files to last cursor position
   autocmd BufReadPost *
@@ -232,7 +234,7 @@ augroup END
 augroup filetype_lpc
   autocmd!
   autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=79
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
 augroup END
 
 augroup filetype_js
@@ -272,6 +274,12 @@ augroup filetype_java
   autocmd BufNewFile *.java call Create_Java_Template()
   autocmd Filetype java nnoremap <leader>r :call Compile_And_Run_Java()<CR>
 augroup END
+
+function! Background_FTP_SWmud()
+  silent Shell! $HOME/git/swmud/sendToMud.sh %:p
+  execute 'sleep 1'
+  :bd
+endfunction
 
 function! Create_Java_Template()
   let classname = expand("%:r")
@@ -325,6 +333,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'troydm/shellasync.vim'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
@@ -350,7 +359,9 @@ set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 " }}}
 
-set t_Co=256
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
 colorscheme molokai256
 
 " flag lines that have trailing whitespace, has to come after colorscheme
