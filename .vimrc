@@ -308,6 +308,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'maksimr/vim-jsbeautify'
+" OverCommandLine to preview search & replace
+Bundle 'osyo-manga/vim-over'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
