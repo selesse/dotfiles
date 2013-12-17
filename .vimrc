@@ -99,8 +99,20 @@ nnoremap <Up> <C-w>k
 nnoremap <C-k> <C-w>k
 nnoremap <Down> <C-w>j
 nnoremap <C-j> <C-w>j
-nnoremap <leader>f :Unite file_rec<cr>i
 nnoremap <leader>c :Silent echo -n %% \| pbcopy<cr>
+
+" ===================
+" Command-T mappings:
+" ===================
+" <leader>f => all files in pwd + subdirectories
+" <leader>F => all files in $HOME = subdirectories
+" <leader>g => all files in current git repo EXCEPT gitignored
+" <leader>G => all files in current git repo
+
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
+map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
+map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
 
 " *** command mappings ***
 cnoremap %% <C-R>=getcwd().'/'<cr>
@@ -214,9 +226,9 @@ augroup END
 augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <leader>r :!python % <CR>
-  autocmd FileType python set tabstop=4
-  autocmd FileType python set shiftwidth=4
-  autocmd FileType python set softtabstop=4
+  autocmd FileType python set tabstop=2
+  autocmd FileType python set shiftwidth=2
+  autocmd FileType python set softtabstop=2
 augroup END
 
 augroup filetype_markdown
@@ -320,6 +332,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
+Bundle 'wincent/Command-T'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
