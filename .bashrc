@@ -51,22 +51,13 @@ esac
 # COMMON ALIASES
 ################################################################################
 # aliases for ssh
-alias ubuntu="ssh aseles1@ubuntu.cs.mcgill.ca"
-alias mimi="ssh aseles1@mimi.cs.mcgill.ca"
-alias selerver="ssh alex@selesse.com"
-alias swmud="rlwrap telnet swmud.org 6666"
-alias mq="ssh merqumab@sunnysuba.com -p 2222"
+if [ -f "$HOME/.local_aliases" ] ; then
+  source "$HOME/.local_aliases"
+fi
 
 # dropbox aliases
 alias config="cd ~/git/config"
 alias public="cd ~/Dropbox/Public"
-alias school="cd ~/Dropbox/McGill"
-alias os="cd ~/Dropbox/McGill/OS"
-alias ai="cd ~/Dropbox/McGill/AI"
-alias 360="cd ~/Dropbox/McGill/COMP360"
-alias db="cd ~/Dropbox/McGill/Database"
-alias dp="cd ~/Dropbox/McGill/DP"
-alias tiny='cd ~/git/cs520/git/group-d/tiny/sablecc-3'
 
 alias vi="vim"
 alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
