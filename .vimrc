@@ -49,17 +49,17 @@ augroup resCur
     \ endif
 augroup END
 
+" *** abbreviations ***
 iabbrev teh the
 iabbrev oyu you
 iabbrev dont' don't
 iabbrev its' it's
 iabbrev haev have
-iabbrev cccc Cool. Cool cool cool.
-iabbrev arche archeology
-iabbrev archi archeologist
-iabbrev archl archaeological
-iabbrev Meso Mesopotamia
-iabbrev Teo Teotihuacan
+
+" *** command mappings ***
+cnoremap %% <C-R>=getcwd().'/'<cr>
+cnoremap %g <C-R>=FindParentGit("true")<cr>
+cnoremap %G <C-R>=FindParentGit("")<cr>
 
 " *** normal mode remappings ***
 noremap j gj
@@ -113,11 +113,6 @@ map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
 map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
 map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
 map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
-
-" *** command mappings ***
-cnoremap %% <C-R>=getcwd().'/'<cr>
-cnoremap %g <C-R>=FindParentGit("true")<cr>
-cnoremap %G <C-R>=FindParentGit("")<cr>
 
 " *** insert mode mappings ***
 inoremap jk <esc>
