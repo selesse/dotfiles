@@ -2,24 +2,25 @@
   name = Alex Selesse
   email = alex@selesse.com
 [alias]
+  aa = add --all
+  adu = add -u
   alias = config --get-regexp 'alias.*'
-  deletes = diff --diff-filter=D --name-only -z
-  st = status -sb # short, branch
-  sta = status
+  ci = commit -v
   co = checkout
-  # log-related
+  deletes = diff --diff-filter=D --name-only -z
+  ds = diff --staged
+  h = !git head
+  head = !git l -1
+  hp =  "!. ~/.githelpers && show_git_head"
+  l = "!. ~/.githelpers && pretty_git_log"
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
   log1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
   log2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
-  l = "!. ~/.githelpers && pretty_git_log"
-  aa = add --all
-  ds = diff --staged
-  ci = commit -v
-  head = !git l -1
-  h = !git head
-  hp =  "!. ~/.githelpers && show_git_head"
-  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-  serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
   release-notes = !git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort
+  serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+  st = status -sb # short, branch
+  sta = status
+  stu = status --untracked=no
 [core]
   editor = $EDITOR
   excludesfile = ~/.gitignore_global
