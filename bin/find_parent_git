@@ -5,11 +5,12 @@
 # "$HOME/git/config", findgit will echo "$HOME/git/config".
 # I use this primarily for the Command-T vim plugin.
 
-function find_parent_git() {
+
+function find_parent_git {
   local directory=$1
 
   cd $directory
-  if [ -d "$directory"  ] && [ "$PWD" != "/" ]; then
+  if [ -d "$directory" ] && [ "$PWD" != "/" ]; then
     if [ -d "$directory/.git" ] ; then
       echo "$PWD"
     else
