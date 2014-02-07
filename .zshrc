@@ -27,7 +27,6 @@ PATHDIRS=(
   $HOME/android-sdks/platform-tools
   $HOME/.rvm/bin
   $HOME/git/gradle-1.8/bin
-  $HOME/git/depot_tools
 )
 
 for dir in $PATHDIRS; do
@@ -80,11 +79,11 @@ alias config="cd ~/git/config"
 alias public="cd ~/Dropbox/Public"
 
 alias hisgrep="history | grep"
-alias fname="find . -name"
+alias fname="find . -type f -name"
 alias vi="vim"
 alias duh="du -chs"
 alias diff="colordiff -u"
-alias gradle="gradle --daemon"
+alias gw="\`find_parent_file gradlew\`"
 
 if [ -f "$HOME/.local_aliases" ] ; then
   source $HOME/.local_aliases
@@ -132,6 +131,36 @@ function psgrep() {
   ps aux |
   grep -v grep | #exclude this grep from the results
   grep "$@" -i --color=auto;
+}
+#
+# Keep going up directories until you find "$file", or we reach root.
+function find_parent_file {
+  local file="$1"
+  local directory="$PWD"
+  local starting_directory="$directory"
+  local target=""
+
+  if [ -z "$file" ] ; then
+    echo "Please specify a file to find"
+  fi
+
+  while [ -d "$directory" ] && [ "$directory" != "/" ]; do
+    if [ `find "$directory" -maxdepth 1 -name "$file"` ] ; then
+      target="$PWD"
+      break
+    else
+      builtin cd .. && directory="$PWD"
+    fi
+  done
+
+  builtin cd $starting_directory
+
+  if [ -z "$target" ] ; then
+    return 1
+  fi
+
+  echo $target/$file
+  return 0
 }
 
 function precmd() {
