@@ -15,6 +15,7 @@ files=(
   .tmux.conf
   .zshrc
   bin/find_parent_git
+  bin/git-churn
 )
 
 function link_files() {
