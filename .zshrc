@@ -75,7 +75,7 @@ esac
 ################################################################################
 alias swmud="rlwrap telnet swmud.org 6666"
 
-alias config="cd ~/git/config"
+alias config="cd ~/git/dotfiles"
 alias public="cd ~/Dropbox/Public"
 
 alias hisgrep="history | grep"
@@ -83,7 +83,6 @@ alias fname="find . -type f -name"
 alias vi="vim"
 alias duh="du -chs"
 alias diff="colordiff -u"
-alias gw="\`find_parent_file gradlew\`"
 
 if [ -f "$HOME/.local_aliases" ] ; then
   source $HOME/.local_aliases
@@ -132,7 +131,7 @@ function psgrep() {
   grep -v grep | #exclude this grep from the results
   grep "$@" -i --color=auto;
 }
-#
+
 # Keep going up directories until you find "$file", or we reach root.
 function find_parent_file {
   local file="$1"
@@ -159,8 +158,13 @@ function find_parent_file {
     return 1
   fi
 
-  echo $target/$file
+  echo $target
   return 0
+}
+
+function gw {
+  builtin cd `find_parent_file gradlew` && ./gradlew $*
+  builtin cd -
 }
 
 function precmd() {
