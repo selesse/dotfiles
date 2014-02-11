@@ -37,18 +37,22 @@ done
 
 export VISUAL=vim
 export EDITOR=vim
+# use Vim key bindings
+bindkey -v
 
 case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
 
-    # use jdk 7 by default
+    # use jdk 7 by default:
+    # http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6#comment21605776_12757565
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
-    PATH="/usr/local/bin:$PATH" # for homebrew
+    # homebrew
+    PATH="/usr/local/bin:$PATH"
 
-    # I don't care about my hostname when I'm on my mac
+    # I don't care about my hostname when I'm on a physical device
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
   ;;
   "FreeBSD")
@@ -163,12 +167,13 @@ function find_parent_file {
 }
 
 function gw {
+  # cd into the directory so you don't generate .gradle folders everywhere
   builtin cd `find_parent_file gradlew` && ./gradlew $*
   builtin cd -
 }
 
 function precmd() {
-  tab_label=${PWD/${HOME}/\~} # use 'relative' path
+  local tab_label=${PWD/${HOME}/\~} # use 'relative' path
   echo -ne "\e]2;${tab_label}\a" # set window title to full string
 }
 
