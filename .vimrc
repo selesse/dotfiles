@@ -3,8 +3,9 @@ syntax on
 set relativenumber
 set number
 set nowrap " forces style
-set autoindent
-set smartindent
+set noautoindent
+set nosmartindent
+set cindent
 set backspace=indent,eol,start
 set copyindent
 set tabstop=2
@@ -85,7 +86,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader>sw :cd $HOME/git/swmud<CR>:!./sendToMud.sh %<CR>
+nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swlib && ./sendToMud.sh wizards/sead/" . @%)<CR>
 nnoremap / /\v
 nnoremap Y y$
 " swap the word the cursor is on with the next (newlines are okay, punctuation
@@ -229,12 +230,13 @@ augroup END
 augroup filetype_markdown
   autocmd!
   autocmd FileType markdown setlocal textwidth=78
+  autocmd FileType markdown set spell
 augroup END
 
 augroup filetype_lpc
   autocmd!
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
+  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set tw=78
 augroup END
 
 augroup filetype_js
@@ -273,6 +275,11 @@ augroup filetype_java
   autocmd Filetype java setlocal cindent
   autocmd BufNewFile *.java call Create_Java_Template()
   autocmd Filetype java nnoremap <leader>r :call Compile_And_Run_Java()<CR>
+augroup END
+
+augroup textfiles
+  autocmd!
+  autocmd BufNewFile,BufRead *.txt set spell
 augroup END
 
 function! Create_Java_Template()
@@ -314,6 +321,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+Bundle 'benmills/vimux'
 Bundle 'maksimr/vim-jsbeautify'
 " OverCommandLine to preview search & replace
 Bundle 'osyo-manga/vim-over'
