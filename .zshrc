@@ -39,6 +39,7 @@ export VISUAL=vim
 export EDITOR=vim
 # use Vim key bindings
 bindkey -v
+bindkey '^R' history-incremental-pattern-search-backward
 
 case "`uname -s`" in
   "Darwin")
