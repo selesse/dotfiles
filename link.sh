@@ -33,9 +33,10 @@ mkdir -p $HOME/bin
 link_files ${files[@]}
 
 if [ ! -d "$HOME/.oh-my-zsh" ] ; then
-  echo "oh-my-zsh isn't installed - not linking theme"
-else
-  CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
-  mkdir -p $CUSTOM_THEME_DIR
-  ln -vs $GIT_DIR/aseles.zsh-theme $CUSTOM_THEME_DIR/aseles.zsh-theme
+  echo "oh-my-zsh isn't installed - cloning from git"
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
+
+CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
+mkdir -p $CUSTOM_THEME_DIR
+ln -vs $GIT_DIR/aseles.zsh-theme $CUSTOM_THEME_DIR/aseles.zsh-theme
