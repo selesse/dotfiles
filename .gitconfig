@@ -21,6 +21,7 @@
   st = status -sb # short, branch
   sta = status
   stu = status --untracked=no
+  unstage = reset HEAD
 [core]
   editor = $EDITOR
   excludesfile = ~/.gitignore_global
