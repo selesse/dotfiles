@@ -24,7 +24,9 @@ set title " modifies window to have filename as its title
 set scrolloff=3 " keep the last 3 lines as you're scrolling down
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard=unnamed
+endif
 set nocursorline
 set wildmode=longest,full
 set wildmenu
