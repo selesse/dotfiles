@@ -1,9 +1,8 @@
-# Path to oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="aseles"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
+# Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(git ssh-agent tmux vundle)
@@ -37,8 +36,10 @@ done
 
 export VISUAL=vim
 export EDITOR=vim
+
 # use Vim key bindings
 bindkey -v
+bindkey jk vi-cmd-mode
 bindkey '^R' history-incremental-pattern-search-backward
 
 case "`uname -s`" in
@@ -62,6 +63,11 @@ case "`uname -s`" in
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
   ;;
   *)
+    # Don't be afraid of a little color in your life
+    if [ ! -z "$COLORTERM" ] && [ "$TERM" == "xterm" ] ; then
+      export TERM="xterm-256color"
+    fi
+
     alias ls="ls --color"
     alias l="ls --color -F"
 
