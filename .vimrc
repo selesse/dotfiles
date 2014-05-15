@@ -8,11 +8,11 @@ set nosmartindent
 set cindent
 set backspace=indent,eol,start
 set copyindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
-set smarttab " makes you go back 2 when you del from tab
+set smarttab " makes you go back 4 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
 set pastetoggle=<f8>
@@ -24,7 +24,9 @@ set title " modifies window to have filename as its title
 set scrolloff=3 " keep the last 3 lines as you're scrolling down
 set shell=/bin/zsh
 set viminfo='10,\"100,:20,%,n~/.viminfo " saves position in files
-set clipboard=unnamed
+if $TMUX == ''
+  set clipboard=unnamed
+endif
 set nocursorline
 set wildmode=longest,full
 set wildmenu
@@ -223,9 +225,9 @@ augroup END
 augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <leader>r :!python % <CR>
-  autocmd FileType python set tabstop=2
-  autocmd FileType python set shiftwidth=2
-  autocmd FileType python set softtabstop=2
+  autocmd FileType python set tabstop=4
+  autocmd FileType python set shiftwidth=4
+  autocmd FileType python set softtabstop=4
 augroup END
 
 augroup filetype_markdown
