@@ -8,11 +8,11 @@ set nosmartindent
 set cindent
 set backspace=indent,eol,start
 set copyindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
-set smarttab " makes you go back 2 when you del from tab
+set smarttab " makes you go back 4 when you del from tab
 set hlsearch " highlight all matches in a file when searching
 set incsearch " incrementally highlight your searches
 set pastetoggle=<f8>
@@ -38,6 +38,17 @@ let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 set nocompatible
 filetype off
+
+let custom_spell_file =
+  \ expand("$HOME/git/dotfiles/.vim/custom-spell/selesse.utf-8.add")
+
+execute "set spellfile=" . custom_spell_file
+
+if !filereadable(custom_spell_file . ".spl")
+  if filereadable(custom_spell_file)
+    silent! execute "mkspell " . custom_spell_file
+  endif
+endif
 
 " save when losing focus
 autocmd FocusLost * :silent! wall
@@ -88,7 +99,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swlib && ./sendToMud.sh wizards/sead/" . @%)<CR>
+nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swmud && ./sendToMud.sh wizards/sead/" . @%)<CR>
 nnoremap / /\v
 nnoremap Y y$
 " swap the word the cursor is on with the next (newlines are okay, punctuation
@@ -224,9 +235,9 @@ augroup END
 augroup filetype_python
   autocmd!
   autocmd FileType python nnoremap <leader>r :!python % <CR>
-  autocmd FileType python set tabstop=2
-  autocmd FileType python set shiftwidth=2
-  autocmd FileType python set softtabstop=2
+  autocmd FileType python set tabstop=4
+  autocmd FileType python set shiftwidth=4
+  autocmd FileType python set softtabstop=4
 augroup END
 
 augroup filetype_markdown
@@ -237,8 +248,8 @@ augroup END
 
 augroup filetype_lpc
   autocmd!
-  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set tw=78
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
 augroup END
 
 augroup filetype_js
@@ -326,14 +337,15 @@ Bundle 'gmarik/vundle'
 Bundle 'benmills/vimux'
 Bundle 'maksimr/vim-jsbeautify'
 " OverCommandLine to preview search & replace
+Bundle 'mhinz/vim-startify'
 Bundle 'osyo-manga/vim-over'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
