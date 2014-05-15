@@ -34,6 +34,7 @@ set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
 let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
+set spellfile=$HOME/git/dotfiles/.vim/custom-spell/selesse.utf-8.add
 set nocompatible
 filetype off
 
@@ -86,7 +87,7 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swlib && ./sendToMud.sh wizards/sead/" . @%)<CR>
+nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swmud && ./sendToMud.sh wizards/sead/" . @%)<CR>
 nnoremap / /\v
 nnoremap Y y$
 " swap the word the cursor is on with the next (newlines are okay, punctuation
@@ -235,8 +236,8 @@ augroup END
 
 augroup filetype_lpc
   autocmd!
-  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swlib/wizards/sead/* set tw=78
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
 augroup END
 
 augroup filetype_js
@@ -324,14 +325,15 @@ Bundle 'gmarik/vundle'
 Bundle 'benmills/vimux'
 Bundle 'maksimr/vim-jsbeautify'
 " OverCommandLine to preview search & replace
+Bundle 'mhinz/vim-startify'
 Bundle 'osyo-manga/vim-over'
 Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
