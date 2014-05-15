@@ -36,9 +36,19 @@ set history=10000 " remember more commands and search history
 set autoread " automatically re-read if file is modified externally
 let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
-set spellfile=$HOME/git/dotfiles/.vim/custom-spell/selesse.utf-8.add
 set nocompatible
 filetype off
+
+let custom_spell_file =
+  \ expand("$HOME/git/dotfiles/.vim/custom-spell/selesse.utf-8.add")
+
+execute "set spellfile=" . custom_spell_file
+
+if !filereadable(custom_spell_file . ".spl")
+  if filereadable(custom_spell_file)
+    silent! execute "mkspell " . custom_spell_file
+  endif
+endif
 
 " save when losing focus
 autocmd FocusLost * :silent! wall
