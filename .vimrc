@@ -341,6 +341,7 @@ Bundle 'wincent/Command-T'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'joedicastro/vim-molokai256'
 Bundle 'sjl/badwolf'
 Bundle 'slindberg/vim-colors-smyck'
