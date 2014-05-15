@@ -11,7 +11,6 @@ files=(
   .githelpers
   .gitignore_global
   .my.cnf
-  .ssh/config
   .tmux.conf
   .zshrc
   bin/find_parent_git
