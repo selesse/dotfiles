@@ -41,6 +41,8 @@ export EDITOR=vim
 bindkey -v
 bindkey jk vi-cmd-mode
 bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^[p' history-beginning-search-backward
+bindkey '^[n' history-beginning-search-forward
 
 case "`uname -s`" in
   "Darwin")
