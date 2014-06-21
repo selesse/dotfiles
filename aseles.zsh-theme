@@ -28,14 +28,21 @@ battery() {
   fi
 }
 
-hostname=`uname -s`
+vpnc_status() {
+    VPNC_STATUS=$(ps aux | grep "vpnc" | grep -v "grep" || echo "")
+    if [ ! -z "$VPNC_STATUS" ] ; then
+        echo "%{$fg[green]%}(VPN ON)%{$reset_color%}"
+    fi
+}
+
+hostname=$(uname -s)
 # prompt
 if [ "$hostname" = "Darwin" ] ; then
   PROMPT='[%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%))%(1j. $fg[green]%j%{$reset_color%}.) %(!.#.$) '
-  RPROMPT='$(battery) $(git_prompt_info)'
+  RPROMPT='$(vpnc_status) $(battery) $(git_prompt_info)'
 else
   PROMPT='[%{$fg[$NCOLOR]%}%B%n%{$fg[white]%}@%{$fg[green]%}%m%{$fg[blue]%}%b%{$reset_color%}] [%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
-  RPROMPT='$(git_prompt_info)'
+  RPROMPT='$(vpnc_status) $(git_prompt_info)'
 fi
 
 # git theming
