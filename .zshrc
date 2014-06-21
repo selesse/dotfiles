@@ -72,6 +72,8 @@ case "`uname -s`" in
 
     alias ls="ls --color"
     alias l="ls --color -F"
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
 
     function say() {
       espeak -s 120 "$@" > /dev/null 2>&1
