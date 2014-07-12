@@ -31,7 +31,7 @@ battery() {
 vpnc_status() {
     VPNC_STATUS=$(ps aux | grep "vpnc" | grep -v "grep" || echo "")
     if [ ! -z "$VPNC_STATUS" ] ; then
-        echo "%{$fg[green]%}(VPN ON)%{$reset_color%}"
+        echo "%{$fg[red]%}(VPN ON)%{$reset_color%}"
     fi
 }
 
