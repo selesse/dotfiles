@@ -1,41 +1,65 @@
 #!/bin/bash
-GIT_DIR=$PWD
+
+# Creates a set of symbolic links for a dotfiles repository.
+#
+# This script is meant to be a "quick start":
+#   1. Clone your dotfiles repository
+#   2. Run `link.sh`
+
+# Assume we're running this script from the dotfiles repository root
+DOTFILES_DIRECTORY=$PWD
 
 cd $HOME
 files=(
-  .profile
-  .bashrc
-  .vim
-  .vimrc
-  .gitconfig
-  .githelpers
-  .gitignore_global
-  .my.cnf
-  .tmux.conf
-  .zshrc
-  bin/find-parent-git
-  bin/git-churn
+    .bashrc
+    .gitconfig
+    .githelpers
+    .gitignore_global
+    .my.cnf
+    .profile
+    .tmux.conf
+    .vim
+    .vimrc
+    .zshrc
+    bin/find-parent-git
+    bin/git-churn
 )
 
-function link_files() {
-  for file in $@ ; do
-    if [ -e $file ] ; then
-      echo $HOME/$file already exists - aborting link
-    else
-      ln -vs $GIT_DIR/$file $file
-    fi
-  done
+function main {
+    # Create $HOME/bin if it doesn't exist, then link all the dotfiles.
+    mkdir -p $HOME/bin
+    link_files ${files[@]}
+
+    setup_oh_my_zsh
 }
 
-# create $HOME/bin if it doesn't exist, then link all the dotfiles
-mkdir -p $HOME/bin
-link_files ${files[@]}
+function link_files() {
+    for file in $@ ; do
+        if [ -e $file ] ; then
+            echo $HOME/$file already exists - aborting link
+        else
+            ln -vs $DOTFILES_DIRECTORY/$file $file
+        fi
+    done
+}
 
-if [ ! -d "$HOME/.oh-my-zsh" ] ; then
-  echo "oh-my-zsh isn't installed - cloning from git"
-  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-fi
 
-CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
-mkdir -p $CUSTOM_THEME_DIR
-ln -vs $GIT_DIR/aseles.zsh-theme $CUSTOM_THEME_DIR/aseles.zsh-theme
+function setup_oh_my_zsh {
+    install_oh_my_zsh
+    setup_oh_my_zsh_theme
+}
+
+function install_oh_my_zsh {
+    if [ ! -d "$HOME/.oh-my-zsh" ] ; then
+        echo "oh-my-zsh isn't installed - cloning from git"
+        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    fi
+}
+
+function setup_oh_my_zsh_theme {
+    CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
+    mkdir -p $CUSTOM_THEME_DIR
+    ln -vs $DOTFILES_DIRECTORY/aseles.zsh-theme $CUSTOM_THEME_DIR/aseles.zsh-theme
+}
+
+main
