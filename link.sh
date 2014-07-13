@@ -22,6 +22,7 @@ files=(
     .vimrc
     .zshrc
     bin/find-parent-git
+    bin/get-password
     bin/git-churn
 )
 
