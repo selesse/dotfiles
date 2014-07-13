@@ -28,7 +28,7 @@ files=(
 )
 
 function main {
-    # Create $HOME/bin if it doesn't exist, then link all the dotfiles.
+    # We need $HOME/bin to exist in order to create bin/* symlinks
     mkdir -p $HOME/bin
     link_files ${files[@]}
 
