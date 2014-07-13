@@ -232,55 +232,10 @@ augroup END
 " }}}
 
 " Language-specific mappings {{{
-augroup filetype_python
+augroup filetype_c_cpp
   autocmd!
-  autocmd FileType python nnoremap <leader>r :!python % <CR>
-  autocmd FileType python set tabstop=4
-  autocmd FileType python set shiftwidth=4
-  autocmd FileType python set softtabstop=4
-augroup END
-
-augroup filetype_markdown
-  autocmd!
-  autocmd FileType markdown setlocal textwidth=78
-  autocmd FileType markdown set spell
-augroup END
-
-augroup filetype_lpc
-  autocmd!
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
-augroup END
-
-augroup filetype_js
-  autocmd!
-  autocmd FileType javascript nnoremap <leader>j :call JsBeautify()<CR>
-augroup END
-
-augroup filetype_sh
-  autocmd!
-  autocmd Filetype sh nnoremap <leader>r :!bash %<CR>
-augroup END
-
-augroup filetype_wig
-  autocmd!
-  autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
-  autocmd FileType wig nnoremap <leader>m :Silent cd $WIGGLEDIR && make<CR>
-augroup END
-
-augroup filetype_html
-  autocmd!
-  autocmd FileType html :iabbrev </ </<C-X><C-O>
-augroup END
-
-augroup filetype_perl
-  autocmd!
-  autocmd FileType perl nnoremap <F5> :!perl % <CR>
-augroup END
-
-augroup filetype_makefile
-  autocmd!
-  autocmd Filetype make setlocal noexpandtab
+  autocmd Filetype c nnoremap <leader>r :make<cr>
+  autocmd Filetype cpp nnoremap <leader>r :make<cr>
 augroup END
 
 augroup filetype_java
@@ -290,9 +245,66 @@ augroup filetype_java
   autocmd Filetype java nnoremap <leader>r :call Compile_And_Run_Java()<CR>
 augroup END
 
+augroup filetype_js
+  autocmd!
+  autocmd FileType javascript nnoremap <leader>j :call JsBeautify()<CR>
+augroup END
+
+augroup filetype_html
+  autocmd!
+  autocmd FileType html :iabbrev </ </<C-X><C-O>
+augroup END
+
+augroup filetype_lpc
+  autocmd!
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
+  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
+augroup END
+
+augroup filetype_makefile
+  autocmd!
+  autocmd Filetype make setlocal noexpandtab
+augroup END
+
+augroup filetype_markdown
+  autocmd!
+  autocmd FileType markdown setlocal textwidth=78
+  autocmd FileType markdown set spell
+augroup END
+
+augroup filetype_perl
+  autocmd!
+  autocmd FileType perl nnoremap <leader>r :!perl % <CR>
+augroup END
+
+augroup filetype_python
+  autocmd!
+  autocmd FileType python nnoremap <leader>r :!python % <CR>
+  autocmd FileType python set tabstop=4
+  autocmd FileType python set shiftwidth=4
+  autocmd FileType python set softtabstop=4
+augroup END
+
+augroup filetype_ruby
+  autocmd!
+  autocmd FileType ruby nnoremap <leader>r :!ruby % <CR>
+  autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+
+augroup filetype_sh
+  autocmd!
+  autocmd Filetype sh nnoremap <leader>r :!bash %<CR>
+augroup END
+
 augroup textfiles
   autocmd!
-  autocmd BufNewFile,BufRead *.txt set spell
+  autocmd BufRead,BufNewFile *.txt set spell
+augroup END
+
+augroup filetype_wig
+  autocmd!
+  autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
+  autocmd FileType wig nnoremap <leader>m :Silent cd $WIGGLEDIR && make<CR>
 augroup END
 
 function! Create_Java_Template()
@@ -313,12 +325,6 @@ function! Compile_And_Run_Java()
     echom "Main method not found"
   endif
 endfunction
-
-augroup filetype_c_cpp
-  autocmd!
-  autocmd Filetype c nnoremap <leader>r :make<cr>
-  autocmd Filetype cpp nnoremap <leader>r :make<cr>
-augroup END
 
 " }}}
 
