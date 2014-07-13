@@ -24,6 +24,7 @@ files=(
     bin/find-parent-git
     bin/get-password
     bin/git-churn
+    bin/run-command-on-git-revisions
 )
 
 function main {
