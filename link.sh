@@ -13,7 +13,7 @@ files=(
   .my.cnf
   .tmux.conf
   .zshrc
-  bin/find_parent_git
+  bin/find-parent-git
   bin/git-churn
 )
 

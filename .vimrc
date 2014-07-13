@@ -163,7 +163,7 @@ function! Underline(delimiter)
 endfunction
 
 function! FindParentGit(gitIgnore)
-  let x = system('find_parent_git')
+  let x = system('find-parent-git')
   let x = substitute(x, '\n$', '', '') " removes the newline
 
   " if we find no parent git, return .git
