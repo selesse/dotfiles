@@ -99,9 +99,8 @@ alias vi="vim"
 alias duh="du -chs"
 alias diff="colordiff -u"
 
-if [ -f "$HOME/.local_aliases" ] ; then
-  source $HOME/.local_aliases
-fi
+[ -f "$HOME/.local_aliases" ] && source $HOME/.local_aliases
+[ -f "$HOME/.mutt/gmail.muttrc" ] && alias email="mutt -F $HOME/.mutt/gmail.muttrc"
 
 ################################################################################
 # COMMON EXPORTS
