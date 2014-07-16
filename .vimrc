@@ -341,19 +341,12 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-Bundle 'benmills/vimux'
-Bundle 'maksimr/vim-jsbeautify'
-" OverCommandLine to preview search & replace
 Bundle 'mhinz/vim-startify'
-Bundle 'osyo-manga/vim-over'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/unite.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'ujihisa/unite-colorscheme'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-vinegar'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
 Bundle 'wincent/Command-T'
@@ -364,13 +357,6 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'joedicastro/vim-molokai256'
 Bundle 'sjl/badwolf'
 Bundle 'slindberg/vim-colors-smyck'
-
-" Unite settings
-autocmd FileType unite call s:unite_my_settings()
-
-function! s:unite_my_settings()
-  nmap <buffer> <C-c>      i_<Plug>(unite_exit)
-endfunction
 
 " Status line settings {{{
 set statusline=%.40F " write full path to file, max of 40 chars
