@@ -358,6 +358,12 @@ set statusline+=\ Buf\=%n " Buffer number
 set statusline+=\ %y " Filetype
 set statusline+=\ char=\[%b\]
 set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
+
+" Add Syntastic error messages to status line
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 " }}}
 
 if $TERM == "xterm-256color"
@@ -368,11 +374,6 @@ colorscheme molokai256
 " flag lines that have trailing whitespace, has to come after colorscheme
 highlight TrailingWhiteSpace ctermbg=red guibg=red
 match TrailingWhiteSpace /\v +\n/
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:ycm_filetypes_to_completely_ignore = {
       \ 'java' : 1,
