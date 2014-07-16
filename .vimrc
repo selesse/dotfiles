@@ -224,14 +224,6 @@ else
 endif
 " }}}
 
-" Language-specific mapping for comments {{{
-augroup commenter
-  autocmd!
-  autocmd FileType javascript,java,c nnoremap <buffer> <localleader>c I//<ESC>
-  autocmd FileType python nnoremap <buffer> <localleader>c I#<ESC>
-augroup END
-" }}}
-
 " Language-specific mappings {{{
 augroup filetype_c_cpp
   autocmd!
