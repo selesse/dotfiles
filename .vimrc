@@ -375,8 +375,5 @@ colorscheme molokai256
 highlight TrailingWhiteSpace ctermbg=red guibg=red
 match TrailingWhiteSpace /\v +\n/
 
-let g:ycm_filetypes_to_completely_ignore = {
-      \ 'java' : 1,
-      \ }
-
+let g:ycm_filetypes_to_completely_ignore = { 'java' : 1 }
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java'] }
