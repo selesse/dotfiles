@@ -39,8 +39,9 @@ set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 set nocompatible
 filetype off
 
+let $VIMHOME = expand("$HOME/.vim")
 let custom_spell_file =
-  \ expand("$HOME/git/dotfiles/.vim/custom-spell/selesse.utf-8.add")
+  \ expand("$VIMHOME/custom-spell/selesse.utf-8.add")
 
 execute "set spellfile=" . custom_spell_file
 
