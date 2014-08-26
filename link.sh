@@ -15,6 +15,7 @@ files=(
     .gitconfig
     .githelpers
     .gitignore_global
+    .inputrc
     .my.cnf
     .profile
     .tmux.conf
