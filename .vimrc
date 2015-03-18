@@ -225,6 +225,9 @@ endif
 " }}}
 
 " Language-specific mappings {{{
+
+autocmd filetype crontab setlocal nobackup nowritebackup
+
 augroup filetype_c_cpp
   autocmd!
   autocmd Filetype c nnoremap <leader>r :make<cr>
