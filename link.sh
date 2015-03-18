@@ -15,6 +15,7 @@ files=(
     .gitconfig
     .githelpers
     .gitignore_global
+    .ideavimrc
     .inputrc
     .my.cnf
     .profile

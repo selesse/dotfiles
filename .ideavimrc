@@ -1,0 +1,12 @@
+set relativenumber
+set number
+
+inoremap jk <esc>
+nnoremap ; :
+
+nnoremap ,f :action FindUsages<CR>
+nnoremap ,r :action RenameElement<CR>
+nnoremap ,t :action OpenFile<CR>
+nnoremap ,d :action Debug<CR>
+
+nnoremap ,sv :source ~/.ideavimrc<CR>
