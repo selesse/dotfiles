@@ -5,7 +5,7 @@ ZSH_THEME="aseles"
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git ssh-agent tmux vundle)
+plugins=(ssh-agent tmux vundle)
 
 setopt extendedglob
 unsetopt nomatch
