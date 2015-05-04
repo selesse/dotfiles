@@ -8,6 +8,8 @@
     ci = commit -v
     co = checkout
     deletes = diff --diff-filter=D --name-only -z
+    word-diff = diff --color-words --word-diff-regex=[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+
+    word-log = log -p --color-words --word-diff-regex=[^[:space:]]|([[:alnum:]]|UTF_8_GUARD)+
     ds = diff --staged
     h = !git head
     head = !git l -1
@@ -17,6 +19,7 @@
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     log1 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(bold white)— %an%C(reset)%C(bold yellow)%d%C(reset)' --abbrev-commit --date=relative
     log2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
+    oldest-ancestor = !zsh -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
     outgoing = log origin/master.. --oneline
     release-notes = !git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort
     serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
