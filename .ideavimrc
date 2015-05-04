@@ -1,5 +1,6 @@
 set relativenumber
 set number
+set clipboard=unnamed
 
 inoremap jk <esc>
 nnoremap ; :
@@ -8,5 +9,8 @@ nnoremap ,f :action FindUsages<CR>
 nnoremap ,r :action RenameElement<CR>
 nnoremap ,t :action OpenFile<CR>
 nnoremap ,d :action Debug<CR>
+nnoremap ,g :action Run<CR>
+nnoremap ,p :action Back<CR>
+nnoremap ,n :action Forward<CR>
 
 nnoremap ,sv :source ~/.ideavimrc<CR>
