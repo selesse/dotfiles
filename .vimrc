@@ -342,7 +342,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/sudo.vim'
 Bundle 'wincent/Command-T'
 
