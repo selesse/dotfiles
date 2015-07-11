@@ -1,0 +1,20 @@
+function main() {
+    initialize_vundle
+    set_shell_to_zsh
+    run_link_script
+}
+
+function initialize_vundle() {
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
+}
+
+function set_shell_to_zsh() {
+    echo "Changing current user's shell to ZSH, will prompt for password"
+    chsh -s /usr/bin/zsh
+}
+
+function run_link_script() {
+    cd $HOME/git/dotfiles
+    ./link.sh
+    zsh -lic "echo '' | vundle"
+}

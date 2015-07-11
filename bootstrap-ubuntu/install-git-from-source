@@ -1,0 +1,33 @@
+GIT_VERSION="2.4.5"
+
+function main() {
+    install_dependencies
+    download_git_source
+    compile_and_install_git
+    post_install_cleanup
+}
+
+function install_dependencies() {
+    sudo apt-get update
+    sudo apt-get install -y libcurl4-gnutls-dev libexpat1-dev gettext \
+        libz-dev libssl-dev automake make
+}
+
+function download_git_source() {
+    mkdir -p ~/git && cd ~/git
+    wget "https://github.com/git/git/archive/v${GIT_VERSION}.tar.gz"
+    mv "v$GIT_VERSION.tar.gz" "git-v$GIT_VERSION.tar.gz"
+}
+
+function compile_and_install_git() {
+    tar -zxf "git-v${GIT_VERSION}.tar.gz"
+    cd "git-${GIT_VERSION}"
+    make configure
+    ./configure --prefix=/usr
+    make all
+    sudo make install
+}
+
+function post_install_cleanup() {
+    rm ~/git/git-v${GIT_VERSION}.tar.gz
+}

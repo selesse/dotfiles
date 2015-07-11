@@ -1,0 +1,25 @@
+function main() {
+    install_you_complete_me
+    install_command_t
+}
+
+function install_you_complete_me() {
+    if [ -e "$HOME/.vim/bundle/YouCompleteMe" ] ; then
+        sudo apt-get update
+        sudo apt-get -y install cmake
+        cd ~/.vim/bundle/YouCompleteMe
+        ./install.sh
+    else
+        echo "YouCompleteMe not installed, skipping..."
+    fi
+}
+
+function install_command_t() {
+    if [ -e "$HOME/.vim/bundle/Command-T" ] ; then
+        cd ~/.vim/bundle/Command-T/ruby/command-t
+        ruby extconf.rb
+        make
+    else
+        echo "Command-T not installed, skipping..."
+    fi
+}

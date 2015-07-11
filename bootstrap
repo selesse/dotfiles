@@ -1,0 +1,28 @@
+# Bootstraps an Ubuntu environment with common dev tools.
+#
+# Useful for fresh Ubuntu installations (and/or Vagrant).
+
+set -e
+
+SCRIPT_DIRECTORY=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+INSTALL_FILES=(
+    "install-build-dependencies"
+    "install-git-from-source"
+    "install-vim-from-source"
+    "post-install"
+    "vim-plugin-setup"
+)
+
+function bootstrap() {
+    for file in "${INSTALL_FILES[@]}"; do
+        source "$SCRIPT_DIRECTORY/bootstrap-ubuntu/$file"
+        main
+        unset -f main
+    done
+}
+
+bootstrap
+unset -f bootstrap
+
+echo "--- Bootstrap complete! ---"
