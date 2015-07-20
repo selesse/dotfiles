@@ -107,7 +107,6 @@ alias diff="colordiff -u"
 ################################################################################
 
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-export GREP_OPTIONS="--color"
 
 ################################################################################
 # COMMON FUNCTIONS
