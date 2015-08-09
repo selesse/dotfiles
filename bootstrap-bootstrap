@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function main() {
+    install_build_dependencies
+    call_bootstrap
+}
+
+function install_build_dependencies() {
+    sudo apt-get update
+    sudo apt-get install -y wget unzip
+
+    if [ ! -d "$HOME/git/dotfiles" ] ; then
+        mkdir -p "$HOME/git"
+        cd "$HOME/git"
+        wget https://github.com/selesse/dotfiles/archive/master.zip
+        unzip master.zip
+        mv dotfiles-master dotfiles
+        rm master.zip
+    fi
+}
+
+function call_bootstrap() {
+    bash ${HOME}/git/dotfiles/bootstrap
+}
+
+main
