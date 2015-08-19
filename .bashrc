@@ -7,8 +7,8 @@ fi
 # have current line(s) open up in vim
 set -o vi
 # history file management
-source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
-source ~/.git-completion.bash
+[ -f "$HOME/bin/merge_history.bash" ] && source "$HOME/bin/merge_history.bash" # source http://ptspts.blogspot.ca/2011/03/how-to-automatically-synchronize-shell.html
+[ -f "$HOME/.git-completion.bash" ] && source $HOME/.git-completion.bash
 export HISTCONTROL=erasedups
 export HISTFILESIZE=10000
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
@@ -56,12 +56,8 @@ if [ -f "$HOME/.local_aliases" ] ; then
 fi
 
 # dropbox aliases
-alias config="cd ~/git/config"
-alias public="cd ~/Dropbox/Public"
+alias config="cd ~/git/dotfiles"
 
-alias vi="vim"
-alias wig="cd $HOME/git/cs520/git/group-d/wig/src"
-alias duh="du -chs"
 alias diff="colordiff -u"
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
@@ -69,25 +65,7 @@ export GREP_OPTIONS="--color"
 ################################################################################
 # PATH, ENVIRONMENT VARIABLES
 ################################################################################
-export ANDROID_HOME="$HOME/android-sdks"
-export JAVADIR=/usr/lib/jvm/java-1.7.0-openjdk-i386/jre
-export JOOSDIR=$HOME/git/cs520/public_html/joos
-export CLASSPATH=$JOOSDIR/jooslib.jar:$CLASSPATH
-export WIGDIR=$HOME/git/cs520/public_html/wig
-export WIGGLEDIR=$HOME/git/cs520/git/group-d/wig/src
 
-# Android
-export PATH=$PATH:$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-# SableCC
-export PATH=$PATH:$HOME/Dropbox/sablecc-3.6/bin
-
-# Compilers PATH kinks
-export PATH=$JAVADIR/bin:$HOME/git/cs520/git/group-d/joos/scanparse:$JOOSDIR/bin:$PATH:$HOME/git/cs520/git/group-d/wig/src
-
-export PATH=$PATH:$HOME/Dropbox/Spin/Src6.2.2
-
-export EDITOR=vim
-export VISUAL=vim
 HISTSIZE=50000
 HISTFILESIZE=50000
 SSH_ENV="$HOME/.ssh/environment"
@@ -100,7 +78,7 @@ function cd() {
 }
 
 # function for extracting zip/tar files
-function extract () {
+function extract() {
   if [ -f $1 ] ; then
     case $1 in
     *.tar.bz2)  tar xjf $1      ;;
@@ -138,7 +116,7 @@ function test_identities {
   if [ $? -eq 0 ]; then
     ssh-add
     # $SSH_AUTH_SOCK broken so we start a new proper agent
-    if [ $? -eq 2 ];then
+    if [ $? -eq 2 ]; then
       start_agent
     fi
   fi
@@ -167,9 +145,3 @@ if [ "${USER}" != "root" ] ; then
 fi
 
 ls
-
-function tree() {
-  ls -R $@ | grep ":" \
-  | sed -e 's/://' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/' \
-  | less -SFX
-}
