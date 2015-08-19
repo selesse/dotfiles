@@ -5,12 +5,15 @@ function main() {
 }
 
 function initialize_vundle() {
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
+    if [ ! -d "$HOME/.vim/bundle/vundle" ] ; then
+        git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
+    fi
 }
 
 function set_shell_to_zsh() {
-    echo "Changing current user's shell to ZSH, will prompt for password"
-    chsh -s /usr/bin/zsh
+    echo "Changing current user's shell to ZSH"
+    command -v zsh | sudo tee -a /etc/shells
+    sudo chsh $USER -s $(which zsh)
 }
 
 function run_link_script() {

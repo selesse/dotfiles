@@ -4,7 +4,7 @@ function main() {
 
 function install_build_dependencies() {
     sudo apt-get update
-    sudo apt-get install -y wget curl zsh tmux unzip
+    sudo apt-get install -y wget curl zsh tmux unzip tree htop
 
     if [ ! -d "$HOME/git/dotfiles" ] ; then
         mkdir -p "$HOME/git"
