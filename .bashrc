@@ -13,34 +13,50 @@ export HISTCONTROL=erasedups
 export HISTFILESIZE=10000
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 
+color_off='\e[0m'
+black='\e[0;30m'
+red='\e[0;31m'
+green='\e[0;32m'
+yellow='\e[0;33m'
+blue='\e[0;34m'
+purple='\e[0;35m'
+cyan='\e[0;36m'
+white='\e[0;37m'
+
+bblack='\e[1;30m'
+bred='\e[1;31m'
+bgreen='\e[1;32m'
+byellow='\e[1;33m'
+bblue='\e[1;34m'
+bpurple='\e[1;35m'
+bcyan='\e[1;36m'
+bwhite='\e[1;37m'
+
 # OS-specific aliases
 case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
 
-    # I don't care about my hostname when I'm on my local mac
-    PS1="[\[\e[1;32m\]\w\[\e[m\]] \$ "
+    PS1="[\[${bgreen}\]\w\[${color_off}\]] \$ "
     PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
     export JAVADIR=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
   ;;
   "FreeBSD")
     alias ls="ls -G"
     alias l="ls -GF"
-    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
+    PS1="[\[${bgreen}\]\u\[${color_off}\]@\[${bred}\]\h\[{$color_off}\]][\[${bblue}\]\w\[${color_off}\]] \$ "
     if [ "${USER}" == "root" ] ; then
-      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
+      PS1"[\[$byellow\]\u\[${color_off}\]@\[${bred}\]\h\[${color_off}\]][\[${bblue}\]\w\[${color_off}\]] \$ "
     fi
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
   ;;
   *)
     alias ls="ls --color"
     alias l="ls --color -F"
-    alias hb="HandBrakeCLI"
-    PS1='[\[\e[1;32m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
-    # change the color of root
+    PS1="[\[${bgreen}\]\u\[${color_off}\]@\[${bred}\]\h\[${color_off}\]][\[${bblue}\]\w\[${color_off}\]] \$ "
     if [ "${USER}" == "root" ] ; then
-      PS1='[\[\e[1;33m\]\u\[\e[m\]@\[\e[1;31m\]\h\[\e[m\]][\[\e[1;34m\]\w\[\e[m\]] \$ '
+      PS1="[\[${byellow}\]\u\[${color_off}\]@\[${bred}\]\h\[${color_off}\]][\[${bblue}\]\w\[${color_off}\]] \$ "
     fi
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
     linuxlogo -u 2> /dev/null
