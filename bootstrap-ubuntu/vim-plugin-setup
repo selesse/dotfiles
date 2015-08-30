@@ -23,3 +23,7 @@ function install_command_t() {
         echo "Command-T not installed, skipping..."
     fi
 }
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main
+fi

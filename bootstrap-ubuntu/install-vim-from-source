@@ -40,3 +40,7 @@ function set_vim_as_default_editor() {
     sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
     sudo update-alternatives --set vi /usr/bin/vim
 }
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main
+fi

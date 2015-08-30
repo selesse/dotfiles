@@ -15,3 +15,7 @@ function install_build_dependencies() {
         rm master.zip
     fi
 }
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main
+fi

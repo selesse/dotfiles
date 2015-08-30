@@ -31,3 +31,7 @@ function compile_and_install_git() {
 function post_install_cleanup() {
     rm ~/git/git-v${GIT_VERSION}.tar.gz
 }
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main
+fi

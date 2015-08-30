@@ -21,3 +21,7 @@ function run_link_script() {
     ./link.sh
     zsh -lic "echo '' | vundle"
 }
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main
+fi
