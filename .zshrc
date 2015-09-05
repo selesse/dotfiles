@@ -75,7 +75,7 @@ case "`uname -s`" in
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
 
-    function say() {
+    say() {
       espeak -s 120 "$@" > /dev/null 2>&1
     }
 
@@ -112,14 +112,14 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 # COMMON FUNCTIONS
 ################################################################################
 
-function cd() {
+cd() {
   if [ -z "$@" ] ; then
     return
   fi
   builtin cd "$@" && ls
 }
 
-function extract () {
+extract() {
   if [ -f $1 ] ; then
     case $1 in
     *.tar.bz2)  tar xjf $1      ;;
@@ -139,14 +139,14 @@ function extract () {
   fi
 }
 
-function psgrep() {
+psgrep() {
   ps aux |
   grep -v grep | #exclude this grep from the results
   grep "$@" -i --color=auto;
 }
 
 # Keep going up directories until you find "$file", or we reach root.
-function find_parent_file {
+find_parent_file() {
   local file="$1"
   local directory="$PWD"
   local starting_directory="$directory"
@@ -175,13 +175,13 @@ function find_parent_file {
   return 0
 }
 
-function gw {
+gw() {
   # cd into the directory so you don't generate .gradle folders everywhere
   builtin cd `find_parent_file gradlew` && ./gradlew $*
   builtin cd -
 }
 
-function precmd() {
+precmd() {
   local tab_label=${PWD/${HOME}/\~} # use 'relative' path
   echo -ne "\e]2;${tab_label}\a" # set window title to full string
 }
