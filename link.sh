@@ -27,6 +27,7 @@ files=(
     bin/get-password
     bin/git-churn
     bin/run-command-on-git-revisions
+    bin/who-committed-this
 )
 
 function main {

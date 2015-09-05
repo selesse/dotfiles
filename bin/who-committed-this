@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Simple program that lets you know who committed this particular string
+# to the Git repository. For example, if you want to know who's the biggest
+# contributor to tests in a Java program:
+#
+# > who_comitted_this "@Test"
+#       1   Alex Selesse
+#       200 Someone Else
+
+set -e
+set -o pipefail
+
+QUERY_STRING=$1
+
+main() {
+    ensure_git_repository_present
+    ensure_argument_provided
+
+    find_all_files_with_matching_query "$QUERY_STRING" | \
+        git_blame_where_string_was_used | \
+        extract_author_from_git_blame | \
+        sort | \
+        uniq -c
+}
+
+ensure_git_repository_present() {
+    git status > /dev/null 2>&1 || \
+        (echo "No Git repository found"; exit 1)
+}
+
+ensure_argument_provided() {
+    if [ -z "$QUERY_STRING" ] ; then
+        echo "Argument not provided. What are you searching for?"
+        echo "Example usage: $0 @Test"
+        exit 1
+    fi
+}
+
+git_blame_where_string_was_used() {
+    while read file; do
+        git blame $file | ag "$QUERY_STRING"
+    done
+}
+
+find_all_files_with_matching_query() {
+    comm -12 <(ag -l "$1" | sort) <(git ls-files | sort)
+}
+
+extract_author_from_git_blame() {
+    cut -f2 -d'(' | \
+        cut -f1 -d')' | \
+        cut -f1-2 -d' '
+}
+
+if [ "$BASH_SOURCE" == "$0" ] ; then
+    main "$*"
+fi
