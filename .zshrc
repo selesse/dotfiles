@@ -42,6 +42,7 @@ export EDITOR=vim
 HOSTNAME_SHORT=$(hostname -s)
 mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
 HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
+HISTSIZE=65536
 
 load_all_history() {
     ALL_HISTORY="$HOME/.history/.all-history"
