@@ -1,5 +1,4 @@
 ZSH=$HOME/.oh-my-zsh
-
 ZSH_THEME="aseles"
 
 # Red dots are displayed while waiting for completion
@@ -37,10 +36,32 @@ done
 export VISUAL=vim
 export EDITOR=vim
 
+################################################################################
+# HISTORY
+################################################################################
+HOSTNAME_SHORT=$(hostname -s)
+mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
+HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
+
+load_all_history() {
+    ALL_HISTORY="$HOME/.history/.all-history"
+    [ -f "$ALL_HISTORY" ] && rm -f "$ALL_HISTORY"
+    cat ~/.history/**/*(.) > "$ALL_HISTORY"
+    fc -R "$ALL_HISTORY"
+}
+
+history-incremental-pattern-search-all-history() {
+    load_all_history
+    zle end-of-history
+    zle history-incremental-pattern-search-backward
+}
+zle -N history-incremental-pattern-search-all-history
+
 # use Vim key bindings
 bindkey -v
 bindkey jk vi-cmd-mode
-bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^R' history-incremental-pattern-search-all-history
+bindkey -M isearch '^R' history-incremental-pattern-search-backward
 bindkey '^[p' history-beginning-search-backward
 bindkey '^[n' history-beginning-search-forward
 
