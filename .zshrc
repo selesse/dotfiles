@@ -86,11 +86,6 @@ case "`uname -s`" in
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
   ;;
   *)
-    # Don't be afraid of a little color in your life
-    if [ ! -z "$COLORTERM" ] && [ "$TERM" == "xterm" ] ; then
-      export TERM="xterm-256color"
-    fi
-
     alias ls="ls --color"
     alias l="ls --color -F"
     alias pbcopy='xclip -selection clipboard'
