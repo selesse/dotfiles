@@ -228,6 +228,11 @@ endif
 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
+augroup filetype_coffeescript
+  autocmd!
+  autocmd BufRead,BufNewFile *.coffee set filetype=coffee
+augroup END
+
 augroup filetype_c_cpp
   autocmd!
   autocmd Filetype c nnoremap <leader>r :make<cr>
@@ -297,12 +302,6 @@ augroup textfiles
   autocmd BufRead,BufNewFile *.txt set spell
 augroup END
 
-augroup filetype_wig
-  autocmd!
-  autocmd FileType wig nnoremap <leader>r :!wiggle % --symbol <CR>
-  autocmd FileType wig nnoremap <leader>m :Silent cd $WIGGLEDIR && make<CR>
-augroup END
-
 function! Create_Java_Template()
   let classname = expand("%:r")
   execute "normal ipublic class " . classname . " {"
@@ -344,6 +343,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-scripts/sudo.vim'
 Bundle 'wincent/Command-T'
+Bundle 'kchmck/vim-coffee-script'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
