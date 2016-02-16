@@ -1,9 +1,9 @@
-function main() {
+main() {
     install_you_complete_me
     install_command_t
 }
 
-function install_you_complete_me() {
+install_you_complete_me() {
     if [ -e "$HOME/.vim/bundle/YouCompleteMe" ] ; then
         sudo apt-get update
         sudo apt-get -y install cmake
@@ -14,7 +14,7 @@ function install_you_complete_me() {
     fi
 }
 
-function install_command_t() {
+install_command_t() {
     if [ -e "$HOME/.vim/bundle/Command-T" ] ; then
         cd ~/.vim/bundle/Command-T/ruby/command-t
         ruby extconf.rb

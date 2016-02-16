@@ -1,8 +1,8 @@
-function main() {
+main() {
     install_build_dependencies
 }
 
-function install_build_dependencies() {
+install_build_dependencies() {
     sudo apt-get update
     sudo apt-get install -y wget curl zsh tmux unzip tree htop
 

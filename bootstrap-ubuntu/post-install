@@ -1,22 +1,22 @@
-function main() {
+main() {
     initialize_vundle
     set_shell_to_zsh
     run_link_script
 }
 
-function initialize_vundle() {
+initialize_vundle() {
     if [ ! -d "$HOME/.vim/bundle/vundle" ] ; then
         git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
     fi
 }
 
-function set_shell_to_zsh() {
+set_shell_to_zsh() {
     echo "Changing current user's shell to ZSH"
     command -v zsh | sudo tee -a /etc/shells
     sudo chsh $USER -s $(which zsh)
 }
 
-function run_link_script() {
+run_link_script() {
     cd $HOME/git/dotfiles
     ./link.sh
     zsh -lic "echo '' | vundle"
