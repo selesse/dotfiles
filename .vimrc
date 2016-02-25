@@ -124,10 +124,10 @@ nnoremap <leader>c :Silent echo -n %% \| pbcopy<cr>
 " <leader>g => all files in current git repo EXCEPT gitignored
 " <leader>G => all files in current git repo
 
-map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
-map <leader>F :CommandTFlush<cr>\|:CommandT $HOME<cr>
-map <leader>g :CommandTFlush<cr>\|:CommandT %g<cr>
-map <leader>G :CommandTFlush<cr>\|:CommandT %G<cr>
+map <leader>f :FZF <cr>
+map <leader>F :FZF $HOME<cr>
+map <leader>g :FZF %g<cr>
+map <leader>G :FZF %G<cr>
 
 " *** insert mode mappings ***
 inoremap jk <esc>
@@ -335,6 +335,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+Bundle 'junegunn/fzf'
 Bundle 'mhinz/vim-startify'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-repeat'
@@ -342,7 +343,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-scripts/sudo.vim'
-Bundle 'wincent/Command-T'
 Bundle 'kchmck/vim-coffee-script'
 
 " Colorschemes

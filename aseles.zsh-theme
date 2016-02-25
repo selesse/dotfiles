@@ -6,7 +6,11 @@
 # turns username green if superuser, otherwise it is red
 # shows battery for mac
 
-if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="red"; fi
+if [ $UID -eq 0 ] ; then
+    NCOLOR="green"
+else
+    NCOLOR="red"
+fi
 
 battery() {
   percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")

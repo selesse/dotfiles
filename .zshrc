@@ -203,8 +203,18 @@ precmd() {
   echo -ne "\e]2;${tab_label}\a" # set window title to full string
 }
 
+vif() {
+    vim $({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
+}
+
+pass() {
+    lpass show -c --password $(lpass ls | fzf | ggrep -oP "id: (\K\d+)")
+}
+
 ################################################################################
 # STARTUP COMMANDS
 ################################################################################
 
 ls
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

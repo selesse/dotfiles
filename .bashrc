@@ -161,3 +161,5 @@ if [ "${USER}" != "root" ] ; then
 fi
 
 ls
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
