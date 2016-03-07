@@ -204,11 +204,37 @@ precmd() {
 }
 
 vif() {
-    vim $({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
+    file=$({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
+    if [ ! -z "$file" ] ; then
+        vim $file
+    fi
 }
 
 pass() {
-    lpass show -c --password $(lpass ls | fzf | ggrep -oP "id: (\K\d+)")
+    lpass ls > /dev/null 2>&1
+
+    if [[ -z "$LPASS_USER" ]] ; then
+        # Zsh-specific way of reading into a variable, see
+        # http://superuser.com/q/555874/363363
+        read "?LastPass username? " LPASS_USER
+    fi
+
+    if [[ $? -ne 0 ]] ; then
+		lpass login $LPASS_USER
+    fi
+
+    id=$(lpass ls | fzf | egrep -o "id: [0-9]+" | sed -e 's/id: //')
+
+    # The ID might be empty (i.e. if we ctrl+c out of the selection)
+    if [[ ! -z "$id" ]] ; then
+        echo "Username:" $(lpass show --username $id)
+        if [[ ! -z "$(lpass show --notes $id)" ]] ; then
+            echo "Notes:" $(lpass show --notes $id)
+        fi
+        lpass show -c --password $id
+        echo ""
+        echo "The password for this account is now copied into your clipboard."
+    fi
 }
 
 ################################################################################
