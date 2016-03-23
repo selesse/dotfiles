@@ -1,4 +1,4 @@
-GIT_VERSION="2.4.5"
+GIT_VERSION="2.7.4"
 
 main() {
     install_dependencies
