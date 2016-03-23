@@ -33,7 +33,7 @@ battery() {
 }
 
 vpnc_status() {
-    VPNC_STATUS=$(pgrep vpnc || echo "")
+    VPNC_STATUS=$(pgrep vpnc || pgrep openconnect || echo "")
     if [ ! -z "$VPNC_STATUS" ] ; then
         echo "%{$fg[red]%}(VPN ON)%{$reset_color%}"
     fi
