@@ -18,6 +18,7 @@ setopt EXTENDEDGLOB
 unsetopt NOMATCH
 
 PATH_DIRECTORIES=(
+  $HOME/bin
   /usr/bin
   /bin
   /usr/sbin
