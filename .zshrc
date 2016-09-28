@@ -57,12 +57,17 @@ HOSTNAME_SHORT=$(hostname -s)
 mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
 HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
 HISTSIZE=65536
+SAVEHIST=$HISTSIZE
 
 _load_all_shell_history() {
+    # Save current history first
+    fc -W $HISTFILE
+
     ALL_HISTORY="$HOME/.history/.all-history"
     [ -f "$ALL_HISTORY" ] && rm -f "$ALL_HISTORY"
     cat ~/.history/**/*(.) > "$ALL_HISTORY"
-    fc -IR "$ALL_HISTORY"
+    # Load *all* shell histories
+    fc -R "$ALL_HISTORY"
 }
 
 history_incremental_pattern_search_all_history() {
