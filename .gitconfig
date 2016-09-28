@@ -35,6 +35,11 @@
 [merge]
     tool = kdiff3
 [help]
-    autocorrect = 1
+    autocorrect = 5
 [push]
     default = simple
+[status]
+    # This shows individual files in untracked directories, too
+    showUntrackedFiles = all
+[log]
+    mailmap = true
