@@ -9,6 +9,7 @@ plugins=(ssh-agent tmux vundle)
 setopt extendedglob
 unsetopt nomatch
 
+DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
 
 PATHDIRS=(
