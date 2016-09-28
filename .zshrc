@@ -125,7 +125,8 @@ alias vi="vim"
 alias duh="du -chs"
 if_program_installed colordiff 'alias diff="colordiff -u"'
 
-[ -f "$HOME/.local_aliases" ] && source $HOME/.local_aliases
+# Allow for environment-specific custom aliases/functions
+[ -f "$HOME/.localrc" ] && source $HOME/.localrc
 [ -f "$HOME/.mutt/gmail.muttrc" ] && alias email="mutt -F $HOME/.mutt/gmail.muttrc"
 ### }
 
