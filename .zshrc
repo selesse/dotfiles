@@ -68,6 +68,8 @@ _load_all_shell_history() {
     cat ~/.history/**/*(.) > "$ALL_HISTORY"
     # Load *all* shell histories
     fc -R "$ALL_HISTORY"
+
+    _ALL_SHELL_HISTORY_LOADED=1
 }
 
 history_incremental_pattern_search_all_history() {
@@ -76,12 +78,23 @@ history_incremental_pattern_search_all_history() {
     zle history-incremental-pattern-search-backward
 }
 
+history_beginning_search_backward_all_history() {
+    # We can't reload the entire shell history every time we call this function
+    # because successive calls would reload the entire history. Instead, ensure
+    # the *entire* shell history only ever gets loaded once.
+    if [[ "$_ALL_SHELL_HISTORY_LOADED" != "1" ]] ; then
+        _load_all_shell_history
+    fi
+    zle history-beginning-search-backward
+}
+
 bindkey '^R' history_incremental_pattern_search_all_history
 bindkey -M isearch '^R' history-incremental-pattern-search-backward
-bindkey '^[p' history-beginning-search-backward
+bindkey '^[p' history_beginning_search_backward_all_history
 bindkey '^[n' history-beginning-search-forward
 
 zle -N history_incremental_pattern_search_all_history
+zle -N history_beginning_search_backward_all_history
 ### }
 
 ### prompt {
