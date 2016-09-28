@@ -1,45 +1,49 @@
+### oh-my-zsh {
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="aseles"
+
+DISABLE_AUTO_UPDATE=true
+source $ZSH/oh-my-zsh.sh
 
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(ssh-agent tmux vundle)
+### }
 
-setopt extendedglob
-unsetopt nomatch
+### zsh {
+setopt EXTENDEDGLOB
+# Don't fail at the shell level if there's a glob failure. This is useful when
+# doing stuff like $(git log -- */file-that-doesnt-exist-anymore).
+unsetopt NOMATCH
 
-DISABLE_AUTO_UPDATE=true
-source $ZSH/oh-my-zsh.sh
-
-PATHDIRS=(
+PATH_DIRECTORIES=(
   /usr/bin
   /bin
   /usr/sbin
   /sbin
   /usr/local/bin
   /usr/local/sbin
-  /usr/X11/bin
-  /usr/lib/jvm/java-1.7.0-openjdk-i386/jre/bin
-  $HOME/bin
-  $HOME/android-sdks/tools
-  $HOME/android-sdks/platform-tools
-  $HOME/.rvm/bin
-  $HOME/git/gradle-1.8/bin
 )
 
-for dir in $PATHDIRS; do
-  if [ -d "$dir" ]; then
-    PATH+=$dir:
+for directory in $PATH_DIRECTORIES; do
+  if [ -d "$directory" ]; then
+    PATH+=":$directory"
   fi
 done
 
+# Use Vim key bindings to edit the current shell command
+bindkey -v
+bindkey jk vi-cmd-mode
+### }
+
+### editor {
 export VISUAL=vim
 export EDITOR=vim
+### }
 
-################################################################################
-# HISTORY
-################################################################################
+### history {
+setopt HIST_FIND_NO_DUPS
 HOSTNAME_SHORT=$(hostname -s)
 mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
 HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
@@ -52,21 +56,21 @@ load_all_history() {
     fc -R "$ALL_HISTORY"
 }
 
-history-incremental-pattern-search-all-history() {
+history_incremental_pattern_search_all_history() {
     load_all_history
     zle end-of-history
     zle history-incremental-pattern-search-backward
 }
-zle -N history-incremental-pattern-search-all-history
 
-# use Vim key bindings
-bindkey -v
-bindkey jk vi-cmd-mode
-bindkey '^R' history-incremental-pattern-search-all-history
+bindkey '^R' history_incremental_pattern_search_all_history
 bindkey -M isearch '^R' history-incremental-pattern-search-backward
 bindkey '^[p' history-beginning-search-backward
 bindkey '^[n' history-beginning-search-forward
 
+zle -N history_incremental_pattern_search_all_history
+### }
+
+### prompt {
 case "`uname -s`" in
   "Darwin")
     alias ls="ls -G"
@@ -102,10 +106,9 @@ case "`uname -s`" in
     linuxlogo -u 2> /dev/null
   ;;
 esac
+### }
 
-################################################################################
-# COMMON ALIASES
-################################################################################
+### aliases {
 alias swmud="rlwrap telnet swmud.org 6666"
 
 alias config="cd ~/git/dotfiles"
@@ -119,17 +122,13 @@ alias diff="colordiff -u"
 
 [ -f "$HOME/.local_aliases" ] && source $HOME/.local_aliases
 [ -f "$HOME/.mutt/gmail.muttrc" ] && alias email="mutt -F $HOME/.mutt/gmail.muttrc"
+### }
 
-################################################################################
-# COMMON EXPORTS
-################################################################################
-
+### exports {
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+### }
 
-################################################################################
-# COMMON FUNCTIONS
-################################################################################
-
+### functions {
 cd() {
   if [ -z "$@" ] ; then
     return
@@ -237,11 +236,10 @@ pass() {
         echo "The password for this account is now copied into your clipboard."
     fi
 }
+### }
 
-################################################################################
-# STARTUP COMMANDS
-################################################################################
-
+### startup_commands {
 ls
+### }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh || true
