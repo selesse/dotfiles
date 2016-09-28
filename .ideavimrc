@@ -1,4 +1,5 @@
 set relativenumber
+set incsearch
 set number
 set clipboard=unnamed
 
