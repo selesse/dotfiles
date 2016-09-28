@@ -125,6 +125,8 @@ alias fname="find . -type f -name"
 alias vi="vim"
 alias duh="du -chs"
 if_program_installed colordiff 'alias diff="colordiff -u"'
+if_program_installed tree 'alias tree="tree -C"'
+if_program_installed ccat 'alias cat="ccat --bg=dark"'
 
 # Allow for environment-specific custom aliases/functions
 [ -f "$HOME/.localrc" ] && source $HOME/.localrc
