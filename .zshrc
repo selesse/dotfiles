@@ -35,6 +35,13 @@ done
 # Use Vim key bindings to edit the current shell command
 bindkey -v
 bindkey jk vi-cmd-mode
+
+# Execute a command if a particular program exists
+if_program_installed() {
+    program=$1
+    shift
+    which "$program" > /dev/null && eval $* || true
+}
 ### }
 
 ### editor {
@@ -72,7 +79,7 @@ zle -N history_incremental_pattern_search_all_history
 ### }
 
 ### prompt {
-case "`uname -s`" in
+case "$(uname -s)" in
   "Darwin")
     alias ls="ls -G"
     alias l="ls -GF"
@@ -81,7 +88,7 @@ case "`uname -s`" in
     # http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6#comment21605776_12757565
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-    # homebrew
+    # /usr/local/bin should take precedence over /usr/bin
     PATH="/usr/local/bin:$PATH"
 
     # I don't care about my hostname when I'm on a physical device
@@ -104,22 +111,19 @@ case "`uname -s`" in
 
     # change the color of root
     PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-    linuxlogo -u 2> /dev/null
+    if_program_installed linuxlogo "linuxlogo -u"
   ;;
 esac
 ### }
 
 ### aliases {
-alias swmud="rlwrap telnet swmud.org 6666"
-
 alias config="cd ~/git/dotfiles"
-alias public="cd ~/Dropbox/Public"
 
 alias hisgrep="history | grep"
 alias fname="find . -type f -name"
 alias vi="vim"
 alias duh="du -chs"
-alias diff="colordiff -u"
+if_program_installed colordiff 'alias diff="colordiff -u"'
 
 [ -f "$HOME/.local_aliases" ] && source $HOME/.local_aliases
 [ -f "$HOME/.mutt/gmail.muttrc" ] && alias email="mutt -F $HOME/.mutt/gmail.muttrc"
