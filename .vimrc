@@ -73,8 +73,7 @@ iabbrev haev have
 
 " *** command mappings ***
 cnoremap %% <C-R>=getcwd().'/'<cr>
-cnoremap %g <C-R>=FindParentGit("true")<cr>
-cnoremap %G <C-R>=FindParentGit("")<cr>
+cnoremap %g <C-R>=FindParentGit()<cr>
 
 " *** normal mode remappings ***
 noremap j gj
@@ -116,18 +115,19 @@ nnoremap <Down> <C-w>j
 nnoremap <C-j> <C-w>j
 nnoremap <leader>c :Silent echo -n %% \| pbcopy<cr>
 
-" ===================
-" Command-T mappings:
-" ===================
-" <leader>f => all files in pwd + subdirectories
-" <leader>F => all files in $HOME = subdirectories
-" <leader>g => all files in current git repo EXCEPT gitignored
-" <leader>G => all files in current git repo
+" =======================
+" Fuzzy-finding mappings:
+" =======================
+" <leader>f => If pwd is in a Git repo, do FZF on $(git ls-files) from pwd,
+"              otherwise all files in pwd + subdirectories
+" <leader>F => all files in $HOME + subdirectories
+" <leader>g => all files in current Git repo EXCEPT gitignored (git ls-files)
+" <leader>G => all files in current Git repo
 
-map <leader>f :FZF <cr>
+map <expr> <leader>f '%g' != '.git' ? ':FZF<cr>' : 'GFiles %%<cr>'
 map <leader>F :FZF $HOME<cr>
-map <leader>g :FZF %g<cr>
-map <leader>G :FZF %G<cr>
+map <leader>g :GFiles<cr>
+map <leader>G :FZF %g<cr>
 
 " *** insert mode mappings ***
 inoremap jk <esc>
@@ -163,38 +163,15 @@ function! Underline(delimiter)
   endif
 endfunction
 
-function! FindParentGit(gitIgnore)
-  let x = system('find-parent-git')
-  let x = substitute(x, '\n$', '', '') " removes the newline
+function! FindParentGit()
+    let parentGit = system('find-parent-git')
+    let parentGit = substitute(parentGit, '\n$', '', '') " removes the newline
 
-  " if we find no parent git, return .git
-  " this is a little silly, but it means Command-T will react properly
-  if x == "no parent git found"
-    return ".git"
-  endif
+    if parentGit == "no parent git found"
+        return ".git"
+    endif
 
-  " if the root folder contains a gitignore, let's add that to wildignore
-  let filename = x . '/.gitignore'
-  if filereadable(filename)
-      let igstring = ''
-      for oline in readfile(filename)
-          let line = substitute(oline, '\s|\n|\r', '', "g")
-          if line =~ '^#' | con | endif
-          if line == '' | con  | endif
-          if line =~ '^!' | con  | endif
-          if line =~ '/$' | let igstring .= "," . line . "*" | con | endif
-          let igstring .= "," . line
-      endfor
-      if a:gitIgnore == "true"
-        let execstring = "set wildignore+=".substitute(igstring, '^,', '', "g")
-      else
-        " may be problematic in niche cases, for now it'll do
-        let execstring = "set wildignore-=".substitute(igstring, '^,', '', "g")
-      endif
-      execute execstring
-  endif
-
-  return x
+    return parentGit
 endfunction
 
 command! -nargs=1 Silent
@@ -336,6 +313,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'junegunn/fzf'
+Bundle 'junegunn/fzf.vim'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'mhinz/vim-startify'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-repeat'
@@ -343,7 +322,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-scripts/sudo.vim'
-Bundle 'kchmck/vim-coffee-script'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
