@@ -44,20 +44,21 @@ export EDITOR=vim
 
 ### history {
 setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 HOSTNAME_SHORT=$(hostname -s)
 mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
 HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
 HISTSIZE=65536
 
-load_all_history() {
+_load_all_shell_history() {
     ALL_HISTORY="$HOME/.history/.all-history"
     [ -f "$ALL_HISTORY" ] && rm -f "$ALL_HISTORY"
     cat ~/.history/**/*(.) > "$ALL_HISTORY"
-    fc -R "$ALL_HISTORY"
+    fc -IR "$ALL_HISTORY"
 }
 
 history_incremental_pattern_search_all_history() {
-    load_all_history
+    _load_all_shell_history
     zle end-of-history
     zle history-incremental-pattern-search-backward
 }
@@ -242,4 +243,20 @@ pass() {
 ls
 ### }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh || true
+### fzf {
+if [ -f ~/.fzf.zsh ] ; then
+    source ~/.fzf.zsh
+
+    # The fzf shell bindings rewrite your ^R with "fzf-history-widget".
+    # I like this widget, but I would like it to load my entire shell history
+    # instead of just the current shell's history.
+    if [[ "$(bindkey '^R' | cut -f2 -d' ')" == "fzf-history-widget" ]] ; then
+        enhanced-fzf-history-widget() {
+            _load_all_shell_history
+            fzf-history-widget
+        }
+        zle     -N   enhanced-fzf-history-widget
+        bindkey '^R' enhanced-fzf-history-widget
+    fi
+fi
+### }
