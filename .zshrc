@@ -2,13 +2,13 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="aseles"
 
-DISABLE_AUTO_UPDATE=true
-source $ZSH/oh-my-zsh.sh
-
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
 plugins=(ssh-agent tmux vundle)
+
+DISABLE_AUTO_UPDATE=true
+source $ZSH/oh-my-zsh.sh
 ### }
 
 ### zsh {
