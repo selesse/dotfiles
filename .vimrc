@@ -74,6 +74,7 @@ iabbrev haev have
 " *** command mappings ***
 cnoremap %% <C-R>=getcwd().'/'<cr>
 cnoremap %g <C-R>=FindParentGit()<cr>
+cnoremap w!! w !sudo tee > /dev/null %
 
 " *** normal mode remappings ***
 noremap j gj
@@ -321,7 +322,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
-Bundle 'vim-scripts/sudo.vim'
 
 " Colorschemes
 Bundle 'altercation/vim-colors-solarized'
