@@ -67,8 +67,8 @@ esac
 # COMMON ALIASES
 ################################################################################
 # aliases for ssh
-if [ -f "$HOME/.local_aliases" ] ; then
-  source "$HOME/.local_aliases"
+if [ -f "$HOME/.localrc" ] ; then
+  source "$HOME/.localrc"
 fi
 
 # dropbox aliases
