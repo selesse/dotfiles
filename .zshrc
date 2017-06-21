@@ -51,50 +51,26 @@ export EDITOR=vim
 ### }
 
 ### history {
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-HOSTNAME_SHORT=$(hostname -s)
-mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
-HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
-HISTSIZE=65536
-SAVEHIST=$HISTSIZE
+HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"       # The path to the history file.
+HISTSIZE=10000                               # The maximum number of events to save in the internal history.
+SAVEHIST=10000                               # The maximum number of events to save in the history file.
 
-_load_all_shell_history() {
-    # Save current history first
-    fc -W $HISTFILE
+#
+# Options
+#
 
-    ALL_HISTORY="$HOME/.history/.all-history"
-    [ -f "$ALL_HISTORY" ] && rm -f "$ALL_HISTORY"
-    cat ~/.history/**/*(.) > "$ALL_HISTORY"
-    # Load *all* shell histories
-    fc -R "$ALL_HISTORY"
-
-    _ALL_SHELL_HISTORY_LOADED=1
-}
-
-history_incremental_pattern_search_all_history() {
-    _load_all_shell_history
-    zle end-of-history
-    zle history-incremental-pattern-search-backward
-}
-
-history_beginning_search_backward_all_history() {
-    # We can't reload the entire shell history every time we call this function
-    # because successive calls would reload the entire history. Instead, ensure
-    # the *entire* shell history only ever gets loaded once.
-    if [[ "$_ALL_SHELL_HISTORY_LOADED" != "1" ]] ; then
-        _load_all_shell_history
-    fi
-    zle history-beginning-search-backward
-}
-
-bindkey '^R' history_incremental_pattern_search_all_history
-bindkey -M isearch '^R' history-incremental-pattern-search-backward
-bindkey '^[p' history_beginning_search_backward_all_history
-bindkey '^[n' history-beginning-search-forward
-
-zle -N history_incremental_pattern_search_all_history
-zle -N history_beginning_search_backward_all_history
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
+setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing non-existent history.
 ### }
 
 ### prompt {
@@ -267,22 +243,7 @@ pass() {
 
 ### startup_commands {
 ls
-### }
 
-### fzf {
 if [ -f ~/.fzf.zsh ] ; then
     source ~/.fzf.zsh
-
-    # The fzf shell bindings rewrite your ^R with "fzf-history-widget".
-    # I like this widget, but I would like it to load my entire shell history
-    # instead of just the current shell's history.
-    if [[ "$(bindkey '^R' | cut -f2 -d' ')" == "fzf-history-widget" ]] ; then
-        enhanced-fzf-history-widget() {
-            _load_all_shell_history
-            fzf-history-widget
-        }
-        zle     -N   enhanced-fzf-history-widget
-        bindkey '^R' enhanced-fzf-history-widget
-    fi
 fi
-### }
