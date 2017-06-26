@@ -38,6 +38,7 @@ let mapleader=","
 set mouse=nv " enable mouse for normal and visual modes (not insert!!!)
 set nocompatible
 filetype off
+set t_BE= " Disable vim8 bracketed paste
 
 let $VIMHOME = expand("$HOME/.vim")
 let custom_spell_file =
