@@ -27,6 +27,7 @@
     sta = status
     stu = status --untracked=no
     unstage = reset HEAD
+    untracked-files = ls-files --others --exclude-standard
 [core]
     editor = $EDITOR
     excludesfile = ~/.gitignore_global
