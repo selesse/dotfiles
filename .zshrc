@@ -184,12 +184,6 @@ extract() {
   fi
 }
 
-psgrep() {
-  ps aux |
-  grep -v grep | #exclude this grep from the results
-  grep "$@" -i --color=auto;
-}
-
 # Keep going up directories until you find "$file", or we reach root.
 find_parent_file() {
   local file="$1"
@@ -220,17 +214,6 @@ find_parent_file() {
   return 0
 }
 
-gw() {
-  # cd into the directory so you don't generate .gradle folders everywhere
-  builtin cd `find_parent_file gradlew` && ./gradlew $*
-  builtin cd -
-}
-
-precmd() {
-  local tab_label=${PWD/${HOME}/\~} # use 'relative' path
-  echo -ne "\e]2;${tab_label}\a" # set window title to full string
-}
-
 vif() {
     file=$({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
     if [ ! -z "$file" ] ; then
@@ -238,32 +221,6 @@ vif() {
     fi
 }
 
-pass() {
-    lpass ls > /dev/null 2>&1
-
-    if [[ -z "$LPASS_USER" ]] ; then
-        # Zsh-specific way of reading into a variable, see
-        # http://superuser.com/q/555874/363363
-        read "?LastPass username? " LPASS_USER
-    fi
-
-    if [[ $? -ne 0 ]] ; then
-		lpass login $LPASS_USER
-    fi
-
-    id=$(lpass ls | fzf | egrep -o "id: [0-9]+" | sed -e 's/id: //')
-
-    # The ID might be empty (i.e. if we ctrl+c out of the selection)
-    if [[ ! -z "$id" ]] ; then
-        echo "Username:" $(lpass show --username $id)
-        if [[ ! -z "$(lpass show --notes $id)" ]] ; then
-            echo "Notes:" $(lpass show --notes $id)
-        fi
-        lpass show -c --password $id
-        echo ""
-        echo "The password for this account is now copied into your clipboard."
-    fi
-}
 ### }
 
 ### startup_commands {
