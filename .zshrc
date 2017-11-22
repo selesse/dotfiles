@@ -28,9 +28,9 @@ PATH_DIRECTORIES=(
 )
 
 for directory in $PATH_DIRECTORIES; do
-  if [ -d "$directory" ]; then
-    PATH+=":$directory"
-  fi
+    if [ -d "$directory" ]; then
+        PATH+=":$directory"
+    fi
 done
 
 # Use Vim key bindings to edit the current shell command
@@ -99,39 +99,39 @@ zle -N history_beginning_search_backward_all_history
 
 ### prompt {
 case "$(uname -s)" in
-  "Darwin")
-    alias ls="ls -G"
-    alias l="ls -GF"
+    "Darwin")
+        alias ls="ls -G"
+        alias l="ls -GF"
 
-    # use jdk 8 by default:
-    # http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6#comment21605776_12757565
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+        # use jdk 8 by default:
+        # http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6#comment21605776_12757565
+        export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-    # /usr/local/bin should take precedence over /usr/bin
-    PATH="/usr/local/bin:$PATH"
+        # /usr/local/bin should take precedence over /usr/bin
+        PATH="/usr/local/bin:$PATH"
 
-    # I don't care about my hostname when I'm on a physical device
-    PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
-  ;;
-  "FreeBSD")
-    alias ls="ls -G"
-    alias l="ls -GF"
-    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-  ;;
-  *)
-    alias ls="ls --color"
-    alias l="ls --color -F"
-    alias pbcopy='xclip -selection clipboard'
-    alias pbpaste='xclip -selection clipboard -o'
+        # I don't care about my hostname when I'm on a physical device
+        PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
+        ;;
+    "FreeBSD")
+        alias ls="ls -G"
+        alias l="ls -GF"
+        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+        ;;
+    *)
+        alias ls="ls --color"
+        alias l="ls --color -F"
+        alias pbcopy='xclip -selection clipboard'
+        alias pbpaste='xclip -selection clipboard -o'
 
-    say() {
-      espeak -s 120 "$@" > /dev/null 2>&1
-    }
+        say() {
+            espeak -s 120 "$@" > /dev/null 2>&1
+        }
 
-    # change the color of root
-    PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-    if_program_installed linuxlogo "linuxlogo -u"
-  ;;
+        # change the color of root
+        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
+        if_program_installed linuxlogo "linuxlogo -u"
+        ;;
 esac
 ### }
 
@@ -158,60 +158,60 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
 ### functions {
 cd() {
-  if [ -z "$@" ] ; then
-    return
-  fi
-  builtin cd "$@" && ls
+    if [ -z "$@" ] ; then
+        return
+    fi
+    builtin cd "$@" && ls
 }
 
 extract() {
-  if [ -f $1 ] ; then
-    case $1 in
-    *.tar.bz2)  tar xjf $1      ;;
-    *.tar.gz)   tar xzf $1      ;;
-    *.bz2)      bunzip2 $1      ;;
-    *.rar)      rar x $1        ;;
-    *.gz)       gunzip $1       ;;
-    *.tar)      tar xf $1       ;;
-    *.tbz2)     tar xjf $1      ;;
-    *.tgz)      tar xzf $1      ;;
-    *.zip)      unzip $1        ;;
-    *.Z)        uncompress $1   ;;
-    *)          echo "'$1' cannot be extracted via extract()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file - go home"
-  fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)  tar xjf $1      ;;
+            *.tar.gz)   tar xzf $1      ;;
+            *.bz2)      bunzip2 $1      ;;
+            *.rar)      rar x $1        ;;
+            *.gz)       gunzip $1       ;;
+            *.tar)      tar xf $1       ;;
+            *.tbz2)     tar xjf $1      ;;
+            *.tgz)      tar xzf $1      ;;
+            *.zip)      unzip $1        ;;
+            *.Z)        uncompress $1   ;;
+            *)          echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file - go home"
+    fi
 }
 
 # Keep going up directories until you find "$file", or we reach root.
 find_parent_file() {
-  local file="$1"
-  local directory="$PWD"
-  local starting_directory="$directory"
-  local target=""
+    local file="$1"
+    local directory="$PWD"
+    local starting_directory="$directory"
+    local target=""
 
-  if [ -z "$file" ] ; then
-    echo "Please specify a file to find"
-  fi
-
-  while [ -d "$directory" ] && [ "$directory" != "/" ]; do
-    if [ `find "$directory" -maxdepth 1 -name "$file"` ] ; then
-      target="$PWD"
-      break
-    else
-      builtin cd .. && directory="$PWD"
+    if [ -z "$file" ] ; then
+        echo "Please specify a file to find"
     fi
-  done
 
-  builtin cd $starting_directory
+    while [ -d "$directory" ] && [ "$directory" != "/" ]; do
+        if [ `find "$directory" -maxdepth 1 -name "$file"` ] ; then
+            target="$PWD"
+            break
+        else
+            builtin cd .. && directory="$PWD"
+        fi
+    done
 
-  if [ -z "$target" ] ; then
-    return 1
-  fi
+    builtin cd $starting_directory
 
-  echo $target
-  return 0
+    if [ -z "$target" ] ; then
+        return 1
+    fi
+
+    echo $target
+    return 0
 }
 
 vif() {
@@ -236,11 +236,11 @@ if [ -f ~/.fzf.zsh ] ; then
     # instead of just the current shell's history.
     if [[ "$(bindkey '^R' | cut -f2 -d' ')" == "fzf-history-widget" ]] ; then
         enhanced-fzf-history-widget() {
-            _load_all_shell_history
-            fzf-history-widget
-        }
-        zle     -N   enhanced-fzf-history-widget
-        bindkey '^R' enhanced-fzf-history-widget
-    fi
+        _load_all_shell_history
+        fzf-history-widget
+    }
+    zle     -N   enhanced-fzf-history-widget
+    bindkey '^R' enhanced-fzf-history-widget
+fi
 fi
 ### }
