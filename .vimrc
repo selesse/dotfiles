@@ -101,7 +101,6 @@ nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>w :set hlsearch!<CR>
 nnoremap <leader>dw :%s/\v +\n/\r/g<CR><C-o> " when substituting, \r is newline
-nnoremap <leader>sw :call VimuxRunCommand("cd $HOME/git/swmud && ./sendToMud.sh wizards/sead/" . @%)<CR>
 nnoremap / /\v
 nnoremap Y y$
 " swap the word the cursor is on with the next (newlines are okay, punctuation
@@ -180,29 +179,6 @@ command! -nargs=1 Silent
       \ | execute ':silent !'.<q-args>
       \ | execute ':redraw!'
 
-" OS specific mappings {{{
-" also useful - has('gui_running')
-if has("win32")
-  " assume that your file ends with .html
-  autocmd FileType html nmap <silent> <F5> :! start %<CR>
-else
-  if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-      " mac stuff
-      autocmd FileType html nmap <silent> <F5> :!open -a Google\ Chrome %<CR>
-    else
-      " linux stuff
-      autocmd FileType html nmap <silent> <F5> :!gnome-open %<CR>
-    endif
-    " mac + linux stuff
-    let &titleold=getcwd()
-  else
-    echo "No idea what OS you're running"
-  endif
-endif
-" }}}
-
 " Language-specific mappings {{{
 
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -233,12 +209,6 @@ augroup END
 augroup filetype_html
   autocmd!
   autocmd FileType html :iabbrev </ </<C-X><C-O>
-augroup END
-
-augroup filetype_lpc
-  autocmd!
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set filetype=lpc
-  autocmd BufRead,BufNewFile ~/git/swmud/wizards/sead/* set tw=78
 augroup END
 
 augroup filetype_makefile
@@ -356,7 +326,6 @@ colorscheme molokai256
 highlight TrailingWhiteSpace ctermbg=red guibg=red
 match TrailingWhiteSpace /\v +\n/
 
-let g:ycm_filetypes_to_completely_ignore = { 'java' : 1 }
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['java'] }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
