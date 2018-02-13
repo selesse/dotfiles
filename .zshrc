@@ -1,6 +1,6 @@
 ### oh-my-zsh {
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="aseles"
+ZSH_THEME="aselesse"
 
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
