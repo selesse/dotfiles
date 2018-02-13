@@ -1,55 +1,48 @@
-# aseles's custom zshell theme
-
-# features:
-# path is autoshortened to ~50 characters
-# displays git status (if applicable in current folder)
-# turns username green if superuser, otherwise it is red
-# shows battery for mac
-
-if [ $UID -eq 0 ] ; then
-    NCOLOR="green"
-else
-    NCOLOR="red"
-fi
 
 battery() {
-  percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")
-  if [ -z "$percentage" ] ; then
-    echo "Unknown"
-  else
-    if [ "${percentage%?}" -gt 80 ] ; then
-      percentage="%{$fg[green]%}$percentage%%{$reset_color%}"
-    elif [ "${percentage%?}" -gt 60 ] ; then
-      percentage="%{$fg[yellow]%}$percentage%%{$reset_color%}"
-    elif [ "${percentage%?}" -gt 40 ] ; then
-      percentage="%{$fg[magenta]%}$percentage%%{$reset_color%}"
-    elif [ "${percentage%?}" -gt 20 ] ; then
-      percentage="%{$fg[red]%}$percentage%%{$reset_color%}"
+    percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")
+
+    if [ -z "$percentage" ] ; then
+        echo ""
     else
-      percentage="%{$fg[blue]%}$percentage%%{$reset_color%}"
+        local battery_color=""
+        if [ "${percentage%?}" -gt 80 ] ; then
+            battery_color="green"
+        elif [ "${percentage%?}" -gt 60 ] ; then
+            battery_color="yellow"
+        elif [ "${percentage%?}" -gt 40 ] ; then
+            battery_color="magenta"
+        elif [ "${percentage%?}" -gt 20 ] ; then
+            battery_color="red"
+        else
+            battery_color="blue"
+        fi
+        percentage="%{$fg[$battery_color]%}${percentage}%%{$reset_color%}"
+        echo " $percentage"
     fi
-    echo $percentage
-  fi
 }
 
-vpnc_status() {
-    VPNC_STATUS=$(pgrep vpnc || pgrep openconnect || echo "")
-    if [ ! -z "$VPNC_STATUS" ] ; then
+vpn_status() {
+    VPN_STATUS=$(pgrep vpnc || pgrep openconnect || echo "")
+    if [ ! -z "$VPN_STATUS" ] ; then
         echo "%{$fg[red]%}(VPN ON)%{$reset_color%}"
     fi
 }
 
-hostname=$(uname -s)
-# prompt
-if [ "$hostname" = "Darwin" ] ; then
-  PROMPT='[%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%))%(1j. $fg[green]%j%{$reset_color%}.) %(!.#.$) '
-  RPROMPT='$(vpnc_status) $(battery) $(git_prompt_info)'
-else
-  PROMPT='[%{$fg[$NCOLOR]%}%B%n%{$fg[white]%}@%{$fg[green]%}%m%{$fg[blue]%}%b%{$reset_color%}] [%{$fg[yellow]%}%50<...<%~%<<%{$reset_color%}]%(?.. (%?%)) %(!.#.$) '
-  RPROMPT='$(vpnc_status) $(git_prompt_info)'
+current_directory_max_length="50"
+current_directory="[%{$fg[yellow]%}%${current_directory_max_length}<...<%~%<<%{$reset_color%}]"
+last_exit_code_if_nonzero="%(?.. (%?%))"
+number_of_background_jobs="%(1j. $fg[green]%j%{$reset_color%}.)"
+prompt_character="%(!.#.$)"
+
+PROMPT='${current_directory}${last_exit_code_if_nonzero}${number_of_background_jobs} ${prompt_character} '
+RPROMPT='$(vpn_status)$(battery) $(git_prompt_info)'
+
+if [[ $(uname -s) != "Darwin" ]] ; then
+    user_at_hostname="[%{$fg[red]%}%B%n%{$fg[white]%}@%{$fg[green]%}%m%{$fg[blue]%}%b%{$reset_color%}]"
+    PROMPT="${user_at_hostname} ${PROMPT}"
 fi
 
-# git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[magenta]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%}!"
