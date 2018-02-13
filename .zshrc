@@ -18,26 +18,27 @@ setopt EXTENDEDGLOB
 unsetopt NOMATCH
 
 PATH_DIRECTORIES=(
-  $HOME/bin
-  /usr/bin
-  /bin
-  /usr/sbin
-  /sbin
-  /usr/local/bin
-  /usr/local/sbin
+    $HOME/bin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin
+    /usr/local/bin
+    /usr/local/sbin
 )
 
-for directory in $PATH_DIRECTORIES; do
-    if [ -d "$directory" ]; then
+for directory in $PATH_DIRECTORIES ; do
+    if [ -d "$directory" ] ; then
         PATH+=":$directory"
     fi
 done
+typeset -U PATH
 
 # Use Vim key bindings to edit the current shell command
 bindkey -v
 bindkey jk vi-cmd-mode
 
-# Execute a command if a particular program exists
+# Eval arbitrary code if a particular program exists
 if_program_installed() {
     program=$1
     shift
@@ -97,7 +98,7 @@ zle -N history_incremental_pattern_search_all_history
 zle -N history_beginning_search_backward_all_history
 ### }
 
-### prompt {
+### os-specific {
 case "$(uname -s)" in
     "Darwin")
         alias ls="ls -G"
@@ -106,42 +107,21 @@ case "$(uname -s)" in
         # use jdk 8 by default:
         # http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6#comment21605776_12757565
         export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-
-        # /usr/local/bin should take precedence over /usr/bin
-        PATH="/usr/local/bin:$PATH"
-
-        # I don't care about my hostname when I'm on a physical device
-        PROMPT_COMMAND='echo -ne "\033]0;${PWD}\007"'
-        ;;
-    "FreeBSD")
-        alias ls="ls -G"
-        alias l="ls -GF"
-        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
         ;;
     *)
         alias ls="ls --color"
         alias l="ls --color -F"
-        alias pbcopy='xclip -selection clipboard'
-        alias pbpaste='xclip -selection clipboard -o'
-
-        say() {
-            espeak -s 120 "$@" > /dev/null 2>&1
-        }
-
-        # change the color of root
-        PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME} - ${PWD}\007"'
-        if_program_installed linuxlogo "linuxlogo -u"
+        if_program_installed xclip 'alias pbcopy="xclip -selection clipboard"'
+        if_program_installed xclip 'alias pbpaste="xclip -selection clipboard -o"'
         ;;
 esac
 ### }
 
 ### aliases {
 alias config="cd ~/git/dotfiles"
-
 alias hisgrep="history | grep"
 alias fname="find . -type f -name"
 alias vi="vim"
-alias duh="du -chs"
 if_program_installed colordiff 'alias diff="colordiff -u"'
 if_program_installed tree 'alias tree="tree -C"'
 if_program_installed ccat 'alias cat="ccat --bg=dark"'
@@ -195,7 +175,7 @@ find_parent_file() {
         echo "Please specify a file to find"
     fi
 
-    while [ -d "$directory" ] && [ "$directory" != "/" ]; do
+    while [ -d "$directory" ] && [ "$directory" != "/" ] ; do
         if [ `find "$directory" -maxdepth 1 -name "$file"` ] ; then
             target="$PWD"
             break
@@ -214,6 +194,7 @@ find_parent_file() {
     return 0
 }
 
+# Open a file in Vim using a fuzzy-finder
 vif() {
     file=$({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
     if [ ! -z "$file" ] ; then
