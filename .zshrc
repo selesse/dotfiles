@@ -217,11 +217,11 @@ if [ -f ~/.fzf.zsh ] ; then
     # instead of just the current shell's history.
     if [[ "$(bindkey '^R' | cut -f2 -d' ')" == "fzf-history-widget" ]] ; then
         enhanced-fzf-history-widget() {
-        _load_all_shell_history
-        fzf-history-widget
-    }
-    zle     -N   enhanced-fzf-history-widget
-    bindkey '^R' enhanced-fzf-history-widget
-fi
+            _load_all_shell_history
+            fzf-history-widget
+        }
+        zle     -N   enhanced-fzf-history-widget
+        bindkey '^R' enhanced-fzf-history-widget
+    fi
 fi
 ### }
