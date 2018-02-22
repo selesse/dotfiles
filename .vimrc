@@ -114,7 +114,7 @@ nnoremap <Up> <C-w>k
 nnoremap <C-k> <C-w>k
 nnoremap <Down> <C-w>j
 nnoremap <C-j> <C-w>j
-nnoremap <leader>c :Silent echo -n %% \| pbcopy<cr>
+nnoremap <leader>c :exec "cd " . FindParentGit()<cr>
 
 " =======================
 " Fuzzy-finding mappings:
@@ -286,10 +286,10 @@ Bundle 'gmarik/vundle'
 
 Bundle 'junegunn/fzf'
 Bundle 'junegunn/fzf.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'mhinz/vim-startify'
 Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-vinegar'
@@ -314,7 +314,6 @@ set statusline+=\ %=%l/%L\ (%p%%)\ \  " right align percentages
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 " }}}
 
 if $TERM == "xterm-256color"
