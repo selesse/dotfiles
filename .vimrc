@@ -1,6 +1,5 @@
 " *** sets, augroups ***
 syntax on
-set relativenumber
 set number
 set nowrap " forces style
 set noautoindent
