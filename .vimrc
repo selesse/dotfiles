@@ -114,6 +114,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <Down> <C-w>j
 nnoremap <C-j> <C-w>j
 nnoremap <leader>c :exec "cd " . FindParentGit()<cr>
+nnoremap <C-o> :NERDTreeToggle<CR>
 
 " =======================
 " Fuzzy-finding mappings:
@@ -285,6 +286,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'junegunn/fzf'
 Bundle 'junegunn/fzf.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
