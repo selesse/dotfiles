@@ -249,6 +249,7 @@ augroup END
 augroup textfiles
   autocmd!
   autocmd BufRead,BufNewFile *.txt set spell
+  autocmd FileType gitcommit set spell
 augroup END
 
 function! Create_Java_Template()
