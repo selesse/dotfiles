@@ -287,6 +287,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'junegunn/fzf'
 Bundle 'junegunn/fzf.vim'
+Plugin 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-endwise'
@@ -345,3 +346,7 @@ function! InsertTabWrapper()
 endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
+
+" Vim Grep
+let g:ackprg = 'ag --vimgrep --smart-case'
+cnoreabbrev ag Ack
