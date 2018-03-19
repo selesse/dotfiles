@@ -1,6 +1,5 @@
 [user]
     name = Alex Selesse
-    email = alex@selesse.com
 [alias]
     aa = add --all
     adu = add -u
