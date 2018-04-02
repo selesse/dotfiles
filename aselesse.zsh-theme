@@ -1,6 +1,8 @@
 
 battery() {
-    percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")
+    if which pmset > /dev/null ; then
+        percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")
+    fi
 
     if [ -z "$percentage" ] ; then
         echo ""
