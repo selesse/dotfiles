@@ -114,7 +114,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <Down> <C-w>j
 nnoremap <C-j> <C-w>j
 nnoremap <leader>c :exec "cd " . FindParentGit()<cr>
-nnoremap <Tab> :NERDTreeToggle<CR>
+nnoremap <expr> <Tab> IsNerdTreeEnabled() ? ':NERDTreeToggle<CR>' : ':NERDTreeFind<CR>'
+
+function! IsNerdTreeEnabled()
+    return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+endfunction
 
 " =======================
 " Fuzzy-finding mappings:
