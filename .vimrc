@@ -17,8 +17,7 @@ set incsearch " incrementally highlight your searches
 set pastetoggle=<f8>
 set ignorecase smartcase " use caps if any caps used in search
 set laststatus=2 " forces showing status bar
-set encoding=utf-8 " order matters for Windows (encoding should be before autochdir)
-set autochdir " (should be below encoding)
+set encoding=utf-8
 set title " modifies window to have filename as its title
 set scrolloff=3 " keep the last 3 lines as you're scrolling down
 set shell=/bin/zsh
@@ -133,6 +132,7 @@ map <expr> <leader>f '%g' != '.git' ? ':FZF<cr>' : 'GFiles %%<cr>'
 map <leader>F :FZF $HOME<cr>
 map <leader>g :GFiles<cr>
 map <leader>G :FZF %g<cr>
+map <leader>b :Buffers<cr>
 
 " *** insert mode mappings ***
 inoremap jk <esc>
@@ -289,9 +289,10 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+Bundle 'janko-m/vim-test'
 Bundle 'junegunn/fzf'
 Bundle 'junegunn/fzf.vim'
-Plugin 'mileszs/ack.vim'
+Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-endwise'
@@ -313,6 +314,8 @@ Bundle 'sjl/badwolf'
 Bundle 'slindberg/vim-colors-smyck'
 
 " Status line settings {{{
+let g:matchup_matchparen_status_offscreen = 0
+
 set statusline=%.40F " write full path to file, max of 40 chars
 set statusline+=%h%m%r " help file, modified, and read only
 set statusline+=\ col=%v " column number
@@ -356,3 +359,11 @@ inoremap <s-tab> <c-n>
 " Vim Grep
 let g:ackprg = 'ag --vimgrep --smart-case'
 cnoreabbrev ag Ack
+
+" Running tests inside Vim 8
+function! Vim8RunStrategy(cmd)
+  call term_start(['/usr/local/bin/bash', '-ic', a:cmd])
+endfunction
+
+let g:test#custom_strategies = {'vim8terminal': function('Vim8RunStrategy')}
+let g:test#strategy = 'vim8terminal'
