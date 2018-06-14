@@ -1,3 +1,5 @@
+source ~/.config/nvim/plugins.vim
+
 let mapleader=","
 
 inoremap jk <esc>
@@ -6,27 +8,11 @@ nnoremap ; :
 nnoremap <leader><leader> <C-^>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'janko-m/vim-test'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-vinegar'
-Plugin 'vim-ruby/vim-ruby'
-
-Plugin 'joedicastro/vim-molokai256'
-
-call vundle#end()
+nnoremap <Right> <C-w>l
+nnoremap <Left> <C-w>h
+nnoremap <Up> <C-w>k
+nnoremap <Down> <C-w>j
+nnoremap <C-j> <C-w>j
 
 colorscheme molokai256
 
@@ -34,3 +20,8 @@ set number
 set relativenumber
 set clipboard+=unnamedplus
 set colorcolumn=81
+
+source ~/.config/nvim/fuzzy-finding.vim
+source ~/.config/nvim/smart-tab.vim
+source ~/.config/nvim/test-support.vim
+source ~/.config/nvim/trailing-whitespace.vim
