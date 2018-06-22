@@ -12,6 +12,7 @@
     ds = diff --staged
     h = !git head
     head = !git l -1
+    fp = fetch --all --prune
     hp =  "!. ~/.githelpers && show_git_head"
     incoming = log --oneline ..@{upstream}
     outgoing = log --oneline @{upstream}..
