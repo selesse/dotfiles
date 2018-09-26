@@ -32,6 +32,7 @@
 [core]
     editor = $EDITOR
     excludesfile = ~/.gitignore_global
+    pager = less -SFX
 [color]
     ui = true
 [merge]
