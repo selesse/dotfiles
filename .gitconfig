@@ -46,3 +46,5 @@
     showUntrackedFiles = all
 [log]
     mailmap = true
+[rebase]
+    autostash = true
