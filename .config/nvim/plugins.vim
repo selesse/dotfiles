@@ -14,6 +14,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-ruby/vim-ruby'
+Plug 'w0rp/ale'
 
 " Colorschemes
 Plug 'joedicastro/vim-molokai256'

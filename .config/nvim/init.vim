@@ -25,6 +25,7 @@ source ~/.config/nvim/fuzzy-finding.vim
 source ~/.config/nvim/smart-tab.vim
 source ~/.config/nvim/test-support.vim
 source ~/.config/nvim/trailing-whitespace.vim
+source ~/.config/nvim/ale.vim
 
 if filereadable($HOME . '/.config/nvim/local.vim')
     source $HOME/.config/nvim/local.vim
