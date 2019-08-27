@@ -20,6 +20,8 @@ set number
 set relativenumber
 set clipboard+=unnamedplus
 set colorcolumn=81
+set hidden
+set noswapfile
 
 source ~/.config/nvim/fuzzy-finding.vim
 source ~/.config/nvim/smart-tab.vim
