@@ -237,4 +237,20 @@ if [ -f ~/.fzf.zsh ] ; then
         bindkey '^R' enhanced-fzf-history-widget
     fi
 fi
+
+git_fuzzy_select_branch_commits() {
+  local selected preview_bindings
+  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+  preview_bindings="--bind page-up:preview-page-up,page-down:preview-page-down"
+  selected=( $(git list-branch-commits |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-60%} $preview_bindings $FZF_DEFAULT_OPTS -n2..,.. \
+      --tiebreak=index $FZF_CTRL_R_OPTS +m" fzf --preview="git show {}" ) )
+  LBUFFER="${LBUFFER}${selected}"
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+
+zle     -N   git_fuzzy_select_branch_commits
+bindkey '^G' git_fuzzy_select_branch_commits
 ### }
