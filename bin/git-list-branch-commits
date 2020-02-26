@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+last_commit=$(git log --pretty=format:'%H' -n 1)
+base_sha=$(git merge-base origin/master ${last_commit} || echo "")
+if [[ -z $base_sha ]] ; then
+  base_sha=$(git merge-base master ${last_commit})
+fi
+
+git log "${base_sha}..${last_commit}" --pretty=format:"%H"
