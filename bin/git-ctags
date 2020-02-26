@@ -1,0 +1,50 @@
+#!/bin/sh
+set -e
+PATH="/usr/local/bin:$PATH"
+dir="`git rev-parse --git-dir`"
+trap 'rm -f "$dir/$$.tags"' EXIT
+
+program_exists() {
+  which "$*" > /dev/null
+}
+
+echo_error() {
+  if program_exists "cowsay" && program_exists "lolcat" ; then
+    { echo "$*" | cowsay | lolcat; } >&2
+  else
+    echo "$*" >&2
+  fi
+}
+
+generate_tags() {
+  ripper-tags --tag-relative -L- -f"$dir/$$.tags" > /dev/null 2>&1
+}
+
+project_is_ruby() {
+  number_of_ruby_files=$(git ls-files | grep '\.rb$' | wc -l)
+  [[ $number_of_ruby_files -gt 0 ]]
+}
+
+kill_existing_executing_ripper_tags() {
+  processes_to_kill=$({ ps aux | grep ripper-tags | grep -v grep | awk '{ print $2; }' | xargs; } || echo "")
+  if [[ ! -z "$processes_to_kill" ]] ; then
+    kill $processes_to_kill
+  fi
+}
+
+main() {
+  if ! project_is_ruby ; then
+    exit 0
+  fi
+
+  if ! program_exists "ripper-tags"; then
+    echo_error "Ripper tags isn't installed - run 'gem install ripper-tags'"
+    exit 1
+  fi
+
+  kill_existing_executing_ripper_tags
+  git ls-files | grep '\.rb$' | generate_tags
+  mv "$dir/$$.tags" "$dir/tags"
+}
+
+main
