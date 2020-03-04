@@ -129,6 +129,7 @@ if_program_installed tree 'alias tree="tree -C"'
 if_program_installed ccat 'alias cat="ccat --bg=dark"'
 if_program_installed bat 'alias cat="bat"'
 if_program_installed vagrant 'alias vagrant-rebuild="vagrant destroy -f && vagrant up && vagrant ssh"'
+if_program_installed fd 'export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude \"*.rbi\""'
 
 # Allow for environment-specific custom aliases/functions
 [ -f "$HOME/.localrc" ] && source $HOME/.localrc
