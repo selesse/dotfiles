@@ -15,3 +15,4 @@ nnoremap ,p :action Back<CR>
 nnoremap ,n :action Forward<CR>
 
 nnoremap ,sv :source ~/.ideavimrc<CR>
+set ideajoin
