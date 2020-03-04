@@ -48,7 +48,9 @@ if_program_installed() {
 
 ### editor {
 export VISUAL=vim
-export EDITOR=vim
+export EDITOR="$VISUAL"
+if_program_installed nvim 'export VISUAL=nvim'
+if_program_installed nvim 'export EDITOR="$VISUAL"'
 ### }
 
 ### history {
@@ -121,7 +123,7 @@ esac
 alias config="cd ~/git/dotfiles"
 alias hisgrep="history | grep"
 alias fname="find . -type f -name"
-alias vi="vim"
+alias vi="${EDITOR}"
 if_program_installed colordiff 'alias diff="colordiff -u"'
 if_program_installed tree 'alias tree="tree -C"'
 if_program_installed ccat 'alias cat="ccat --bg=dark"'
@@ -197,12 +199,11 @@ find_parent_file() {
 
 # Open a file in Vim using a fuzzy-finder
 vif() {
-    file=$({ git ls-files -oc --exclude-standard 2>/dev/null || find . -type f } | fzf)
+    file=$(fzf)
     if [ ! -z "$file" ] ; then
-        vim $file
+        $EDITOR $file
     fi
 }
-
 ### }
 
 # Fix home/end key bindings that are somehow broken by Zsh
