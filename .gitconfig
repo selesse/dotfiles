@@ -51,3 +51,15 @@
 [rebase]
 	autostash = true
 	autosquash = true
+[mergetool]
+	keepBackup = false
+[diff "exif"]
+	textconv = exiftool
+[diff]
+	algorithm = patience
+[protocol]
+	version = 2
+[init]
+	templatedir = ~/.git_template
+[include]
+	path = ~/.gitconfig-local
