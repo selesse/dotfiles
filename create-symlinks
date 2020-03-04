@@ -4,7 +4,7 @@
 #
 # This script is meant to be a "quick start":
 #   1. Clone your dotfiles repository
-#   2. Run `link.sh`
+#   2. Run this script
 
 # Assume we're running this script from the dotfiles repository root
 DOTFILES_DIRECTORY=$PWD
