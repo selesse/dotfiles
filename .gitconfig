@@ -1,5 +1,6 @@
 [user]
 	name = Alex Selesse
+	useConfigOnly = true
 [alias]
 	aa = add --all
 	adu = add -u
@@ -24,6 +25,8 @@
 	release-notes = !git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort
 	plush = push --force-with-lease
 	serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
+	selesse = "config user.email 'alex@selesse.com'"
+	shopify = "config user.email 'alex.selesse@shopify.com'"
 	st = status -sb # short, branch
 	sta = status
 	stu = status --untracked=no
