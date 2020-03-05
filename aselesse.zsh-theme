@@ -1,3 +1,4 @@
+# vim: set ft=zsh:
 GITSTATUS_DIR="$HOME/git/gitstatus"
 gitstatus_plugin_file="$GITSTATUS_DIR/gitstatus.plugin.zsh"
 current_directory_max_length="50"
@@ -11,9 +12,38 @@ if [[ -f "$gitstatus_plugin_file" ]] ; then
     GITSTATUS_ENABLED="true"
 fi
 
+battery() {
+    if which pmset > /dev/null ; then
+        percentage=$(pmset -g batt | grep -Eo "[0-9]{1,3}%" || echo "")
+    fi
+
+    if [ -z "$percentage" ] ; then
+        echo ""
+    else
+        local battery_color=""
+        if [ "${percentage%?}" -gt 80 ] ; then
+            battery_color="green"
+        elif [ "${percentage%?}" -gt 60 ] ; then
+            battery_color="yellow"
+        elif [ "${percentage%?}" -gt 40 ] ; then
+            battery_color="magenta"
+        elif [ "${percentage%?}" -gt 20 ] ; then
+            battery_color="red"
+        else
+            battery_color="blue"
+        fi
+        percentage="%{$fg[$battery_color]%}${percentage}%%{$reset_color%}"
+        echo " $percentage"
+    fi
+}
+
 aselesse_git_prompt() {
     if [[ "$GITSTATUS_ENABLED" == true ]] ; then
-        if gitstatus_query "MY" && [[ $VCS_STATUS_RESULT == ok-sync ]]; then
+        if gitstatus_query "MY" ; then
+            if ! [[ $VCS_STATUS_RESULT == 'ok-sync' ]] ; then
+                RPROMPT="$(battery)"
+                return
+            fi
             RPROMPT=${${VCS_STATUS_LOCAL_BRANCH:-@${VCS_STATUS_COMMIT}}//\%/%%}  # escape %
             (( $VCS_STATUS_NUM_STAGED    )) && RPROMPT+='+'
             (( $VCS_STATUS_NUM_UNSTAGED  )) && RPROMPT+='!'
@@ -55,7 +85,7 @@ aselesse_git_prompt() {
             (( VCS_STATUS_NUM_UNSTAGED   )) && p+=" ${modified}!${VCS_STATUS_NUM_UNSTAGED}"
             # ?42 if have untracked files. It's really a question mark, your font isn't broken.
             (( VCS_STATUS_NUM_UNTRACKED  )) && p+=" ${untracked}?${VCS_STATUS_NUM_UNTRACKED}"
-            RPROMPT="%{$fg[magenta]%}${p}%{$reset_color%}"
+            RPROMPT="$(battery) %{$fg[magenta]%}${p}%{$reset_color%}"
         fi
 
         setopt noprompt{bang,subst} promptpercent  # enable/disable correct prompt expansions
@@ -69,7 +99,7 @@ if [[ "$GITSTATUS_ENABLED" == true ]] ; then
     autoload -Uz add-zsh-hook
     add-zsh-hook precmd aselesse_git_prompt
 else
-    RPROMPT='$(git_prompt_info)'
+    RPROMPT='$(battery) $(git_prompt_info)'
 fi
 
 if [[ $(uname -s) != "Darwin" ]] ; then
