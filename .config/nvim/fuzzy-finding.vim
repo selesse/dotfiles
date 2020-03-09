@@ -14,3 +14,4 @@ map <expr> <leader>f '%g' != '.git' ? ':FZF<cr>' : 'GFiles %%<cr>'
 map <leader>F :FZF %:h<cr>
 map <leader>g :GFiles<cr>
 map <leader>b :Buffers<cr>
+map <leader>s :GFiles?<cr>
