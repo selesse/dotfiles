@@ -16,3 +16,4 @@ nnoremap ,n :action Forward<CR>
 nnoremap ,sv :source ~/.ideavimrc<CR>
 set ideajoin
 set clipboard+=ideaput
+set clipboard+=unnamed
