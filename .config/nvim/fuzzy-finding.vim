@@ -16,6 +16,10 @@ map <leader>g :GFiles<cr>
 map <leader>b :Buffers<cr>
 map <leader>s :GFiles?<cr>
 
+command! -bang Projects call fzf#run(
+      \ fzf#wrap({'sink': 'cd', 'source': 'find ~/git -type d -maxdepth 1'}))
+map <leader>p :Projects<cr>
+
 " This allows CTRL+A followed by CTRL+Q to open search results in quickfix {
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
