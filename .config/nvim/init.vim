@@ -17,7 +17,6 @@ nnoremap <C-j> <C-w>j
 colorscheme molokai256
 
 set number
-set relativenumber
 set clipboard+=unnamedplus
 set colorcolumn=81
 set hidden
