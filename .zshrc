@@ -17,40 +17,9 @@ setopt EXTENDEDGLOB
 # doing stuff like $(git log -- */file-that-doesnt-exist-anymore).
 unsetopt NOMATCH
 
-PATH_DIRECTORIES=(
-    $HOME/bin
-    /usr/bin
-    /bin
-    /usr/sbin
-    /sbin
-    /usr/local/bin
-    /usr/local/sbin
-)
-
-for directory in $PATH_DIRECTORIES ; do
-    if [ -d "$directory" ] ; then
-        PATH+=":$directory"
-    fi
-done
-typeset -U PATH
-
 # Use Vim key bindings to edit the current shell command
 bindkey -v
 bindkey jk vi-cmd-mode
-
-# Eval arbitrary code if a particular program exists
-if_program_installed() {
-    program=$1
-    shift
-    which "$program" > /dev/null && eval $* || true
-}
-### }
-
-### editor {
-export VISUAL=vim
-export EDITOR="$VISUAL"
-if_program_installed nvim 'export VISUAL=nvim'
-if_program_installed nvim 'export EDITOR="$VISUAL"'
 ### }
 
 ### history {
@@ -129,7 +98,6 @@ if_program_installed tree 'alias tree="tree -C"'
 if_program_installed ccat 'alias cat="ccat --bg=dark"'
 if_program_installed bat 'alias cat="bat"'
 if_program_installed vagrant 'alias vagrant-rebuild="vagrant destroy -f && vagrant up && vagrant ssh"'
-if_program_installed fd 'export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude \"*.rbi\""'
 
 # Allow for environment-specific custom aliases/functions
 [ -f "$HOME/.localrc" ] && source $HOME/.localrc
