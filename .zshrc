@@ -5,7 +5,7 @@ ZSH_THEME="aselesse"
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(ssh-agent tmux vundle)
+plugins=(ssh-agent tmux vundle history)
 
 DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
@@ -20,53 +20,6 @@ unsetopt NOMATCH
 # Use Vim key bindings to edit the current shell command
 bindkey -v
 bindkey jk vi-cmd-mode
-### }
-
-### history {
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-HOSTNAME_SHORT=$(hostname -s)
-mkdir -p "${HOME}/.history/$(date +%Y/%m/%d)"
-HISTFILE="${HOME}/.history/$(date +%Y/%m/%d)/$(date +%H.%M.%S)_${HOSTNAME_SHORT}_$$"
-HISTSIZE=65536
-SAVEHIST=$HISTSIZE
-
-_load_all_shell_history() {
-    # Save current history first
-    fc -W $HISTFILE
-
-    ALL_HISTORY="$HOME/.history/.all-history"
-    [ -f "$ALL_HISTORY" ] && rm -f "$ALL_HISTORY"
-    cat ~/.history/**/*(.) > "$ALL_HISTORY"
-    # Load *all* shell histories
-    fc -R "$ALL_HISTORY"
-
-    _ALL_SHELL_HISTORY_LOADED=1
-}
-
-history_incremental_pattern_search_all_history() {
-    _load_all_shell_history
-    zle end-of-history
-    zle history-incremental-pattern-search-backward
-}
-
-history_beginning_search_backward_all_history() {
-    # We can't reload the entire shell history every time we call this function
-    # because successive calls would reload the entire history. Instead, ensure
-    # the *entire* shell history only ever gets loaded once.
-    if [[ "$_ALL_SHELL_HISTORY_LOADED" != "1" ]] ; then
-        _load_all_shell_history
-    fi
-    zle history-beginning-search-backward
-}
-
-bindkey '^R' history_incremental_pattern_search_all_history
-bindkey -M isearch '^R' history-incremental-pattern-search-backward
-bindkey '^[p' history_beginning_search_backward_all_history
-bindkey '^[n' history-beginning-search-forward
-
-zle -N history_incremental_pattern_search_all_history
-zle -N history_beginning_search_backward_all_history
 ### }
 
 ### os-specific {
