@@ -48,7 +48,6 @@ alias fname="find . -type f -name"
 alias vi="${EDITOR}"
 if_program_installed colordiff 'alias diff="colordiff -u"'
 if_program_installed tree 'alias tree="tree -C"'
-if_program_installed ccat 'alias cat="ccat --bg=dark"'
 if_program_installed bat 'alias cat="bat"'
 if_program_installed vagrant 'alias vagrant-rebuild="vagrant destroy -f && vagrant up && vagrant ssh"'
 
