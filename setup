@@ -1,10 +1,26 @@
 #!/bin/bash
 
-set -e
+pre_install() {
+  if [ $SPIN ] ; then
+    sudo apt install -y silversearcher-ag
+    rm ~/.gitconfig ~/.zshrc
+  fi
+}
 
-if [ $SPIN ] ; then
-  sudo apt install -y silversearcher-ag
-  rm ~/.gitconfig ~/.zshrc
-fi
+install() {
+  ./create-symlinks
+}
 
-./create-symlinks
+post_install() {
+  cd $SPIN_REPO_SOURCE_PATH
+  gem install ripper-tags
+  $HOME/bin/git-ctags
+}
+
+main() {
+  pre_install
+  install
+  post_install
+}
+
+main
