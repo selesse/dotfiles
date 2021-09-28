@@ -23,6 +23,7 @@
 	outgoing = log --oneline @{upstream}..
 	release-notes = !git log --oneline --no-merges `git describe --abbrev=0 --tags`..HEAD | cut -c 9- | sort
 	plush = push --force-with-lease
+	pnew = !git push -u origin `git rev-parse --abbrev-ref HEAD`
 	serve = !git daemon --reuseaddr --verbose --base-path=. --export-all ./.git
 	selesse = "config user.email 'alex@selesse.com'"
 	shopify = "config user.email 'alex.selesse@shopify.com'"
