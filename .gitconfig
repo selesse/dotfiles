@@ -36,6 +36,7 @@
 	editor = $EDITOR
 	excludesfile = ~/.gitignore_global
 	pager = less -SFX
+	commitGraph = true
 [color]
 	ui = true
 [merge]
@@ -62,5 +63,7 @@
 	version = 2
 [init]
 	templatedir = ~/.git_template
+[gc]
+	writeCommitGraph = true
 [include]
 	path = ~/.gitconfig-local
