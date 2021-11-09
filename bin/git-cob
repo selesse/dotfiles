@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# git-cob: git check-out-branch
+#
+# Fuzzy-find a branch (sorted by most recently modified) to checkout.
+#
+# Demo: https://github.com/selesse/dotfiles/blob/master/img/git-cob.gif
+
 branch=$(git for-each-ref --color --sort=-committerdate \
     refs/heads/ \
     --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) | (%(color:green)%(committerdate:relative)%(color:reset)) %(color:bold)%(authorname)%(color:reset) - %(contents:subject)' | \
