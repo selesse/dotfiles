@@ -6,6 +6,8 @@ PATH_DIRECTORIES=(
     /sbin
     /usr/local/bin
     /usr/local/sbin
+    /opt/homebrew/bin
+    /opt/homebrew/sbin
 )
 
 for directory in $PATH_DIRECTORIES ; do
