@@ -13,6 +13,7 @@ declare -a EXCEPTIONS=(
     "README.md"
     "${SCRIPT_NAME}"
     "aselesse.zsh-theme"
+    "setup"
     ".gitignore"
 )
 
