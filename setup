@@ -11,6 +11,8 @@ install() {
   ./create-symlinks
 
   git clone --depth=1 https://github.com/romkatv/gitstatus.git $HOME/git/gitstatus
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --key-bindings --completion --update-rc
 }
 
 post_install() {
