@@ -9,6 +9,8 @@ pre_install() {
 
 install() {
   ./create-symlinks
+
+  git clone --depth=1 https://github.com/romkatv/gitstatus.git $HOME/git/gitstatus
 }
 
 post_install() {
