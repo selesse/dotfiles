@@ -1,11 +1,19 @@
 # vim: set ft=zsh:
-GITSTATUS_DIR="$HOME/git/gitstatus"
+GITSTATUS_DIR="$(gitstatus_directory)/gitstatus"
 gitstatus_plugin_file="$GITSTATUS_DIR/gitstatus.plugin.zsh"
 current_directory_max_length="50"
 current_directory="[%{$fg[yellow]%}%${current_directory_max_length}<...<%~%<<%{$reset_color%}]"
 last_exit_code_if_nonzero="%(?.. (%?%))"
 number_of_background_jobs="%(1j. $fg[green]%j%{$reset_color%}.)"
 prompt_character="%(!.#.$)"
+
+gitstatus_directory() {
+    if which brew > /dev/null ; then
+        brew --prefix
+    else
+        echo "$HOME/git"
+    fi
+}
 
 if [[ -f "$gitstatus_plugin_file" ]] ; then
     source "$gitstatus_plugin_file"
