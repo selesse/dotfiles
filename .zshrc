@@ -5,7 +5,10 @@ ZSH_THEME="aselesse"
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(ssh-agent tmux vundle history)
+plugins=(tmux history)
+if [ -d "$HOME/.ssh" ] ; then
+  plugins+=(ssh-agent)
+fi
 
 DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
