@@ -1,6 +1,4 @@
 # vim: set ft=zsh:
-GITSTATUS_DIR="$(gitstatus_directory)/gitstatus"
-gitstatus_plugin_file="$GITSTATUS_DIR/gitstatus.plugin.zsh"
 current_directory_max_length="50"
 current_directory="[%{$fg[yellow]%}%${current_directory_max_length}<...<%~%<<%{$reset_color%}]"
 last_exit_code_if_nonzero="%(?.. (%?%))"
@@ -14,6 +12,9 @@ gitstatus_directory() {
         echo "$HOME/git"
     fi
 }
+
+GITSTATUS_DIR="$(gitstatus_directory)/gitstatus"
+gitstatus_plugin_file="$GITSTATUS_DIR/gitstatus.plugin.zsh"
 
 if [[ -f "$gitstatus_plugin_file" ]] ; then
     source "$gitstatus_plugin_file"
