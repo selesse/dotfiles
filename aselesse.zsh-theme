@@ -7,7 +7,7 @@ prompt_character="%(!.#.$)"
 
 gitstatus_directory() {
     if which brew > /dev/null ; then
-        brew --prefix
+        echo "$(brew --prefix)/opt"
     else
         echo "$HOME/git"
     fi
