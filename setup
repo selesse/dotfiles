@@ -23,9 +23,10 @@ post_install() {
         export GEM_HOME="$HOME/.gem"
         gem install ripper-tags
         export PATH=$PATH:$HOME/.gem/bin
-        $HOME/bin/git-ctags
+        $HOME/bin/git-ctags &
       fi
     done
+    wait
   fi
 }
 
