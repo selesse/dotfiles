@@ -51,6 +51,7 @@
 [log]
 	mailmap = true
 [rebase]
+	stat = true
 	autostash = true
 	autosquash = true
 [mergetool]
@@ -67,3 +68,5 @@
 	writeCommitGraph = true
 [include]
 	path = ~/.gitconfig-local
+[pull]
+	rebase = true
