@@ -185,4 +185,16 @@ run_fzf_with_preview() {
 
 zle     -N   git_autocomplete
 bindkey '^G' git_autocomplete
+
+fuzzy_select_projects() {
+  project=$(find $HOME/git -type d -maxdepth 1 -mindepth 1 -exec stat -f "%m %N" '{}' \; | sort -rn | cut -f2 -d' ' | fzf)
+  if [ ! -z "$project" ] ; then
+    echo "cd $project"
+    builtin cd $project && ls
+    zle reset-prompt
+  fi
+}
+
+zle     -N   fuzzy_select_projects
+bindkey '^P' fuzzy_select_projects
 ### }
