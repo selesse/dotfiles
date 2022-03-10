@@ -35,7 +35,6 @@
 [core]
 	editor = $EDITOR
 	excludesfile = ~/.gitignore_global
-	pager = less -SFX
 	commitGraph = true
 [color]
 	ui = true
