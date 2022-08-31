@@ -28,6 +28,7 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 if_program_installed nvim 'export VISUAL=nvim'
 if_program_installed nvim 'export EDITOR="$VISUAL"'
+if_program_installed nvim 'alias vim=nvim'
 
 if_program_installed fd 'export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude \"*.rbi\""'
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/ripgreprc"
