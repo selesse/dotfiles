@@ -2,8 +2,9 @@
 
 pre_install() {
   if [ $SPIN ] ; then
-    sudo apt install -y silversearcher-ag
+    sudo apt install -y silversearcher-ag fd-find
     rm ~/.gitconfig ~/.zshrc
+    echo "alias fd='fdfind'" >> ~/.localrc
   fi
 }
 
