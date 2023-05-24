@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby --disable-gems
+#!/usr/bin/env -S ruby --disable-gems
 branch_revisions = `git rev-list ...master`.split("\n")
 
 files_to_fixup = `git diff --name-only --staged`.split("\n")
