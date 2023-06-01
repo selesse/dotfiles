@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ruby --disable-gems
-branch_revisions = `git rev-list ...master`.split("\n")
+branch_revisions = `git rev-list ...main`.split("\n")
 
 files_to_fixup = `git diff --name-only --staged`.split("\n")
 if files_to_fixup.empty?
