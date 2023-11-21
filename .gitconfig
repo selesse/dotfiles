@@ -69,3 +69,6 @@
 	path = ~/.gitconfig-local
 [pull]
 	rebase = true
+[diff "lockb"]
+	textconv = bun
+	binary = true
