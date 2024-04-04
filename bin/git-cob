@@ -4,7 +4,7 @@
 #
 # Fuzzy-find a branch (sorted by most recently modified) to checkout.
 #
-# Demo: https://github.com/selesse/dotfiles/blob/master/img/git-cob.gif
+# Demo: https://github.com/selesse/dotfiles/blob/main/img/git-cob.gif
 
 branch=$(git for-each-ref --color --sort=-committerdate \
     refs/heads/ \
