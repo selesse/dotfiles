@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+main() {
+  local magenta='\033[1;35m'
+  local cyan='\033[1;36m'
+  local yellow='\033[1;33m'
+  local reset='\033[0m'
+  echo -e "${magenta}Gotta ${cyan}git ${yellow}git!${reset}"
+  git "$@"
+}
+
+main "$@"
