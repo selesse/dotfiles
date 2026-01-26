@@ -196,4 +196,16 @@ fuzzy_select_projects() {
 
 zle     -N   fuzzy_select_projects
 bindkey '^P' fuzzy_select_projects
+
+ff_widget() {
+  local selected
+  selected=$(ff)
+  if [ -n "$selected" ] ; then
+    LBUFFER="${LBUFFER}${selected}"
+  fi
+  zle reset-prompt
+}
+
+zle     -N   ff_widget
+bindkey '^F' ff_widget
 ### }

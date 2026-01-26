@@ -1,0 +1,116 @@
+#!/usr/bin/env ruby
+# ff - fuzzy file finder across multiple repo sources
+#
+# Uses fzf to select a repo from ~/git, ~/src/github.com/Shopify, or
+# ~/world sparse checkout zones, then fuzzy search files within it.
+# Outputs the full path of the selected file.
+#
+# Usage: ff [-a]
+#   -a, --all    Include gitignored files
+
+require "optparse"
+
+WORLD_ROOT = File.expand_path("~/world/trees/root/src")
+GITHUB_ROOT = File.expand_path("~/src/github.com")
+GIT_ROOT = File.expand_path("~/git")
+
+CYAN = "\e[36m"
+MAGENTA = "\e[35m"
+YELLOW = "\e[33m"
+RESET = "\e[0m"
+
+def check_dependencies!
+  %w[fd fzf].each do |cmd|
+    unless system("which #{cmd} > /dev/null 2>&1")
+      warn "ff: #{cmd} is required but not installed"
+      exit 1
+    end
+  end
+end
+
+check_dependencies!
+
+options = { all: false }
+OptionParser.new do |opts|
+  opts.banner = "Usage: ff [options]"
+  opts.on("-a", "--all", "Include gitignored files") { options[:all] = true }
+end.parse!
+
+repos = {}
+display_lines = []
+
+# Add repos from ~/src/github.com/Shopify
+if Dir.exist?(GITHUB_ROOT)
+  shopify_dir = File.join(GITHUB_ROOT, "Shopify")
+  if Dir.exist?(shopify_dir)
+    Dir.glob("#{shopify_dir}/*/").each do |dir|
+      name = File.basename(dir)
+      display_key = "$GITHUB/Shopify/#{name}"
+      colored = "#{MAGENTA}$GITHUB#{RESET}/Shopify/#{name}"
+      repos[display_key] = dir.chomp("/")
+      display_lines << colored
+    end
+  end
+end
+
+# Add repos from ~/git
+if Dir.exist?(GIT_ROOT)
+  Dir.glob("#{GIT_ROOT}/*/").each do |dir|
+    name = File.basename(dir)
+    display_key = "$GIT/#{name}"
+    colored = "#{YELLOW}$GIT#{RESET}/#{name}"
+    repos[display_key] = dir.chomp("/")
+    display_lines << colored
+  end
+end
+
+# Add zones from world sparse checkout (directories containing zone.nix)
+if Dir.exist?(WORLD_ROOT)
+  areas_dir = File.join(WORLD_ROOT, "areas")
+  if Dir.exist?(areas_dir)
+    IO.popen(["fd", "--max-depth", "4", "zone.nix", areas_dir], err: "/dev/null") do |io|
+      io.each_line do |zonefile|
+        full_path = File.dirname(zonefile.chomp)
+        relative = full_path.sub("#{WORLD_ROOT}/", "")
+        display_key = "$WORLD/#{relative}"
+        colored = "#{CYAN}$WORLD#{RESET}/#{relative}"
+        repos[display_key] = full_path
+        display_lines << colored
+      end
+    end
+  end
+end
+
+if repos.empty?
+  warn "No repos found"
+  exit 1
+end
+
+# Pick a repo with fzf
+selected_key = IO.popen(["fzf", "--ansi", "--prompt=Select repo: "], "r+") do |fzf|
+  fzf.puts display_lines.sort
+  fzf.close_write
+  fzf.gets&.chomp
+end
+
+exit 0 if selected_key.nil? || selected_key.empty?
+
+selected_repo = repos[selected_key]
+
+# Find all files and pick one with fzf
+fd_args = ["fd", "--type", "f"]
+fd_args << "--no-ignore" if options[:all]
+fd_args += [".", selected_repo]
+
+selected_file = IO.popen(fd_args, err: "/dev/null") do |fd_io|
+  files = fd_io.each_line.map { |f| f.chomp.sub("#{selected_repo}/", "") }
+  IO.popen(["fzf", "--prompt=Select file: "], "r+") do |fzf|
+    fzf.puts files
+    fzf.close_write
+    fzf.gets&.chomp
+  end
+end
+
+if selected_file && !selected_file.empty?
+  puts "#{selected_repo}/#{selected_file}"
+end
