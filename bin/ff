@@ -1,12 +1,13 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby --disable-gems
 # ff - fuzzy file finder across multiple repo sources
 #
 # Uses fzf to select a repo from ~/git, ~/src/github.com/Shopify, or
 # ~/world sparse checkout zones, then fuzzy search files within it.
 # Outputs the full path of the selected file.
 #
-# Usage: ff [-a]
-#   -a, --all    Include gitignored files
+# Usage: ff [-a] [-p]
+#   -a, --all      Include gitignored files
+#   -p, --project  Select project only (no file selection)
 
 require "optparse"
 
@@ -30,10 +31,11 @@ end
 
 check_dependencies!
 
-options = { all: false }
+options = { all: false, project_only: false }
 OptionParser.new do |opts|
   opts.banner = "Usage: ff [options]"
   opts.on("-a", "--all", "Include gitignored files") { options[:all] = true }
+  opts.on("-p", "--project", "Select project only (no file selection)") { options[:project_only] = true }
 end.parse!
 
 repos = {}
@@ -96,6 +98,11 @@ end
 exit 0 if selected_key.nil? || selected_key.empty?
 
 selected_repo = repos[selected_key]
+
+if options[:project_only]
+  puts selected_repo
+  exit 0
+end
 
 # Find all files and pick one with fzf
 fd_args = ["fd", "--type", "f"]
