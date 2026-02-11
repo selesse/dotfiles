@@ -62,7 +62,8 @@ Should we add similar overrides for other scopes?
 
 ## Output
 
-1. Get the current branch name (e.g., `git branch --show-current`)
-2. Write the PR description to `.claude/local-notes/pr-descriptions/pr-<branch_name>.md` using GitHub flavored markdown
-3. Copy to clipboard: `cat .claude/local-notes/pr-descriptions/pr-<branch_name>.md | pbcopy`
-4. Tell the user it's been copied and mention the file path in case they need to retrieve it later
+1. Run `ruby ~/.claude/skills/pr-description/context.rb` to get branch name, main SHA, commits, and diff stats
+2. If the diff stats aren't enough context, run the full diff command printed at the end of the script output
+3. Write the PR description to `~/.claude/local-notes/pr-descriptions/pr-<branch_name>.md` using GitHub flavored markdown
+4. Copy to clipboard: `cat ~/.claude/local-notes/pr-descriptions/pr-<branch_name>.md | pbcopy`
+5. Tell the user it's been copied and mention the file path in case they need to retrieve it later
