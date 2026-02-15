@@ -1,18 +1,5 @@
 #!/bin/bash
 
-pre_install() {
-  if [ $SPIN ] ; then
-    sudo apt install -y silversearcher-ag fd-find
-    rm ~/.gitconfig ~/.zshrc
-    echo "alias fd='fdfind'" >> ~/.localrc
-    # Spin embeds an old version of fzf
-    sudo rm /usr/local/bin/fzf
-    sudo rm /usr/bin/fzf
-    # Modified version of chruby that makes shadowenv/chruby work together
-    sudo ln -s /opt/dev/sh/chruby/auto.sh /usr/local/share/chruby/auto.sh
-  fi
-}
-
 install() {
   ./create-symlinks
 
@@ -21,7 +8,6 @@ install() {
 }
 
 main() {
-  pre_install
   install
 }
 
