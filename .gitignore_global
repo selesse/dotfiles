@@ -5,3 +5,6 @@
 .idea/
 .claude/settings.local.json
 **/.claude/local-notes/
+
+*.sqlite3-shm
+*.sqlite3-wal
