@@ -12,10 +12,12 @@
 require "optparse"
 
 WORLD_ROOT = File.expand_path("~/world/trees/root/src")
+WORLD_TREES = File.expand_path("~/world/trees")
 GITHUB_ROOT = File.expand_path("~/src/github.com")
 GIT_ROOT = File.expand_path("~/git")
 
 CYAN = "\e[36m"
+GREEN = "\e[32m"
 MAGENTA = "\e[35m"
 YELLOW = "\e[33m"
 RESET = "\e[0m"
@@ -76,6 +78,28 @@ if Dir.exist?(WORLD_ROOT)
         relative = full_path.sub("#{WORLD_ROOT}/", "")
         display_key = "$WORLD/#{relative}"
         colored = "#{CYAN}$WORLD#{RESET}/#{relative}"
+        repos[display_key] = full_path
+        display_lines << colored
+      end
+    end
+  end
+end
+
+# Add zones from other world worktrees (non-root trees)
+if Dir.exist?(WORLD_TREES)
+  Dir.glob("#{WORLD_TREES}/*/").each do |tree_dir|
+    tree_name = File.basename(tree_dir)
+    next if tree_name == "root"
+
+    areas_dir = File.join(tree_dir, "src", "areas")
+    next unless Dir.exist?(areas_dir)
+
+    IO.popen(["fd", "--max-depth", "4", "zone.nix", areas_dir], err: "/dev/null") do |io|
+      io.each_line do |zonefile|
+        full_path = File.dirname(zonefile.chomp)
+        relative = full_path.sub("#{tree_dir}src/", "")
+        display_key = "$WORLD[#{tree_name}]/#{relative}"
+        colored = "#{GREEN}$WORLD[#{tree_name}]#{RESET}/#{relative}"
         repos[display_key] = full_path
         display_lines << colored
       end
