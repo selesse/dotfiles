@@ -16,7 +16,9 @@ Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf'
 Plug 'zackhsi/fzf-tags'
 Plug 'junegunn/fzf.vim'
-Plug 'Shopify/shadowenv.vim'
+if executable('shadowenv')
+  Plug 'Shopify/shadowenv.vim'
+endif
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
