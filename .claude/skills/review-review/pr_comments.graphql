@@ -1,0 +1,43 @@
+query($owner: String!, $name: String!, $number: Int!, $commentsCursor: String, $reviewsCursor: String) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      title
+      author { __typename login }
+      body
+      url
+      state
+      comments(first: 100, after: $commentsCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          id
+          author { __typename login }
+          body
+          createdAt
+        }
+      }
+      reviews(first: 50, after: $reviewsCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          id
+          author { __typename login }
+          body
+          state
+          createdAt
+          comments(first: 100) {
+            nodes {
+              id
+              author { __typename login }
+              body
+              path
+              diffHunk
+              line
+              startLine
+              createdAt
+              replyTo { id }
+            }
+          }
+        }
+      }
+    }
+  }
+}
