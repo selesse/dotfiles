@@ -24,6 +24,27 @@ main() {
     link_files $(list_files_to_symlink)
     setup_oh_my_zsh
     setup_vim_plug
+    setup_agents_dir
+}
+
+setup_agents_dir() {
+    mkdir -p "$HOME/.agents"
+
+    local agent_links=(
+        "skills:$HOME/.claude/skills"
+        "AGENT.md:$HOME/.claude/CLAUDE.md"
+    )
+
+    for entry in "${agent_links[@]}" ; do
+        local name="${entry%%:*}"
+        local target="${entry##*:}"
+        local link="$HOME/.agents/$name"
+        if [[ ! -e "$link" ]] ; then
+            ln -vs "$target" "$link"
+        else
+            echo "Link for ${link} already exists - not doing anything"
+        fi
+    done
 }
 
 join_by() {
