@@ -66,7 +66,7 @@ cd() {
     if [ -z "$@" ] ; then
         return
     fi
-    builtin cd "$@" && ls
+    builtin cd "$@" && [[ -o interactive ]] && ls
 }
 
 extract() {
