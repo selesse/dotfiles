@@ -4,6 +4,7 @@
 .byebug_history
 .idea/
 .claude/settings.local.json
+.claude/worktrees/
 **/.claude/local-notes/
 
 *.sqlite3-shm
