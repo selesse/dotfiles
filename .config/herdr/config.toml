@@ -1,0 +1,9 @@
+[keys]
+prefix = "ctrl+a"
+
+[theme]
+name = "solarized"
+auto_switch = false
+
+[ui.toast]
+delivery = "herdr"
