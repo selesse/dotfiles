@@ -5,8 +5,7 @@ ZSH_THEME="aselesse"
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-NVM_LAZY=1
-plugins=(tmux history chruby fzf nvm)
+plugins=(tmux history chruby fzf)
 if [ -d "$HOME/.ssh" ] ; then
   plugins+=(ssh-agent)
 fi
