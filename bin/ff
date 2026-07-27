@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby --disable-gems
 # ff - fuzzy file finder across multiple repo sources
 #
-# Uses fzf to select a repo from ~/git, ~/src/github.com/Shopify, or
+# Uses fzf to select a repo from ~/git, ~/src/github.com/*, or
 # ~/world sparse checkout zones, then fuzzy search files within it.
 # Outputs the full path of the selected file.
 #
@@ -43,14 +43,14 @@ end.parse!
 repos = {}
 display_lines = []
 
-# Add repos from ~/src/github.com/Shopify
+# Add repos from ~/src/github.com (all orgs)
 if Dir.exist?(GITHUB_ROOT)
-  shopify_dir = File.join(GITHUB_ROOT, "Shopify")
-  if Dir.exist?(shopify_dir)
-    Dir.glob("#{shopify_dir}/*/").each do |dir|
+  Dir.glob(File.join(GITHUB_ROOT, "*/")).each do |org_dir|
+    org_name = File.basename(org_dir)
+    Dir.glob(File.join(org_dir, "*/")).each do |dir|
       name = File.basename(dir)
-      display_key = "$GITHUB/Shopify/#{name}"
-      colored = "#{MAGENTA}$GITHUB#{RESET}/Shopify/#{name}"
+      display_key = "$GITHUB/#{org_name}/#{name}"
+      colored = "#{MAGENTA}$GITHUB#{RESET}/#{org_name}/#{name}"
       repos[display_key] = dir.chomp("/")
       display_lines << colored
     end
