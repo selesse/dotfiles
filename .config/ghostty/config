@@ -1,4 +1,3 @@
 font-family = "JetBrains Mono"
 theme = Dark Pastel
-keybind = shift+enter=text:\x1b\r
 clipboard-paste-protection = false
