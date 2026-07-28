@@ -9,5 +9,8 @@ auto_switch = false
 [ui.toast]
 delivery = "herdr"
 
+[ui]
+agent_panel_sort = "priority"
+
 [experimental]
 kitty_graphics = true
