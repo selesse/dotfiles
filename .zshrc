@@ -5,10 +5,7 @@ ZSH_THEME="aselesse"
 # Red dots are displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(tmux history chruby fzf)
-if [ -d "$HOME/.ssh" ] ; then
-  plugins+=(ssh-agent)
-fi
+plugins=(chruby)
 
 DISABLE_AUTO_UPDATE=true
 source $ZSH/oh-my-zsh.sh
