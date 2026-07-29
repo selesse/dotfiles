@@ -21,6 +21,7 @@ main() {
     cd "$DOTFILES_DIRECTORY"
 
     link_files $(list_files_to_symlink)
+    setup_git_config || return
     setup_vim_plug
 }
 
@@ -50,6 +51,30 @@ link_files() {
             ln -vs "$DOTFILES_DIRECTORY/$file" "$home_file"
         fi
     done
+}
+
+setup_git_config() {
+    local git_config="$HOME/.gitconfig"
+    local legacy_git_config="$DOTFILES_DIRECTORY/.gitconfig"
+    local shared_git_config="~/.config/git/config"
+
+    if [[ -L "$git_config" ]] ; then
+        if [[ "$(readlink "$git_config")" == "$legacy_git_config" ]] ; then
+            rm "$git_config"
+        else
+            echo "${git_config} is a symlink not managed by dotfiles" >&2
+            return 1
+        fi
+    fi
+
+    if [[ ! -e "$git_config" ]] ; then
+        touch "$git_config" || return
+    fi
+
+    # Keep settings written by git config --global out of the tracked config.
+    if ! git config --file "$git_config" --get-all include.path | grep -Fxq "$shared_git_config" ; then
+        git config --file "$git_config" --add include.path "$shared_git_config" || return
+    fi
 }
 
 setup_vim_plug() {

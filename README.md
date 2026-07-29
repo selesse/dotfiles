@@ -13,6 +13,18 @@ to this approach:
    user must delete existing and conflicting files before running the linking
    script.
 
+## Updating an existing machine
+
+After pulling changes that add, remove, or move dotfiles, rerun the linker:
+
+```sh
+./create-symlinks
+```
+
+The full `./setup` is only needed for first-time setup. The linker migrates the
+legacy dotfiles-managed `~/.gitconfig` symlink while preserving settings in a
+regular machine-local Git config.
+
 ## Overview
 
 The main components of this repository are the [zshrc](.zshrc) and the
