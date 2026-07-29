@@ -59,11 +59,8 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 ### }
 
 ### functions {
-cd() {
-    if [ -z "$@" ] ; then
-        return
-    fi
-    builtin cd "$@" && [[ -o interactive ]] && ls
+chpwd() {
+    [[ -o interactive ]] && ls
 }
 
 extract() {
