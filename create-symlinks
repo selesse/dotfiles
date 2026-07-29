@@ -22,7 +22,6 @@ main() {
     cd "$DOTFILES_DIRECTORY"
 
     link_files $(list_files_to_symlink)
-    setup_oh_my_zsh
     setup_vim_plug
 }
 
@@ -52,27 +51,6 @@ link_files() {
             ln -vs "$DOTFILES_DIRECTORY/$file" "$home_file"
         fi
     done
-}
-
-setup_oh_my_zsh() {
-    install_oh_my_zsh
-    setup_oh_my_zsh_theme
-}
-
-install_oh_my_zsh() {
-    if [ ! -d "$HOME/.oh-my-zsh" ] ; then
-        echo "oh-my-zsh isn't installed - cloning from git"
-        git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-    fi
-}
-
-setup_oh_my_zsh_theme() {
-    CUSTOM_THEME_DIR=$HOME/.oh-my-zsh/custom/themes
-
-    if [ ! -L "$CUSTOM_THEME_DIR/aselesse.zsh-theme" ] ; then
-        mkdir -p "$CUSTOM_THEME_DIR"
-        ln -vs "$DOTFILES_DIRECTORY/aselesse.zsh-theme" "$CUSTOM_THEME_DIR/aselesse.zsh-theme"
-    fi
 }
 
 setup_vim_plug() {
