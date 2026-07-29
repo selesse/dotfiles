@@ -1,5 +1,10 @@
 # vim: set ft=zsh:
 
+autoload -Uz colors
+colors
+setopt PROMPT_SUBST
+
+
 # Keep git status off the prompt path because large worktrees can make it expensive.
 zmodload zsh/system
 autoload -Uz add-zsh-hook

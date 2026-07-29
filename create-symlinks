@@ -12,7 +12,6 @@ SCRIPT_NAME="$(basename "$0")"
 declare -a EXCEPTIONS=(
     "README.md"
     "${SCRIPT_NAME}"
-    "aselesse.zsh-theme"
     "img"
     "setup"
     ".gitignore"
