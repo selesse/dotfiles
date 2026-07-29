@@ -1,25 +1,78 @@
-### oh-my-zsh {
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="aselesse"
-
-# Red dots are displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(chruby)
-
-DISABLE_AUTO_UPDATE=true
-source $ZSH/oh-my-zsh.sh
-### }
-
 ### zsh {
 setopt EXTENDEDGLOB
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt INTERACTIVE_COMMENTS
+setopt LONG_LIST_JOBS
+setopt MULTIOS
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_MINUS
+
 # Don't fail at the shell level if there's a glob failure. This is useful when
 # doing stuff like $(git log -- */file-that-doesnt-exist-anymore).
+unsetopt FLOW_CONTROL
 unsetopt NOMATCH
+
+WORDCHARS=""
+export PAGER="${PAGER:-less}"
+export LESS="${LESS:--R}"
 
 # Use Vim key bindings to edit the current shell command
 bindkey -v
 bindkey jk vi-cmd-mode
+### }
+
+### history {
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=10000
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_VERIFY
+setopt SHARE_HISTORY
+### }
+
+### completion {
+fpath=(${fpath:#$HOME/.oh-my-zsh/*})
+typeset -U fpath
+
+completion_cache_directory="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+completion_dump_file="$completion_cache_directory/zcompdump-$ZSH_VERSION"
+if [[ ! -d "$completion_cache_directory/completions" ]]; then
+    command mkdir -p "$completion_cache_directory/completions"
+fi
+
+zmodload -i zsh/complist
+autoload -Uz compinit
+if [[ ! -r "$completion_dump_file" || -n "$completion_dump_file"(#qN.mh+24) ]]; then
+    compinit -d "$completion_dump_file"
+else
+    compinit -C -d "$completion_dump_file"
+fi
+if [[ ! -r "$completion_dump_file.zwc" || "$completion_dump_file" -nt "$completion_dump_file.zwc" ]]; then
+    zcompile "$completion_dump_file"
+fi
+
+unsetopt MENU_COMPLETE
+setopt AUTO_MENU
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "$completion_cache_directory/completions"
+zstyle '*' single-ignored show
+unset completion_cache_directory completion_dump_file
+### }
+
+### prompt {
+autoload -Uz colors
+colors
+setopt PROMPT_SUBST
+source "${${(%):-%x}:A:h}/aselesse.zsh-theme"
 ### }
 
 ### os-specific {
@@ -56,6 +109,8 @@ if_program_installed vagrant 'alias vagrant-rebuild="vagrant destroy -f && vagra
 
 ### exports {
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+export LS_COLORS="di=1;34:ln=1;36:so=1;31:pi=1;33:ex=1;32:bd=1;34;46:cd=1;34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 ### }
 
 ### functions {
