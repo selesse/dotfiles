@@ -1,2 +1,3 @@
 #!/bin/sh
+[ "$(git config --bool hooks.ctags 2>/dev/null)" = true ] || exit 0
 git ctags &
