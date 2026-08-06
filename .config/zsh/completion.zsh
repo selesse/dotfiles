@@ -15,7 +15,10 @@ else
     compinit -C -d "$completion_dump_file"
 fi
 if [[ ! -r "$completion_dump_file.zwc" || "$completion_dump_file" -nt "$completion_dump_file.zwc" ]]; then
-    zcompile "$completion_dump_file"
+    # Silence errors: concurrent shells starting at once (e.g. several terminal
+    # tabs restoring together) race to recompile this file and one can lose,
+    # which is harmless since compinit already loaded completions by this point.
+    zcompile "$completion_dump_file" 2>/dev/null
 fi
 
 unsetopt MENU_COMPLETE
