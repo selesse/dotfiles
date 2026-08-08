@@ -3,7 +3,7 @@ case "$(uname -s)" in
         alias ls="ls -G"
         alias l="ls -GF"
 
-        export JAVA_HOME=$(/usr/libexec/java_home)
+        export JAVA_HOME=/Users/alex/Library/Java/JavaVirtualMachines/openjdk-21/Contents/Home
         ;;
     *)
         alias ls="ls --color"
