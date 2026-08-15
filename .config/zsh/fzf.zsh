@@ -41,7 +41,7 @@ fuzzy_select_projects() {
   project=$(ff -p)
   if [ -n "$project" ] ; then
     echo "cd $project"
-    builtin cd $project && ls
+    builtin cd $project
     zle reset-prompt
   fi
 }
