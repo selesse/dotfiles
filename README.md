@@ -28,5 +28,5 @@ regular machine-local Git config.
 ## Overview
 
 The main components of this repository are the [zshrc](.zshrc) and the
-[vimrc](.vimrc). These are the files that are the most likely to change and
-the most important in the repository.
+[Neovim configuration](.config/nvim/init.vim). These are the files that are
+the most likely to change and the most important in the repository.

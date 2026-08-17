@@ -24,10 +24,8 @@ if_program_installed() {
     which "$program" > /dev/null && eval $* || true
 }
 
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
-if_program_installed nvim 'export VISUAL=nvim'
-if_program_installed nvim 'export EDITOR="$VISUAL"'
 if_program_installed nvim 'alias vim=nvim'
 
 if_program_installed fd 'export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude \"*.rbi\""'
