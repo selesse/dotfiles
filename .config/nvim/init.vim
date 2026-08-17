@@ -1,3 +1,6 @@
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 source ~/.config/nvim/plugins.vim
 
 let mapleader=","
@@ -28,6 +31,7 @@ source ~/.config/nvim/smart-tab.vim
 source ~/.config/nvim/test-support.vim
 source ~/.config/nvim/trailing-whitespace.vim
 source ~/.config/nvim/ale.vim
+source ~/.config/nvim/file-tree.vim
 
 if filereadable($HOME . '/.config/nvim/local.vim')
     source $HOME/.config/nvim/local.vim

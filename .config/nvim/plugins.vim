@@ -27,7 +27,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'vim-ruby/vim-ruby'
 Plug 'w0rp/ale'
 
