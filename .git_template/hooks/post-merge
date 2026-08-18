@@ -1,2 +1,2 @@
 #!/bin/sh
-.git/hooks/ctags > /dev/null &
+"$(git rev-parse --git-path hooks/ctags)" > /dev/null &
