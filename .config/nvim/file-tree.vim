@@ -52,6 +52,15 @@ nvim_tree.setup({
   },
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.api").tree.is_tree_buf() then
+      vim.cmd("quit")
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function(data)
     local ft = vim.bo[data.buf].filetype
