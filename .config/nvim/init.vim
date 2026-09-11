@@ -11,6 +11,7 @@ nnoremap ; :
 nnoremap <leader><leader> <C-^>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>yp :let @+ = expand('%:p')<CR>
 nnoremap <Right> <C-w>l
 nnoremap <Left> <C-w>h
 nnoremap <Up> <C-w>k
