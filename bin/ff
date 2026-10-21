@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby --disable-gems
+#!/usr/bin/env -S ruby --disable-gems
 # ff - fuzzy file finder across multiple repo sources
 #
 # Uses fzf to select a repo from ~/git, ~/src/github.com/*, or
