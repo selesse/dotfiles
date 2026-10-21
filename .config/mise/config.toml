@@ -1,0 +1,3 @@
+[settings]
+idiomatic_version_file_enable_tools = ["ruby", "java", "bun"]
+trusted_config_paths = ["~/git"]
