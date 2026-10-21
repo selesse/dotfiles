@@ -17,6 +17,12 @@ for directory in $PATH_DIRECTORIES ; do
 done
 typeset -U PATH
 
+# mise shims, ahead of the system tools, so scripts and IDE builds see mise's
+# versions where `mise activate` isn't running (see .zshrc).
+if [ -d "$HOME/.local/share/mise/shims" ] ; then
+    PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
+
 # Eval arbitrary code if a particular program exists
 if_program_installed() {
     program=$1

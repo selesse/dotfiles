@@ -14,4 +14,5 @@ source "$zsh_config_home/keybindings.zsh"
 
 ls
 source "$zsh_config_home/fzf.zsh"
+if_program_installed mise 'eval "$(mise activate zsh)"'
 unset zsh_config_home
